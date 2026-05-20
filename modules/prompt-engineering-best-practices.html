@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Engineering Best Practices | Learning Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            900: '#0f172a',
+                            800: '#1e293b',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(0, 0, 0, 0.08)',
+                        'hover-lift': '0 20px 50px -12px rgba(79, 70, 229, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .concept-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: linear-gradient(to right, #f5f3ff, #ffffff);
+        }
+        .infographic-zoom {
+            transition: transform 0.5s ease;
+            cursor: zoom-in;
+        }
+        .infographic-zoom:hover {
+            transform: scale(1.02);
+        }
+        .sticky-nav-item {
+            position: relative;
+        }
+        .sticky-nav-item::before {
+            content: '';
+            position: absolute;
+            left: -1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 0%;
+            background: #4f46e5;
+            transition: height 0.3s ease;
+            border-radius: 2px;
+        }
+        .sticky-nav-item:hover::before {
+            height: 60%;
+        }
+        /* Simple Lightbox Style */
+        #lightbox {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        #lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Header Section -->
+    <header class="pt-16 pb-12 px-6 border-b border-slate-200 bg-white">
+        <div class="max-w-6xl mx-auto text-center">
+            <span class="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-indigo-600 uppercase bg-indigo-50 rounded-full">
+                Target Audience: Beginner
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 font-display mb-6 tracking-tight">
+                Prompt Engineering Best Practices
+            </h1>
+            <p class="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Master the architectural principles of AI communication to unlock professional-grade outputs and precision.
+            </p>
+        </div>
+    </header>
+
+    <!-- Visual Centerpiece -->
+    <section class="max-w-6xl mx-auto px-6 -mt-10 mb-16">
+        <div class="relative group bg-white p-4 rounded-3xl shadow-premium overflow-hidden border border-slate-100">
+            <div class="absolute inset-0 bg-gradient-to-tr from-indigo-500/5 to-transparent pointer-events-none"></div>
+            <div class="overflow-hidden rounded-2xl flex justify-center items-center bg-slate-50 min-h-[300px]" onclick="openLightbox()">
+                <div class="infographic-zoom w-full h-full flex justify-center">
+                    <!-- The Infographic Image -->
+                    <img src='https://opal.google/board/blobs/5927ebc9-08a2-4801-8248-1f4131ff4cb4' alt='Prompt Engineering Infographic' class="max-w-full h-auto object-contain rounded-xl" />
+                </div>
+            </div>
+            <div class="mt-4 flex items-center justify-between px-2">
+                <p class="text-sm font-medium text-slate-400 italic">Click image to expand overview infographic</p>
+                <div class="flex space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+                    <span class="w-2 h-2 rounded-full bg-indigo-300"></span>
+                    <span class="w-2 h-2 rounded-full bg-indigo-100"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-6xl mx-auto px-6 pb-24">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Left Column: Lesson Content -->
+            <div class="lg:w-2/3 space-y-16">
+                
+                <!-- 1. Overview -->
+                <section id="overview" class="scroll-mt-24">
+                    <h2 class="text-3xl font-bold text-slate-900 font-display mb-8 flex items-center">
+                        <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-sm mr-4">01</span>
+                        Overview
+                    </h2>
+                    <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed text-lg">
+                        <p class="mb-6">
+                            Prompt engineering is the art and science of crafting precise inputs to get the highest quality outputs from Artificial Intelligence (AI) models. Think of it as learning the <strong>"language"</strong> of AI.
+                        </p>
+                        <p>
+                            Just as you would give a human colleague specific instructions to complete a project, prompt engineering ensures the AI understands your goals, constraints, and desired style. Mastering this skill allows you to move beyond generic answers and unlock the AI’s ability to solve complex problems, generate creative content, and provide accurate data.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 2. Main Learning Points -->
+                <section id="learning-points" class="scroll-mt-24">
+                    <h2 class="text-3xl font-bold text-slate-900 font-display mb-8 flex items-center">
+                        <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-sm mr-4">02</span>
+                        Main Learning Points
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:border-indigo-100 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                            </div>
+                            <h4 class="font-bold text-slate-900 mb-2">Great Structure</h4>
+                            <p class="text-slate-500 text-sm">Transform basic questions into powerful, multi-layered instructions.</p>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:border-indigo-100 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            </div>
+                            <h4 class="font-bold text-slate-900 mb-2">Contextual Clarity</h4>
+                            <p class="text-slate-500 text-sm">Background information prevents incorrect assumptions and hallucinations.</p>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:border-indigo-100 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.040L3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622l-.382-3.016z"></path></svg>
+                            </div>
+                            <h4 class="font-bold text-slate-900 mb-2">Precision & Constraints</h4>
+                            <p class="text-slate-500 text-sm">Control tone, length, and format through specific parameters.</p>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-100 rounded-2xl shadow-sm hover:border-indigo-100 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                            </div>
+                            <h4 class="font-bold text-slate-900 mb-2">Iterative Mindset</h4>
+                            <p class="text-slate-500 text-sm">Refine results through dialogue and continuous feedback loops.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. Concepts Deep Dive -->
+                <section id="concepts" class="scroll-mt-24">
+                    <h2 class="text-3xl font-bold text-slate-900 font-display mb-8 flex items-center">
+                        <span class="w-8 h-8 bg-slate-900 text-white rounded-lg flex items-center justify-center text-sm mr-4">03</span>
+                        Core Concept Frameworks
+                    </h2>
+
+                    <!-- Persona Section -->
+                    <div class="concept-card bg-white p-8 rounded-2xl border border-slate-100 mb-8">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Role and Persona</h3>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            Assigning a "Role" tells the AI what perspective it should take. By default, AI acts as a general assistant, but you can instruct it to act as an expert in a specific field.
+                        </p>
+                        <div class="pro-tip p-6 rounded-r-xl mb-6">
+                            <span class="text-indigo-600 font-bold text-xs uppercase tracking-widest block mb-2">Example</span>
+                            <p class="text-slate-700 italic">"Instead of 'How do I exercise?', try 'Act as a certified personal trainer specializing in low-impact workouts for beginners.'"</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl flex items-start gap-4">
+                            <div class="text-indigo-600 shrink-0 mt-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <p class="text-sm text-slate-500"><strong class="text-slate-700">Why it works:</strong> This narrows the AI's internal database to pull from professional, relevant information rather than general trivia.</p>
+                        </div>
+                    </div>
+
+                    <!-- Context Section -->
+                    <div class="concept-card bg-white p-8 rounded-2xl border border-slate-100 mb-8">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Contextual Foundations</h3>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            Context is the "who, what, where, and why" of your request. Without context, the AI has to guess what you need. Provide background information, the target audience, and any relevant history.
+                        </p>
+                        <div class="pro-tip p-6 rounded-r-xl mb-6">
+                            <span class="text-indigo-600 font-bold text-xs uppercase tracking-widest block mb-2">Example</span>
+                            <p class="text-slate-700 italic">"I am writing an email to my boss (who prefers brief messages) to ask for a deadline extension on the marketing report because our data provider is late."</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl flex items-start gap-4">
+                            <div class="text-indigo-600 shrink-0 mt-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <p class="text-sm text-slate-500"><strong class="text-slate-700">Why it works:</strong> This prevents the AI from being too formal or too casual and ensures the reason for the request is accurately represented.</p>
+                        </div>
+                    </div>
+
+                    <!-- Task and Instruction -->
+                    <div class="concept-card bg-white p-8 rounded-2xl border border-slate-100 mb-8">
+                        <h3 class="text-2xl font-bold text-slate-800 mb-4">Task and Instruction</h3>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            Be explicit about what you want the AI to <strong>do</strong>. Use strong action verbs like "Write," "Summarize," "Analyze," or "Categorize." Avoid vague language like "Help me with..."
+                        </p>
+                        <div class="pro-tip p-6 rounded-r-xl mb-6">
+                            <span class="text-indigo-600 font-bold text-xs uppercase tracking-widest block mb-2">Example</span>
+                            <p class="text-slate-700 italic">"Summarize the following meeting notes into five key bullet points and highlight any pending action items."</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-xl flex items-start gap-4">
+                            <div class="text-indigo-600 shrink-0 mt-1">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <p class="text-sm text-slate-500"><strong class="text-slate-700">Why it works:</strong> Clear instructions eliminate ambiguity, ensuring the AI focuses its "attention" on the most important part of your request.</p>
+                        </div>
+                    </div>
+
+                    <!-- Progressive Disclosure Block -->
+                    <div class="mt-12 bg-indigo-900 rounded-2xl p-8 text-white relative overflow-hidden">
+                        <div class="relative z-10">
+                            <h4 class="text-xl font-bold mb-4">Output Formatting & Iteration</h4>
+                            <p class="text-indigo-100 mb-6 leading-relaxed">Learn how to control the structure of the data and refine the conversation for perfection.</p>
+                            
+                            <button onclick="toggleTechnicalDetails()" id="toggleBtn" class="bg-indigo-500 hover:bg-indigo-400 text-white px-6 py-2.5 rounded-full font-bold text-sm transition-all flex items-center gap-2">
+                                <span>Show Technical Details</span>
+                                <svg id="toggleIcon" class="w-4 h-4 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+
+                            <div id="technicalContent" class="hidden mt-8 pt-8 border-t border-indigo-800/50 space-y-6">
+                                <div>
+                                    <h5 class="text-indigo-300 font-bold text-xs uppercase tracking-widest mb-2">Output Format</h5>
+                                    <p class="text-indigo-50">Tell the AI exactly how you want the information presented. Whether it's a table, list, or code block, specific formatting saves time. <em>Example: "Present pros/cons in a two-column table."</em></p>
+                                </div>
+                                <div>
+                                    <h5 class="text-indigo-300 font-bold text-xs uppercase tracking-widest mb-2">The Iteration Loop</h5>
+                                    <p class="text-indigo-50">Treat the process as a dialogue. If the result isn't perfect, provide feedback like "Make it shorter" or "Add a budget section." AI maintains memory within the session.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Background decoration -->
+                        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
+                    </div>
+                </section>
+
+                <!-- 4. Final Summary -->
+                <section id="summary" class="scroll-mt-24 pt-16 border-t border-slate-200">
+                    <h2 class="text-3xl font-bold text-slate-900 font-display mb-8">Final Summary</h2>
+                    <div class="bg-indigo-50 border border-indigo-100 p-8 rounded-3xl">
+                        <p class="text-indigo-900 text-lg leading-relaxed mb-6">
+                            Effective prompt engineering boils down to being <strong>clear, specific, and structured</strong>. By assigning a Role, providing Context, giving a clear Task, and defining the Output Format, you transform the AI from a simple search tool into a sophisticated collaborator.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center gap-6">
+                            <div class="w-full bg-white p-6 rounded-2xl shadow-sm">
+                                <span class="text-indigo-600 font-black text-2xl block mb-2">CTA</span>
+                                <p class="text-slate-600 text-sm">Try the "Persona" technique today. Ask an AI to explain Quantum Physics as if you were 5, then as a Professor. Notice the difference!</p>
+                            </div>
+                            <div class="shrink-0">
+                                <div class="bg-indigo-600 text-white p-5 rounded-full shadow-lg shadow-indigo-200">
+                                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column: Sticky Sidebar -->
+            <aside class="lg:w-1/3">
+                <div class="lg:sticky lg:top-8 space-y-8">
+                    <!-- TOC Card -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-premium">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Module Navigation</h4>
+                        <nav class="space-y-4">
+                            <a href="#overview" class="sticky-nav-item block text-slate-600 hover:text-indigo-600 font-medium transition-colors">01. Overview</a>
+                            <a href="#learning-points" class="sticky-nav-item block text-slate-600 hover:text-indigo-600 font-medium transition-colors">02. Key Learning Points</a>
+                            <a href="#concepts" class="sticky-nav-item block text-slate-600 hover:text-indigo-600 font-medium transition-colors">03. Core Frameworks</a>
+                            <a href="#summary" class="sticky-nav-item block text-slate-600 hover:text-indigo-600 font-medium transition-colors">04. Final Summary</a>
+                        </nav>
+                    </div>
+
+                    <!-- Key Takeaways Sidebar -->
+                    <div class="bg-slate-900 p-8 rounded-2xl text-white shadow-xl overflow-hidden relative">
+                        <h4 class="text-xs font-bold text-indigo-400 uppercase tracking-widest mb-6">Quick Takeaways</h4>
+                        <ul class="space-y-4 relative z-10">
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <span class="text-sm text-slate-300">Prompting is a dialogue, not a single command.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <span class="text-sm text-slate-300">Roles sharpen the AI's technical focus.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-indigo-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                <span class="text-sm text-slate-300">Explicit tasks eliminate ambiguity.</span>
+                            </li>
+                        </ul>
+                        <div class="absolute bottom-0 right-0 p-2 opacity-10">
+                            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                        </div>
+                    </div>
+
+                    <!-- Progress Indicator for Mobile -->
+                    <div class="lg:hidden fixed bottom-6 left-6 right-6 z-50">
+                        <div class="bg-white/90 backdrop-blur shadow-2xl border border-slate-200 rounded-full px-6 py-4 flex items-center justify-between">
+                            <span class="text-xs font-bold text-slate-900 uppercase">Module Status</span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-xs text-indigo-600 font-bold">100% Complete</span>
+                                <div class="w-12 h-2 bg-slate-100 rounded-full overflow-hidden">
+                                    <div class="w-full h-full bg-indigo-600"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Simple Lightbox Modal -->
+    <div id="lightbox" onclick="closeLightbox()">
+        <img src='https://opal.google/board/blobs/5927ebc9-08a2-4801-8248-1f4131ff4cb4' alt='Lightbox Preview'>
+    </div>
+
+    <!-- Status Bar (Desktop/Bottom) -->
+    <div class="hidden lg:block fixed bottom-0 left-0 w-full bg-white border-t border-slate-200 py-3 px-12 z-40">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                <span class="text-xs font-bold text-slate-500 uppercase tracking-widest">Module Complete</span>
+            </div>
+            <div class="flex gap-4">
+                <button class="text-sm font-semibold text-slate-400 hover:text-slate-600 transition-colors">Previous Module</button>
+                <div class="h-4 w-px bg-slate-200"></div>
+                <button class="text-sm font-bold text-indigo-600 hover:text-indigo-800 transition-colors">Next: Advanced Prompting &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleTechnicalDetails() {
+            const content = document.getElementById('technicalContent');
+            const btn = document.getElementById('toggleBtn');
+            const icon = document.getElementById('toggleIcon');
+            const span = btn.querySelector('span');
+
+            if (content.classList.contains('hidden')) {
+                content.classList.remove('hidden');
+                span.innerText = 'Hide Technical Details';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                content.classList.add('hidden');
+                span.innerText = 'Show Technical Details';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        function openLightbox() {
+            document.getElementById('lightbox').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close lightbox on Escape key
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+    </script>
+</body>
+</html>

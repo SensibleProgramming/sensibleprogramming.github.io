@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering GitHub Branches | EdTech Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#0f172a',
+                            900: '#1e293b',
+                            800: '#334155',
+                            100: '#f1f5f9',
+                            50: '#f8fafc',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            50: '#eef2ff',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .prose-custom h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            scroll-margin-top: 100px;
+        }
+        .prose-custom h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: #334155;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            scroll-margin-top: 100px;
+        }
+        .prose-custom h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            color: #475569;
+            font-size: 1.125rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose-custom p {
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .prose-custom ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .prose-custom li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose-custom li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+        .infographic-zoom {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: zoom-in;
+        }
+        .infographic-zoom:hover {
+            transform: scale(1.02);
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+        }
+        .sidebar-link:hover {
+            color: #4f46e5;
+            transform: translateX(4px);
+        }
+        .active-dot {
+            width: 6px;
+            height: 6px;
+            background: #4f46e5;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Top Navigation / Progress -->
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+                </div>
+                <span class="font-display font-bold text-slate-900 tracking-tight">GitHub Masterclass</span>
+            </div>
+            <div class="hidden md:flex items-center gap-4">
+                <span class="text-xs font-semibold uppercase tracking-wider text-slate-500">Course Progress</span>
+                <div class="w-48 h-2 bg-slate-100 rounded-full overflow-hidden">
+                    <div class="w-3/4 h-full bg-indigo-600"></div>
+                </div>
+                <span class="text-sm font-medium text-slate-700">75%</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Hero Section -->
+        <header class="mb-12 animate-fade-in">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="px-3 py-1 text-xs font-bold uppercase tracking-widest bg-indigo-50 text-indigo-700 rounded-full border border-indigo-100">
+                    <span class="mr-1 text-indigo-400">●</span> Target Audience: Beginner
+                </span>
+                <span class="px-3 py-1 text-xs font-bold uppercase tracking-widest bg-teal-50 text-teal-700 rounded-full border border-teal-100">
+                    Module 4
+                </span>
+            </div>
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-slate-950 tracking-tight mb-6">
+                Describe Github branches and why they are important to SDLC
+            </h1>
+            <p class="text-lg text-slate-600 max-w-2xl leading-relaxed">
+                Unlock the power of parallel development. Learn how branches create a safe ecosystem for innovation, collaboration, and high-quality software releases.
+            </p>
+        </header>
+
+        <!-- Visual Centerpiece -->
+        <section class="mb-16 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-teal-500 rounded-2xl blur opacity-15 group-hover:opacity-25 transition duration-1000"></div>
+                <div class="relative bg-white p-2 rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+                    <div class="infographic-zoom rounded-xl overflow-hidden bg-slate-50 flex items-center justify-center min-h-[300px]">
+                        <!-- Infographic Handling -->
+                        <div class="w-full">
+                            <img src='https://opal.google/board/blobs/28f555c6-8cf0-406a-8c87-094406e815ce' alt='Github Branches Infographic Summary' class="w-full h-auto object-contain mx-auto" />
+                        </div>
+                    </div>
+                </div>
+                <div class="absolute bottom-6 right-6 pointer-events-none">
+                    <div class="bg-slate-900/80 backdrop-blur text-white px-3 py-1.5 rounded-lg text-xs font-medium flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"></path></svg>
+                        Hover to inspect
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Structured Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <!-- Left: Lesson Content -->
+            <div class="lg:col-span-8 animate-slide-up" style="animation-delay: 0.4s;">
+                <article class="prose-custom">
+                    
+                    <div id="overview" class="mb-12">
+                        <h2 class="flex items-center gap-3">
+                            <span class="w-8 h-8 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center text-sm font-bold">1</span>
+                            Overview
+                        </h2>
+                        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
+                            <p>In the world of software development, GitHub acts as a digital storage space (a "repository") for code. One of its most powerful features is <strong>branching</strong>. A branch is essentially a parallel version of your project.</p>
+                            <p>It allows you to depart from the main body of work to develop new features, fix bugs, or experiment with new ideas without affecting the stable, "official" version of the code that users see. Branching is the foundation of modern collaborative coding, ensuring that multiple people can work on the same project simultaneously without stepping on each other's toes.</p>
+                        </div>
+                    </div>
+
+                    <div id="learning-points" class="mb-12">
+                        <h2 class="flex items-center gap-3">
+                            <span class="w-8 h-8 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center text-sm font-bold">2</span>
+                            Main Learning Points
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="group p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 transition-all shadow-sm">
+                                <h4 class="text-indigo-600 mb-2 font-display">Isolation</h4>
+                                <p class="text-sm m-0">Branches keep experimental or incomplete code separate from the working production code.</p>
+                            </div>
+                            <div class="group p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 transition-all shadow-sm">
+                                <h4 class="text-indigo-600 mb-2 font-display">Parallel Development</h4>
+                                <p class="text-sm m-0">Multiple team members can work on different tasks at the same time using different branches.</p>
+                            </div>
+                            <div class="group p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 transition-all shadow-sm">
+                                <h4 class="text-indigo-600 mb-2 font-display">The Main Branch</h4>
+                                <p class="text-sm m-0">The default branch containing the most stable, ready-to-use version of the software.</p>
+                            </div>
+                            <div class="group p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-300 transition-all shadow-sm">
+                                <h4 class="text-indigo-600 mb-2 font-display">Merging & Risk</h4>
+                                <p class="text-sm m-0">Safely moving changes back to main and providing a testing sandbox.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="deep-dive" class="mb-12">
+                        <h2 class="flex items-center gap-3">
+                            <span class="w-8 h-8 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center text-sm font-bold">3</span>
+                            Detailed Descriptions of Concepts
+                        </h2>
+                        
+                        <div class="space-y-8">
+                            <div class="bg-indigo-50/50 border-l-4 border-indigo-600 p-8 rounded-r-2xl">
+                                <h3>What are Branches? (The Tree Analogy)</h3>
+                                <p>Imagine a tree. The <strong>trunk</strong> is the core of the tree; it is strong, stable, and supports everything else. In GitHub, this is your <strong>Main Branch</strong>. It represents the version of your software that is currently working and available to users.</p>
+                                <p>Now, imagine you want to add a new type of leaf to the tree, but you aren't sure if it will grow properly. Instead of changing the trunk directly, you grow a <strong>branch</strong> off to the side. You can experiment with that branch as much as you want. If the new leaf looks great, you "graft" that branch back into the trunk. If the experiment fails, you can simply cut the branch off without ever having harmed the trunk.</p>
+                            </div>
+
+                            <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm">
+                                <h3>How Branches Function</h3>
+                                <p>When you create a branch, GitHub takes a snapshot of your code at that exact moment. From that point forward, any changes you make on that branch exist only in that "alternate reality."</p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-6">
+                                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                                        <div class="flex items-center gap-2 mb-3 text-slate-900 font-bold">
+                                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg>
+                                            Commits
+                                        </div>
+                                        <p class="text-sm m-0">Each time you save your work on a branch, it is called a "commit." These are like breadcrumbs showing the history of your changes.</p>
+                                    </div>
+                                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+                                        <div class="flex items-center gap-2 mb-3 text-slate-900 font-bold">
+                                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                                            Pull Requests
+                                        </div>
+                                        <p class="text-sm m-0">Requests for your teammates to review your work before it is officially merged into the Main Branch.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm overflow-hidden relative">
+                                <div class="absolute top-0 right-0 p-4 opacity-5">
+                                    <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"></path></svg>
+                                </div>
+                                <h3>Branches in the SDLC</h3>
+                                <p>The Software Development Life Cycle (SDLC) is the step-by-step process teams use to build high-quality software. Branches play a specific role in each stage:</p>
+                                
+                                <div class="space-y-6 mt-6">
+                                    <div class="flex gap-4">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold">1</div>
+                                        <div>
+                                            <h4 class="m-0 text-slate-900">Planning & Development</h4>
+                                            <p class="text-sm mt-1">Developers create <strong>Feature Branches</strong> (e.g., `add-login-button`). This keeps messy, incomplete code away from functional software.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold">2</div>
+                                        <div>
+                                            <h4 class="m-0 text-slate-900">Testing</h4>
+                                            <p class="text-sm mt-1">Code moves to a <strong>Staging Branch</strong>—a "dress rehearsal" for finding and fixing bugs before the final release.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div class="flex-shrink-0 w-10 h-10 bg-indigo-100 text-indigo-600 rounded-lg flex items-center justify-center font-bold">3</div>
+                                        <div>
+                                            <h4 class="m-0 text-slate-900">Deployment</h4>
+                                            <p class="text-sm mt-1">Once verified, code is merged into the <strong>Main Branch</strong>. End-users see the update without any downtime during the coding process.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="summary" class="mb-12">
+                        <h2 class="flex items-center gap-3">
+                            <span class="w-8 h-8 bg-slate-100 text-slate-900 rounded-full flex items-center justify-center text-sm font-bold">4</span>
+                            Final Summary
+                        </h2>
+                        <div class="bg-slate-900 text-slate-200 p-8 rounded-2xl shadow-xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full -mr-16 -mt-16"></div>
+                            <p class="relative z-10 text-lg leading-relaxed mb-0">
+                                GitHub branches are essential tools that provide a safe environment for innovation and collaboration. By treating the main code as a "sacred" stable version and using branches for all new work, development teams can move faster and with fewer errors. Branching facilitates the SDLC by isolating tasks, allowing for rigorous peer review, and ensuring that only tested, high-quality code ever reaches the final user.
+                            </p>
+                        </div>
+                    </div>
+
+                </article>
+            </div>
+
+            <!-- Right: Sticky Sidebar -->
+            <aside class="hidden lg:block lg:col-span-4 sticky top-28">
+                <div class="space-y-6">
+                    <!-- Key Takeaways Card -->
+                    <div class="glass-card p-6 rounded-2xl shadow-sm">
+                        <h3 class="font-display font-bold text-slate-900 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+                            Key Takeaways
+                        </h3>
+                        <ul class="space-y-3">
+                            <li class="flex gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2"></span>
+                                Branches are parallel versions of a project.
+                            </li>
+                            <li class="flex gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2"></span>
+                                Isolation prevents breaking the main codebase.
+                            </li>
+                            <li class="flex gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2"></span>
+                                Pull Requests enable team peer review.
+                            </li>
+                            <li class="flex gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 bg-indigo-500 rounded-full mt-2"></span>
+                                Staging branches provide a bug-finding sandbox.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Navigation Card -->
+                    <div class="glass-card p-6 rounded-2xl shadow-sm">
+                        <h3 class="font-display font-bold text-slate-900 mb-4">Module Content</h3>
+                        <nav class="flex flex-col gap-3">
+                            <a href="#overview" class="sidebar-link text-sm font-medium text-slate-500 flex items-center"><span class="active-dot"></span>Overview</a>
+                            <a href="#learning-points" class="sidebar-link text-sm font-medium text-slate-500 flex items-center">Learning Points</a>
+                            <a href="#deep-dive" class="sidebar-link text-sm font-medium text-slate-500 flex items-center">Detailed Concepts</a>
+                            <a href="#summary" class="sidebar-link text-sm font-medium text-slate-500 flex items-center">Final Summary</a>
+                        </nav>
+                    </div>
+
+                    <!-- CTA / Status -->
+                    <div class="bg-indigo-600 p-6 rounded-2xl shadow-lg text-white">
+                        <p class="text-indigo-100 text-xs font-bold uppercase tracking-wider mb-2">Module Status</p>
+                        <p class="text-xl font-bold mb-4">Almost Complete!</p>
+                        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-full bg-white text-indigo-600 font-bold py-3 rounded-xl shadow-md hover:bg-indigo-50 transition-colors flex items-center justify-center gap-2">
+                            Return to Top
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+
+        <!-- Mobile Sticky Navigation (bottom) -->
+        <div class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-sm z-50">
+            <div class="bg-slate-900/90 backdrop-blur-lg border border-slate-700 p-4 rounded-2xl shadow-2xl flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-teal-400 rounded-full animate-pulse"></div>
+                    <span class="text-white text-xs font-bold uppercase tracking-widest">Module Progress</span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <span class="text-white font-bold text-sm italic">75%</span>
+                    <button class="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-lg">Finish</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Content Footer -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 pt-12">
+        <div class="border-t border-slate-200 pt-12 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-4">
+                <div class="w-12 h-12 bg-teal-100 text-teal-600 rounded-full flex items-center justify-center">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div>
+                    <h5 class="text-slate-900 font-bold leading-tight">Module Complete</h5>
+                    <p class="text-slate-500 text-sm">You have successfully reviewed GitHub Branching.</p>
+                </div>
+            </div>
+            <div class="flex gap-4">
+                <a href="https://github.com/features" target="_blank" class="px-6 py-3 rounded-xl font-bold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 transition-all flex items-center gap-2">
+                    Official Docs
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                </a>
+                <button class="px-8 py-3 rounded-xl font-bold text-white bg-indigo-600 hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-200">
+                    Next Lesson
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simple scroll spy effect for sidebar dots
+        const observerOptions = {
+            root: null,
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.sidebar-link').forEach(link => {
+                        link.classList.remove('text-indigo-600');
+                        link.classList.add('text-slate-500');
+                        
+                        // Remove dot from all
+                        const dot = link.querySelector('.active-dot');
+                        if (dot) dot.remove();
+                        
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('text-indigo-600');
+                            link.classList.remove('text-slate-500');
+                            const newDot = document.createElement('span');
+                            newDot.className = 'active-dot';
+                            link.prepend(newDot);
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('div[id]').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Horizontal scroll indicator for mobile progress if needed
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            // You could apply this to a top progress bar
+        });
+    </script>
+
+</body>
+</html>

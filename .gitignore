@@ -1,0 +1,28 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# IDE
+.vscode/
+.idea/
+*.code-workspace
+
+# Node/npm (if you ever add it)
+node_modules/
+package-lock.json
+
+# Python (if you ever add it)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Local testing
+.env.local
+*.log
+
+# Backup files
+*.bak
+*~

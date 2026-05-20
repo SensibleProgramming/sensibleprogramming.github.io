@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Deep Dive | Premium EdTech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .prose h2 {
+            font-family: 'Outfit', sans-serif;
+            color: #1e293b;
+            font-weight: 700;
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+        .prose h3 {
+            font-family: 'Outfit', sans-serif;
+            color: #1e293b;
+            font-weight: 600;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose p {
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+            font-size: 1.1rem;
+        }
+        .prose ul {
+            margin-bottom: 1.5rem;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .prose li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: #eef2ff;
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+        }
+        .infographic-container:hover img {
+            transform: scale(1.02);
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            border-left-color: #4f46e5;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 py-12 mb-8">
+        <div class="max-w-7xl mx-auto px-6 lg:px-8 text-center md:text-left">
+            <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+                <div>
+                    <span class="inline-block px-3 py-1 mb-4 text-xs font-bold tracking-widest uppercase text-indigo-600 bg-indigo-50 rounded-full">
+                        Module: Architecture & Training
+                    </span>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-slate-800 font-display leading-tight">
+                        LLMs & Large Language Models Deep Dive
+                    </h1>
+                    <p class="mt-4 text-lg text-slate-500 max-w-2xl">
+                        A technical examination of transformers, tokenization limits, context windows, and advanced alignment methodologies.
+                    </p>
+                </div>
+                <div class="flex flex-col items-center md:items-end">
+                    <span class="text-sm font-medium text-slate-400 mb-1">Target Audience</span>
+                    <div class="px-6 py-2 bg-slate-800 text-white font-bold rounded-xl shadow-lg shadow-slate-200">
+                        Intermediate
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 lg:px-8">
+        <!-- Visual Centerpiece -->
+        <section class="mb-16 animate-fade-in">
+            <div class="relative group infographic-container transition-all duration-500 bg-white rounded-3xl p-4 shadow-xl border border-slate-200 overflow-hidden">
+                <div class="absolute inset-0 bg-indigo-600 opacity-0 group-hover:opacity-5 transition-opacity pointer-events-none"></div>
+                <div class="flex items-center justify-between mb-4 px-4 pt-2">
+                    <h3 class="font-display font-bold text-slate-800 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Architecture Infographic Summary
+                    </h3>
+                    <span class="text-xs text-slate-400 bg-slate-100 px-2 py-1 rounded">Interactive Preview</span>
+                </div>
+                <div class="rounded-2xl overflow-hidden cursor-zoom-in">
+                    <img src='https://opal.google/board/blobs/51445c3e-9dd8-4c27-947e-d2b07df17b7e' alt='LLM Architecture Infographic' class="w-full h-auto transition-transform duration-700 ease-in-out hover:scale-105" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+            
+            <!-- Sidebar (Navigation/Takeaways) -->
+            <aside class="hidden lg:block lg:col-span-3">
+                <div class="sidebar-sticky space-y-8">
+                    <nav class="space-y-1 border-l-2 border-slate-100 ml-2">
+                        <a href="#overview" class="nav-link block pl-4 py-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 border-l-2 border-transparent -ml-[2px] transition-all">01 Overview</a>
+                        <a href="#learning-points" class="nav-link block pl-4 py-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 border-l-2 border-transparent -ml-[2px] transition-all">02 Learning Points</a>
+                        <a href="#transformers" class="nav-link block pl-4 py-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 border-l-2 border-transparent -ml-[2px] transition-all">03 Transformers</a>
+                        <a href="#tokenization" class="nav-link block pl-4 py-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 border-l-2 border-transparent -ml-[2px] transition-all">04 Tokenization</a>
+                        <a href="#context" class="nav-link block pl-4 py-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 border-l-2 border-transparent -ml-[2px] transition-all">05 Context Windows</a>
+                        <a href="#fine-tuning" class="nav-link block pl-4 py-2 text-sm font-semibold text-slate-500 hover:text-indigo-600 border-l-2 border-transparent -ml-[2px] transition-all">06 Fine-tuning</a>
+                    </nav>
+
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h4 class="font-display font-bold text-slate-800 mb-4 text-sm uppercase tracking-wider">Key Takeaways</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 mt-1.5 bg-indigo-500 rounded-full"></span>
+                                Transformers enable parallel processing via attention.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 mt-1.5 bg-indigo-500 rounded-full"></span>
+                                Tokenization bridges human text and vector math.
+                            </li>
+                            <li class="flex items-start gap-3 text-sm text-slate-600">
+                                <span class="flex-shrink-0 w-1.5 h-1.5 mt-1.5 bg-indigo-500 rounded-full"></span>
+                                Context windows are constrained by quadratic complexity.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Detailed Content -->
+            <article class="lg:col-span-9 prose prose-slate max-w-none">
+                
+                <!-- Overview Section -->
+                <section id="overview" class="mb-12 scroll-mt-24">
+                    <div class="bg-white p-8 md:p-10 rounded-3xl shadow-sm border border-slate-100">
+                        <h2 class="mt-0">1. Overview</h2>
+                        <p class="text-xl text-slate-600 font-light leading-relaxed">
+                            This lesson provides an intermediate-level technical deep dive into the architecture and operational constraints of Large Language Models (LLMs). Moving beyond basic definitions, this session explores the underlying Transformer architecture, the mathematical necessity of tokenization, the hardware limitations governing context windows, and the methodologies used to refine raw models into conversational agents.
+                        </p>
+                        <p>The goal is to equip learners with a functional understanding of how these models process information and how their structural design influences real-world performance.</p>
+                    </div>
+                </section>
+
+                <!-- Learning Points -->
+                <section id="learning-points" class="mb-16 scroll-mt-24">
+                    <h2 class="text-2xl mb-8 flex items-center gap-3">
+                        <span class="w-8 h-8 bg-indigo-600 text-white rounded-lg flex items-center justify-center text-sm font-bold">02</span>
+                        Main Learning Points
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-indigo-900 mb-2">Architectural Core</h4>
+                            <p class="text-sm text-indigo-800/80">Understand the Self-Attention mechanism as the core engine of the Transformer.</p>
+                        </div>
+                        <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-indigo-900 mb-2">Design Convergence</h4>
+                            <p class="text-sm text-indigo-800/80">Distinguish between Encoder and Decoder architectures and industry convergence.</p>
+                        </div>
+                        <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-indigo-900 mb-2">Vision & Cost</h4>
+                            <p class="text-sm text-indigo-800/80">Analyze Tokenization processes and their impact on model "vision" and compute cost.</p>
+                        </div>
+                        <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-indigo-900 mb-2">Evolutionary Tuning</h4>
+                            <p class="text-sm text-indigo-800/80">Differentiate between Pre-training, SFT, and RLHF, including LoRA efficiency.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Detailed Concepts -->
+                <section id="transformers" class="mb-16 scroll-mt-24">
+                    <h2 class="border-b border-slate-200 pb-4 mb-8">Detailed Concept Analysis</h2>
+                    
+                    <div class="space-y-12">
+                        <!-- Concept 1 -->
+                        <div class="group">
+                            <h3 class="text-indigo-600">How Transformers Work</h3>
+                            <p>The Transformer architecture, introduced in the 2017 paper <em>"Attention is All You Need"</em> by Vaswani et al., replaced recurrent neural networks (RNNs) by allowing for parallel processing of data.</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 12a2 2 0 100-4 2 2 0 000 4z"></path><path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"></path></svg>
+                                        The Self-Attention Mechanism
+                                    </h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed">At its core, self-attention allows a model to weigh the importance of different words relative to a specific word. It uses three vectors: <strong>Query (Q), Key (K), and Value (V)</strong>. By calculating the dot product of Q and K, the model determines a focus score.</p>
+                                </div>
+                                <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path></svg>
+                                        Encoder vs. Decoder
+                                    </h4>
+                                    <p class="text-sm text-slate-600 leading-relaxed"><strong>Encoders</strong> (BERT) process entire inputs for classification. <strong>Decoders</strong> (GPT) generate text one token at a time using "masked self-attention," proving more effective for open-ended synthesis.</p>
+                                </div>
+                            </div>
+
+                            <div class="pro-tip">
+                                <span class="font-bold text-indigo-700 block mb-1 uppercase tracking-wider text-xs">Technical Insight</span>
+                                <p class="text-indigo-900 m-0">Modern LLMs are primarily <strong>decoder-only</strong> because they are optimized for <strong>Autoregressive Generation</strong>. This architecture scales more effectively with massive datasets compared to bi-directional encoders.</p>
+                            </div>
+                        </div>
+
+                        <!-- Concept 2 -->
+                        <div id="tokenization" class="group scroll-mt-24">
+                            <h3 class="text-indigo-600">Token Limits & Tokenization</h3>
+                            <p>LLMs do not "read" text; they process numerical representations of text chunks called tokens. This is the critical bridge between human language and vector space.</p>
+                            
+                            <div class="bg-white border border-slate-200 rounded-2xl overflow-hidden my-6">
+                                <div class="bg-slate-50 px-6 py-3 border-b border-slate-200 font-semibold text-xs text-slate-500 uppercase tracking-widest">Byte Pair Encoding (BPE) Logic</div>
+                                <div class="p-6">
+                                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <li><strong>The Process:</strong> Iteratively merges frequent adjacent pairs into new, sub-word tokens.</li>
+                                        <li><strong>Token vs. Word:</strong> One token ≈ 0.75 words. Rare words or code are broken into multiple units.</li>
+                                        <li><strong>Spelling Issues:</strong> LLMs struggle with reverse-strings because they see "chunks," not individual letters.</li>
+                                        <li><strong>Efficiency:</strong> Better tokenization allows the model to "see" more information within fixed memory.</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept 3 -->
+                        <div id="context" class="group scroll-mt-24">
+                            <h3 class="text-indigo-600">Context Windows</h3>
+                            <p>The context window is the maximum number of tokens a model can consider at one time (including both input and generated output).</p>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-8">
+                                <div class="p-5 rounded-xl bg-slate-800 text-white col-span-1">
+                                    <div class="text-indigo-400 font-bold mb-2 text-xl">O(n²)</div>
+                                    <p class="text-xs text-slate-300">Quadratic Complexity: Doubling the window quadruples the memory requirements.</p>
+                                </div>
+                                <div class="p-5 rounded-xl border border-slate-200 col-span-2">
+                                    <h4 class="font-bold text-slate-800 mb-1">Impact on RAG</h4>
+                                    <p class="text-sm text-slate-600">Larger windows allow more grounding evidence but can lead to "Lost in the Middle" phenomena where recall dips for central information.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept 4 -->
+                        <div id="fine-tuning" class="group scroll-mt-24">
+                            <h3 class="text-indigo-600">Fine-tuning Basics</h3>
+                            <p>A raw "Base Model" is trained on the internet to predict the next token, but it isn't helpful or safe. Fine-tuning transforms it into a specialized tool.</p>
+
+                            <!-- Accordion/Disclosure Section -->
+                            <div class="space-y-3 mt-8">
+                                <details class="group bg-white border border-slate-200 rounded-xl overflow-hidden" open>
+                                    <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-800 hover:bg-slate-50 transition-colors">
+                                        Supervised Fine-Tuning (SFT)
+                                        <span class="transition-transform group-open:rotate-180">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </span>
+                                    </summary>
+                                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                                        The model is trained on a curated dataset of "Instruction-Response" pairs. This teaches the model the <em>format</em> of a helpful assistant.
+                                    </div>
+                                </details>
+
+                                <details class="group bg-white border border-slate-200 rounded-xl overflow-hidden">
+                                    <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-800 hover:bg-slate-50 transition-colors">
+                                        RLHF (Human Feedback Alignment)
+                                        <span class="transition-transform group-open:rotate-180">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </span>
+                                    </summary>
+                                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                                        Humans rank model outputs. These rankings train a Reward Model, which uses Proximal Policy Optimization (PPO) to nudge the LLM toward outputs that align with human preferences (helpfulness, honesty, harmlessness).
+                                    </div>
+                                </details>
+
+                                <details class="group bg-white border border-slate-200 rounded-xl overflow-hidden">
+                                    <summary class="flex justify-between items-center p-5 cursor-pointer font-bold text-slate-800 hover:bg-slate-50 transition-colors">
+                                        PEFT & LoRA
+                                        <span class="transition-transform group-open:rotate-180">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                        </span>
+                                    </summary>
+                                    <div class="px-5 pb-5 text-slate-600 text-sm leading-relaxed border-t border-slate-50 pt-4">
+                                        Standard fine-tuning is hardware-intensive. <strong>Low-Rank Adaptation (LoRA)</strong> freezes original weights and only trains a small, low-rank matrix injected into the layers, allowing high-performance tuning on consumer hardware.
+                                    </div>
+                                </details>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Final Summary -->
+                <section class="mt-20 pt-10 border-t-2 border-indigo-100">
+                    <div class="bg-gradient-to-br from-slate-800 to-slate-900 rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
+                        <div class="absolute top-0 right-0 -mt-10 -mr-10 w-40 h-40 bg-indigo-500/20 rounded-full blur-3xl"></div>
+                        <h2 class="text-white mt-0 mb-6 font-display">4. Final Summary</h2>
+                        <p class="text-slate-300 text-lg leading-relaxed mb-8">
+                            Understanding LLMs requires looking past the interface to the <strong>Transformer's self-attention</strong> engine. We see that <strong>tokenization</strong> defines the model's vocabulary and efficiency, while the <strong>context window</strong> represents a hard physical limit dictated by quadratic math. The journey from a base model to a functional tool is achieved through a pipeline of <strong>SFT, RLHF, and efficient tuning like LoRA</strong>, which aligns raw statistical prediction with human intent.
+                        </p>
+                        <div class="flex flex-wrap items-center gap-4">
+                            <button class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-xl transition-all shadow-lg hover:shadow-indigo-500/20 flex items-center gap-2">
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
+                                Module Complete
+                            </button>
+                            <span class="text-slate-400 text-sm">Next: Distributed Training & Inference Optimization</span>
+                        </div>
+                    </div>
+                </section>
+            </article>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation (Bottom Fixed) -->
+    <div class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] z-50">
+        <div class="glass-card rounded-2xl shadow-2xl flex items-center justify-around p-3 border border-indigo-100">
+             <a href="#overview" class="p-2 text-indigo-600"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg></a>
+             <a href="#transformers" class="p-2 text-slate-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></a>
+             <a href="#tokenization" class="p-2 text-slate-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path></svg></a>
+             <a href="#fine-tuning" class="p-2 text-slate-400"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
+        </div>
+    </div>
+
+    <script>
+        // Simple scroll spy for sidebar navigation
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Add visual polish to progress disclosure
+        document.querySelectorAll('details').forEach((el) => {
+            el.addEventListener('click', () => {
+                // Potential for smooth expansion logic here if needed
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensible Programming - Learn AI, Security, DevOps the Right Way</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-blue: #1E6FCE;
+            --dark-bg: #0F1419;
+            --dark-card: #1a1f2e;
+            --border-blue: #2563EB;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent: #00d4ff;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+                'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+                sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: rgba(15, 20, 25, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--primary-blue);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        .logo-circle {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 1.2rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-blue);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, rgba(30, 111, 206, 0.1) 0%, rgba(15, 20, 25, 0) 100%);
+            border-bottom: 1px solid var(--primary-blue);
+            text-align: center;
+        }
+
+        .hero .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .hero-logo {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--border-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--dark-bg);
+            box-shadow: 0 0 40px rgba(30, 111, 206, 0.3);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 6px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--text-primary);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--border-blue);
+            box-shadow: 0 0 20px rgba(30, 111, 206, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid var(--primary-blue);
+            color: var(--primary-blue);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-blue);
+            color: var(--text-primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 2rem;
+            border-bottom: 1px solid rgba(30, 111, 206, 0.1);
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-blue);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Topic Headers */
+        .topic-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid rgba(30, 111, 206, 0.3);
+        }
+
+        .topic-header h3 {
+            color: var(--primary-blue);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .topic-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        /* Module Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .module-card {
+            background-color: var(--dark-card);
+            border: 1px solid rgba(30, 111, 206, 0.2);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .module-card:hover {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 20px rgba(30, 111, 206, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .module-image {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(30, 111, 206, 0.2), rgba(30, 111, 206, 0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .module-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .module-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .module-card h4 {
+            color: var(--primary-blue);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+            line-height: 1.4;
+        }
+
+        .module-card p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            flex-grow: 1;
+        }
+
+        .module-meta {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: auto;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: rgba(30, 111, 206, 0.2);
+            color: var(--primary-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+        }
+
+        .module-link {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: rgba(30, 111, 206, 0.2);
+            color: var(--primary-blue);
+            border: 1px solid var(--primary-blue);
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .module-link:hover {
+            background-color: var(--primary-blue);
+            color: var(--text-primary);
+        }
+
+        /* Learning Paths */
+        .learning-paths {
+            background-color: var(--dark-card);
+            border: 1px solid rgba(30, 111, 206, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .path-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .learning-path {
+            background-color: var(--dark-bg);
+            border: 1px solid rgba(30, 111, 206, 0.3);
+            border-radius: 6px;
+            padding: 1.5rem;
+        }
+
+        .learning-path h4 {
+            color: var(--primary-blue);
+            margin-bottom: 1rem;
+        }
+
+        .learning-path ol {
+            margin-left: 1.5rem;
+            color: var(--text-secondary);
+        }
+
+        .learning-path li {
+            margin-bottom: 0.75rem;
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark-card);
+            border-top: 1px solid var(--primary-blue);
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            color: var(--primary-blue);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary-blue);
+            color: var(--dark-bg);
+        }
+
+        footer p {
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                font-size: 0.9rem;
+            }
+
+            .hero {
+                padding: 3rem 1rem;
+            }
+
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .path-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Modal for viewing modules */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        .modal-content {
+            background-color: var(--dark-card);
+            margin: auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 1200px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-close {
+            color: var(--text-secondary);
+            float: right;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary-blue);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <a href="#home" class="logo">
+                <div class="logo-circle">SP</div>
+                Sensible Programming
+            </a>
+            <ul>
+                <li><a href="#learning">Learning Hub</a></li>
+                <li><a href="#paths">Learning Paths</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-logo">SP</div>
+            <h1>Sensible Programming</h1>
+            <p class="tagline">Master AI, Security, DevOps, and Development practices through clear, interactive learning modules. 46 comprehensive guides from basics to advanced.</p>
+            <div class="cta-buttons">
+                <a href="#learning" class="btn btn-primary">Explore Modules</a>
+                <a href="#paths" class="btn btn-secondary">View Learning Paths</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Hub -->
+    <section id="learning">
+        <div class="section-container">
+            <h2>Learning Hub</h2>
+            <p class="section-subtitle">46 interactive modules organized by topic. Click any card to view the full module.</p>
+
+            <!-- AI Fundamentals -->
+            <div class="topic-header">
+                <h3>🤖 AI Fundamentals</h3>
+                <p class="topic-description">Core concepts, neural networks, LLMs, and practical applications of AI technology</p>
+            </div>
+            <div class="grid">
+                <div class="module-card" onclick="viewModule('modules/ai-taxonomy-tree.html', 'AI Taxonomy Tree')">
+                    <div class="module-image">🌳</div>
+                    <div class="module-content">
+                        <h4>AI Taxonomy Tree</h4>
+                        <p>Interactive taxonomy of AI concepts and relationships</p>
+                        <div class="module-meta"><span class="tag">Fundamentals</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/neural-networks-infographic.jpg', 'Neural Networks')">
+                    <div class="module-image">🧠</div>
+                    <div class="module-content">
+                        <h4>Neural Networks</h4>
+                        <p>Neural networks fundamentals and architecture explained</p>
+                        <div class="module-meta"><span class="tag">Fundamentals</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/llms-large-language-models-deep-dive.html', 'LLMs Deep Dive')">
+                    <div class="module-image">🗣️</div>
+                    <div class="module-content">
+                        <h4>LLMs Deep Dive</h4>
+                        <p>How large language models work and what they can do</p>
+                        <div class="module-meta"><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/prompt-engineering-best-practices.html', 'Prompt Engineering')">
+                    <div class="module-image">✍️</div>
+                    <div class="module-content">
+                        <h4>Prompt Engineering</h4>
+                        <p>Write effective prompts for large language models</p>
+                        <div class="module-meta"><span class="tag">Practical</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/rag-retrieval-augmented-generation.html', 'RAG')">
+                    <div class="module-image">📚</div>
+                    <div class="module-content">
+                        <h4>Retrieval Augmented Generation</h4>
+                        <p>Combine LLMs with external knowledge bases</p>
+                        <div class="module-meta"><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/vector-databases.html', 'Vector Databases')">
+                    <div class="module-image">🔍</div>
+                    <div class="module-content">
+                        <h4>Vector Databases</h4>
+                        <p>Embeddings, similarity search, and semantic understanding</p>
+                        <div class="module-meta"><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/ai-image-generation.html', 'Image Generation')">
+                    <div class="module-image">🎨</div>
+                    <div class="module-content">
+                        <h4>AI Image Generation</h4>
+                        <p>How AI creates images from text descriptions</p>
+                        <div class="module-meta"><span class="tag">Practical</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/blockchain-transactions.html', 'Blockchain')">
+                    <div class="module-image">⛓️</div>
+                    <div class="module-content">
+                        <h4>Blockchain Transactions</h4>
+                        <p>How blockchain transactions work and why they matter</p>
+                        <div class="module-meta"><span class="tag">Fundamentals</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Security & Safety -->
+            <div class="topic-header">
+                <h3>🔒 AI Security & Safety</h3>
+                <p class="topic-description">Protecting AI systems from attacks, securing assets, and ethical considerations</p>
+            </div>
+            <div class="grid">
+                <div class="module-card" onclick="viewModule('modules/prompt-injection.html', 'Prompt Injection')">
+                    <div class="module-image">💉</div>
+                    <div class="module-content">
+                        <h4>Prompt Injection Attacks</h4>
+                        <p>Understand and defend against prompt injection attacks</p>
+                        <div class="module-meta"><span class="tag">Security</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/securing-ai-assets.html', 'Securing AI Assets')">
+                    <div class="module-image">🛡️</div>
+                    <div class="module-content">
+                        <h4>Securing AI Assets</h4>
+                        <p>Security considerations for AI systems and deployments</p>
+                        <div class="module-meta"><span class="tag">Security</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/security-risks-of-integrating-ai-agents.html', 'AI Agents Security')">
+                    <div class="module-image">🤖🔐</div>
+                    <div class="module-content">
+                        <h4>AI Agents Security Risks</h4>
+                        <p>Risks and mitigations when using AI agents in production</p>
+                        <div class="module-meta"><span class="tag">Security</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/api-security-tool-config-vulnerabilities.html', 'API Security')">
+                    <div class="module-image">🔑</div>
+                    <div class="module-content">
+                        <h4>API Security & Tool Config</h4>
+                        <p>Authentication, rate limiting, and tool configuration vulnerabilities</p>
+                        <div class="module-meta"><span class="tag">Security</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/ai-ethics-bias.html', 'AI Ethics')">
+                    <div class="module-image">⚖️</div>
+                    <div class="module-content">
+                        <h4>AI Ethics & Bias</h4>
+                        <p>Fairness, bias in models, and responsible AI development</p>
+                        <div class="module-meta"><span class="tag">Ethics</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/data-privacy-compliance.html', 'Data Privacy')">
+                    <div class="module-image">📋</div>
+                    <div class="module-content">
+                        <h4>Data Privacy & Compliance</h4>
+                        <p>GDPR, data handling, and PII protection requirements</p>
+                        <div class="module-meta"><span class="tag">Compliance</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AI Operations & DevOps -->
+            <div class="topic-header">
+                <h3>⚙️ AI Operations & DevOps</h3>
+                <p class="topic-description">Deployment, monitoring, testing, and managing AI systems in production</p>
+            </div>
+            <div class="grid">
+                <div class="module-card" onclick="viewModule('modules/docker-containerization.html', 'Docker')">
+                    <div class="module-image">🐳</div>
+                    <div class="module-content">
+                        <h4>Docker Containerization</h4>
+                        <p>Container basics and deployment strategies</p>
+                        <div class="module-meta"><span class="tag">DevOps</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/ai-agents-in-cicd-pipeline.html', 'AI in CI/CD')">
+                    <div class="module-image">🚀</div>
+                    <div class="module-content">
+                        <h4>AI Agents in CI/CD</h4>
+                        <p>Using AI agents in continuous integration and deployment workflows</p>
+                        <div class="module-meta"><span class="tag">DevOps</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/testing-aiml-systems.html', 'Testing AI/ML')">
+                    <div class="module-image">✅</div>
+                    <div class="module-content">
+                        <h4>Testing AI/ML Systems</h4>
+                        <p>Validating models, detecting hallucinations, and quality assurance</p>
+                        <div class="module-meta"><span class="tag">Testing</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/ml-monitoring-observability.html', 'ML Monitoring')">
+                    <div class="module-image">📊</div>
+                    <div class="module-content">
+                        <h4>ML Monitoring & Observability</h4>
+                        <p>Model drift, performance monitoring, and post-deployment observability</p>
+                        <div class="module-meta"><span class="tag">DevOps</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Git & Version Control -->
+            <div class="topic-header">
+                <h3>📝 Git & Version Control</h3>
+                <p class="topic-description">Essential Git workflows, branching strategies, and version control best practices</p>
+            </div>
+            <div class="grid">
+                <div class="module-card" onclick="viewModule('modules/common-git-commands.html', 'Git Commands')">
+                    <div class="module-image">💻</div>
+                    <div class="module-content">
+                        <h4>Common Git Commands</h4>
+                        <p>Essential Git commands reference for daily development</p>
+                        <div class="module-meta"><span class="tag">Fundamentals</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/git-branching-strategies.html', 'Branching Strategies')">
+                    <div class="module-image">🌿</div>
+                    <div class="module-content">
+                        <h4>Branching Strategies</h4>
+                        <p>Overview of Git branching workflows and when to use them</p>
+                        <div class="module-meta"><span class="tag">Best Practices</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/git-reflog-and-what-is-does.html', 'Git Reflog')">
+                    <div class="module-image">🔄</div>
+                    <div class="module-content">
+                        <h4>Git Reflog Guide</h4>
+                        <p>Git reflog for tracking and recovering repository history</p>
+                        <div class="module-meta"><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Learning Paths Section -->
+            <div class="topic-header" style="margin-top: 4rem;">
+                <h3>📚 Recommended Learning Paths</h3>
+                <p class="topic-description">Curated module sequences for different roles and goals</p>
+            </div>
+
+            <div class="learning-paths">
+                <h3 style="color: var(--primary-blue);">Choose Your Path</h3>
+                <div class="path-grid">
+                    <div class="learning-path">
+                        <h4>👨‍💻 Developers New to AI</h4>
+                        <ol>
+                            <li>AI Taxonomy Tree</li>
+                            <li>Neural Networks</li>
+                            <li>LLMs Deep Dive</li>
+                            <li>Prompt Engineering</li>
+                            <li>RAG & Vector Databases</li>
+                        </ol>
+                    </div>
+                    <div class="learning-path">
+                        <h4>🔒 Security Teams</h4>
+                        <ol>
+                            <li>Securing AI Assets</li>
+                            <li>Prompt Injection Attacks</li>
+                            <li>API Security</li>
+                            <li>AI Ethics & Bias</li>
+                            <li>Data Privacy & Compliance</li>
+                        </ol>
+                    </div>
+                    <div class="learning-path">
+                        <h4>⚙️ DevOps/MLOps</h4>
+                        <ol>
+                            <li>Docker Containerization</li>
+                            <li>AI Agents in CI/CD</li>
+                            <li>ML Monitoring & Observability</li>
+                            <li>Testing AI/ML Systems</li>
+                            <li>Branching Strategies</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-container">
+            <h2>About Sensible Programming</h2>
+            <p class="section-subtitle">We believe programming and technology concepts should be clear, practical, and accessible to everyone.</p>
+
+            <div style="max-width: 800px; margin: 0 auto;">
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+                    Sensible Programming is a free educational resource dedicated to making technology concepts clear and actionable. Our 46+ interactive modules cover everything from AI fundamentals to security best practices, DevOps strategies, and version control workflows.
+                </p>
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+                    Whether you're just starting your programming journey or optimizing production systems, you'll find practical, no-nonsense guides that cut through the complexity.
+                </p>
+                <p style="color: var(--text-secondary); line-height: 1.8;">
+                    All content is created by developers, for developers. We focus on what matters: real solutions, proven patterns, and the knowledge you need to build better systems.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="section-container">
+            <h3 style="margin-bottom: 1.5rem; color: var(--primary-blue);">Connect With Us</h3>
+            <div class="social-links">
+                <a href="https://facebook.com/sensibleprogramming" target="_blank" rel="noopener noreferrer" title="Facebook">f</a>
+                <a href="https://x.com/sensibleprogra1" target="_blank" rel="noopener noreferrer" title="X (Twitter)">𝕏</a>
+                <a href="https://github.com/SensibleProgramming" target="_blank" rel="noopener noreferrer" title="GitHub">⚙</a>
+            </div>
+            <p>&copy; 2026 Sensible Programming. Free educational content for developers.</p>
+        </div>
+    </footer>
+
+    <!-- Module Viewer Modal -->
+    <div id="moduleModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModule()">&times;</span>
+            <div id="moduleDisplay"></div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.className !== 'modal-close') {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+
+        // Module viewer
+        function viewModule(modulePath, title) {
+            const modal = document.getElementById('moduleModal');
+            const display = document.getElementById('moduleDisplay');
+
+            // Check if it's an image
+            if (modulePath.includes('.jpg') || modulePath.includes('.png')) {
+                display.innerHTML = `<h2>${title}</h2><img src="${modulePath}" style="max-width: 100%; border-radius: 8px; margin-top: 1rem;">`;
+            } else {
+                // For HTML modules, we'll create an iframe
+                display.innerHTML = `<iframe src="${modulePath}" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>`;
+            }
+
+            modal.style.display = 'flex';
+        }
+
+        function closeModule() {
+            document.getElementById('moduleModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('moduleModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Active navigation link
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (window.pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.color = 'var(--text-secondary)';
+                if (link.getAttribute('href') === '#' + current) {
+                    link.style.color = 'var(--primary-blue)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

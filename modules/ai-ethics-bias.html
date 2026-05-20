@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Ethics & Bias | Premium EdTech Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="輪">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .pro-tip-box {
+            border-left: 4px solid #4f46e5;
+            background: linear-gradient(to right, #eef2ff, #ffffff);
+        }
+        .image-zoom:hover {
+            transform: scale(1.02);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            border-left: 2px solid #4f46e5;
+            padding-left: 0.75rem;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans selection:bg-indigo-100 selection:text-indigo-700">
+
+    <!-- Header Section -->
+    <header class="relative pt-12 pb-8 px-6 lg:px-12 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <span class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-indigo-600 uppercase bg-indigo-50 border border-indigo-100 rounded-full">
+                    Professional Module
+                </span>
+                <h1 class="text-4xl md:text-6xl font-extrabold font-display text-slate-900 tracking-tight leading-tight">
+                    AI Ethics & <span class="text-indigo-600">Bias</span>
+                </h1>
+            </div>
+            <div class="flex items-center gap-3 pb-2">
+                <span class="text-sm font-medium text-slate-500">Target Audience:</span>
+                <span class="px-4 py-1.5 bg-slate-900 text-white text-sm font-bold rounded-lg shadow-sm">
+                    Intermediate
+                </span>
+            </div>
+        </div>
+        <div class="h-1 w-24 bg-indigo-600 mt-8 rounded-full"></div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-6 lg:px-12 pb-24">
+        
+        <!-- Visual Centerpiece (Infographic) -->
+        <section class="mb-16">
+            <div class="relative group overflow-hidden rounded-2xl shadow-2xl border border-slate-200 bg-white">
+                <div class="absolute inset-0 bg-slate-900/5 group-hover:bg-transparent transition-colors duration-300 pointer-events-none"></div>
+                <img src='https://opal.google/board/blobs/9502e94d-5a7f-4a3b-81b5-cade550da34a' alt='AI Ethics & Bias Infographic Summary' 
+                     class="w-full h-auto object-cover image-zoom transition-all cursor-zoom-in"
+                     onclick="window.open(this.src, '_blank')">
+                <div class="absolute bottom-4 right-4 bg-white/90 backdrop-blur px-3 py-1.5 rounded-md text-xs font-medium text-slate-600 shadow-sm border border-slate-100">
+                    Click to expand view
+                </div>
+            </div>
+        </section>
+
+        <!-- Two Column Layout -->
+        <div class="grid grid-cols-1 lg:grid-cols-10 gap-12">
+            
+            <!-- Left Column: Detailed Lesson Content (70%) -->
+            <div class="lg:col-span-7 space-y-16">
+                
+                <!-- Overview Section -->
+                <section id="overview" class="scroll-mt-10">
+                    <div class="pro-tip-box p-8 rounded-xl shadow-sm">
+                        <h2 class="text-2xl font-bold font-display text-slate-900 mb-4">Module Overview</h2>
+                        <p class="text-lg leading-relaxed text-slate-600">
+                            As AI systems are increasingly deployed in critical sectors like healthcare, finance, and criminal justice, development must extend beyond predictive accuracy. This lesson shifts focus from mechanics to the <span class="text-indigo-600 font-semibold">systemic, societal, and ethical implications</span> of ML deployments. For practitioners, engineering ethical constraints is as vital as optimizing loss functions.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Learning Objectives -->
+                <section id="learning-points" class="scroll-mt-10">
+                    <h2 class="text-3xl font-bold font-display text-slate-900 mb-8">Main Learning Points</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="glass-card p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-lg mb-4 font-bold">01</div>
+                            <h3 class="text-xl font-bold mb-2">Deconstruct AI Bias</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">Differentiate between data, algorithmic, and societal biases and their infiltration points.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-lg mb-4 font-bold">02</div>
+                            <h3 class="text-xl font-bold mb-2">Responsible Frameworks</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">Internalize core principles: fairness, explainability, accountability, and privacy.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-lg mb-4 font-bold">03</div>
+                            <h3 class="text-xl font-bold mb-2">Analyze Trade-offs</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">Comprehend tensions between model security and equitable outcomes across demographics.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-xl hover:shadow-md transition-shadow">
+                            <div class="w-10 h-10 bg-indigo-600 text-white flex items-center justify-center rounded-lg mb-4 font-bold">04</div>
+                            <h3 class="text-xl font-bold mb-2">Mitigation Techniques</h3>
+                            <p class="text-slate-600 text-sm leading-relaxed">Learn mathematical and algorithmic interventions for auditing and reducing bias.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Types of Bias -->
+                <section id="bias-types" class="scroll-mt-10">
+                    <h2 class="text-3xl font-bold font-display text-slate-900 mb-6">1. Types of Model Bias</h2>
+                    <div class="space-y-8">
+                        <div class="border-l-2 border-indigo-100 pl-8 relative">
+                            <div class="absolute -left-2 top-0 w-4 h-4 bg-indigo-600 rounded-full"></div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">Data Bias</h3>
+                            <p class="text-slate-600 leading-relaxed mb-4">Occurs before training begins. Includes <strong>Historical Bias</strong> (flawed reality), <strong>Sampling Bias</strong> (unequal representation), and <strong>Labeling Bias</strong> (human prejudice in ground-truth).</p>
+                        </div>
+                        <div class="border-l-2 border-indigo-100 pl-8 relative">
+                            <div class="absolute -left-2 top-0 w-4 h-4 bg-indigo-600 rounded-full"></div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">Algorithmic Bias</h3>
+                            <p class="text-slate-600 leading-relaxed mb-4">Arises from pipeline design. For instance, using <em>proxy variables</em> like zip codes which correlate highly with race, inadvertently encoding bias into the model's logic.</p>
+                        </div>
+                        <div class="border-l-2 border-indigo-100 pl-8 relative">
+                            <div class="absolute -left-2 top-0 w-4 h-4 bg-indigo-600 rounded-full"></div>
+                            <h3 class="text-xl font-bold text-slate-900 mb-3">Societal Bias</h3>
+                            <p class="text-slate-600 leading-relaxed">Post-deployment feedback loops where biased models amplify systemic inequalities, such as predictive policing increasing arrests in specific neighborhoods based on past bias.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Responsible AI Principles -->
+                <section id="principles" class="scroll-mt-10">
+                    <div class="bg-slate-900 text-white p-10 rounded-2xl shadow-xl overflow-hidden relative">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 rounded-full -mr-32 -mt-32 blur-3xl"></div>
+                        <h2 class="text-3xl font-bold font-display mb-8">Principles of Responsible AI</h2>
+                        <div class="space-y-6">
+                            <details class="group border-b border-slate-700 pb-4">
+                                <summary class="flex justify-between items-center cursor-pointer list-none font-bold text-lg text-indigo-400 group-open:text-white transition-colors">
+                                    <span>Fairness & Transparency</span>
+                                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                                </summary>
+                                <p class="mt-4 text-slate-400 leading-relaxed">Ensuring outcomes do not penalize protected groups. Requires tools like SHAP or LIME to interpret model predictions, allowing stakeholders to challenge automated decisions.</p>
+                            </details>
+                            <details class="group border-b border-slate-700 pb-4">
+                                <summary class="flex justify-between items-center cursor-pointer list-none font-bold text-lg text-indigo-400 group-open:text-white transition-colors">
+                                    <span>Accountability & Governance</span>
+                                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                                </summary>
+                                <p class="mt-4 text-slate-400 leading-relaxed">Establishing human-in-the-loop structures, ensuring AI augments human decision-making rather than operating autonomously without liability.</p>
+                            </details>
+                            <details class="group border-b border-slate-700 pb-4">
+                                <summary class="flex justify-between items-center cursor-pointer list-none font-bold text-lg text-indigo-400 group-open:text-white transition-colors">
+                                    <span>Privacy & Beneficence</span>
+                                    <span class="group-open:rotate-180 transition-transform">↓</span>
+                                </summary>
+                                <p class="mt-4 text-slate-400 leading-relaxed">Upholding data rights via minimal collection and differential privacy, while designing specifically for societal benefit and non-maleficence.</p>
+                            </details>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security vs Fairness -->
+                <section id="security-tradeoff" class="scroll-mt-10">
+                    <h2 class="text-3xl font-bold font-display text-slate-900 mb-6">Counterbalancing Security with Fairness</h2>
+                    <div class="flex flex-col md:flex-row gap-8 bg-white border border-slate-200 p-8 rounded-2xl">
+                        <div class="flex-1">
+                            <h4 class="font-bold text-indigo-600 uppercase tracking-widest text-xs mb-2">The Challenge</h4>
+                            <p class="text-slate-600 leading-relaxed">Techniques like <strong>Differential Privacy</strong> add noise to prevent re-identification, but this noise can disproportionately obscure signals from smaller minority groups, degrading their specific accuracy.</p>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-indigo-600 uppercase tracking-widest text-xs mb-2">The Solution</h4>
+                            <p class="text-slate-600 leading-relaxed">Practitioners must treat security and fairness as a <strong>joint optimization problem</strong>, monitoring disparate impact metrics when applying privacy-preserving techniques.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Mitigation Stage -->
+                <section id="mitigation" class="scroll-mt-10">
+                    <h2 class="text-3xl font-bold font-display text-slate-900 mb-6">Practical Bias Mitigation</h2>
+                    <div class="space-y-6">
+                        <div class="glass-card p-8 rounded-xl border-l-4 border-l-indigo-600">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <span class="bg-indigo-600 text-white text-xs px-2 py-1 rounded">Stage 1</span> Pre-processing
+                            </h3>
+                            <p class="text-slate-600 text-sm mb-4">The most effective stage. Focuses on data-level interventions.</p>
+                            <ul class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                <li class="flex items-center gap-2 text-sm text-slate-700 bg-slate-100 p-2 rounded">✓ Re-weighting data points</li>
+                                <li class="flex items-center gap-2 text-sm text-slate-700 bg-slate-100 p-2 rounded">✓ Oversampling/Undersampling</li>
+                                <li class="flex items-center gap-2 text-sm text-slate-700 bg-slate-100 p-2 rounded">✓ Disparate impact removers</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="glass-card p-8 rounded-xl border-l-4 border-l-indigo-600">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <span class="bg-indigo-600 text-white text-xs px-2 py-1 rounded">Stage 2</span> In-processing
+                            </h3>
+                            <p class="text-slate-600 text-sm mb-4">Modifying the learning algorithm directly during training.</p>
+                            <div class="space-y-3">
+                                <div class="bg-slate-50 p-3 rounded text-sm text-slate-700">
+                                    <span class="font-bold">Adversarial Debiasing:</span> A GAN-like setup where a primary network learns to make predictions independent of protected attributes.
+                                </div>
+                                <div class="bg-slate-50 p-3 rounded text-sm text-slate-700">
+                                    <span class="font-bold">Fairness Regularization:</span> Adding terms to the loss function to penalize disparate error rates.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-8 rounded-xl border-l-4 border-l-indigo-600">
+                            <h3 class="text-xl font-bold mb-4 flex items-center gap-2">
+                                <span class="bg-indigo-600 text-white text-xs px-2 py-1 rounded">Stage 3</span> Post-processing
+                            </h3>
+                            <p class="text-slate-600 text-sm mb-4">Adjusting model outputs after training through threshold calibration.</p>
+                            <div class="bg-indigo-50 border border-indigo-100 p-4 rounded-lg text-indigo-900 text-sm italic">
+                                "Achieving mathematical parity (e.g., Equalized Odds) by setting different decision thresholds for different demographic groups."
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Final Summary -->
+                <section id="summary" class="scroll-mt-10">
+                    <div class="p-10 rounded-3xl bg-gradient-to-br from-indigo-600 to-indigo-800 text-white shadow-2xl">
+                        <h2 class="text-3xl font-bold font-display mb-6">Closing Conclusion</h2>
+                        <p class="text-lg leading-relaxed opacity-90 mb-8">
+                            AI ethics and bias mitigation are not secondary compliance tasks but fundamental requirements for deploying robust, effective, and socially responsible systems. Ultimately, ethical AI bridges the gap between mathematical optimization and human welfare, preventing algorithmic harm and fostering systemic trust.
+                        </p>
+                        <button class="px-8 py-4 bg-white text-indigo-700 font-bold rounded-xl hover:bg-indigo-50 transition-colors shadow-lg flex items-center gap-2">
+                            Download Certificate 
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                            </svg>
+                        </button>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Right Column: Navigation Sidebar (30%) -->
+            <aside class="hidden lg:block lg:col-span-3">
+                <div class="sidebar-sticky pt-4">
+                    <div class="glass-card p-6 rounded-2xl">
+                        <h4 class="text-xs font-bold text-indigo-600 uppercase tracking-widest mb-6">Course Progress</h4>
+                        <div class="w-full bg-slate-200 h-2 rounded-full mb-8 overflow-hidden">
+                            <div class="bg-indigo-600 h-full w-[85%]" id="progress-bar"></div>
+                        </div>
+                        
+                        <nav class="space-y-4">
+                            <p class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Chapters</p>
+                            <a href="#overview" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Module Overview</a>
+                            <a href="#learning-points" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Learning Points</a>
+                            <a href="#bias-types" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Types of Model Bias</a>
+                            <a href="#principles" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Responsible AI Principles</a>
+                            <a href="#security-tradeoff" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Security vs Fairness</a>
+                            <a href="#mitigation" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Mitigation Strategies</a>
+                            <a href="#summary" class="nav-link block text-sm text-slate-500 hover:text-indigo-600 transition-colors">Final Summary</a>
+                        </nav>
+
+                        <div class="mt-10 p-4 rounded-xl bg-slate-100 border border-slate-200">
+                            <h5 class="text-xs font-bold text-slate-900 mb-2">Technical Toolkit</h5>
+                            <ul class="text-[11px] text-slate-500 space-y-2 uppercase font-semibold">
+                                <li>• IBM AI Fairness 360</li>
+                                <li>• Microsoft Fairlearn</li>
+                                <li>• Google What-If Tool</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation Bottom Bar -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 px-6 py-4 flex justify-between items-center z-50">
+        <div class="flex flex-col">
+            <span class="text-[10px] font-bold text-slate-400 uppercase">Current Lesson</span>
+            <span class="text-sm font-bold text-slate-900">AI Ethics & Bias</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-indigo-600">85% Complete</span>
+            <div class="w-16 h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                <div class="bg-indigo-600 h-full w-[85%]"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth highlighting for nav links on scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 150)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

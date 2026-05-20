@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Securing AI Assets | Educational Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+        .zoom-container {
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .zoom-container img {
+            transition: transform 0.5s ease;
+        }
+        .zoom-container:hover img {
+            transform: scale(1.03);
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: #f1f5f9;
+        }
+        .heading-anchor {
+            scroll-margin-top: 2rem;
+        }
+        .section-card {
+            transition: all 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Hero Header -->
+    <header class="bg-slate-900 text-white py-16 md:py-24 px-6 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-64 h-64 bg-indigo-600 rounded-full blur-[100px] -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-indigo-600 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="max-w-6xl mx-auto relative z-10">
+            <div class="flex flex-col items-start gap-4">
+                <span class="px-4 py-1.5 bg-indigo-600/20 border border-indigo-500/30 text-indigo-400 text-xs font-bold uppercase tracking-widest rounded-full">
+                    Target Audience: Beginner
+                </span>
+                <h1 class="text-4xl md:text-6xl font-display font-bold leading-tight max-w-4xl">
+                    Securing AI Assets: Layers of Protection and the Testing Lifecycle
+                </h1>
+                <p class="text-slate-400 text-lg md:text-xl max-w-2xl mt-4 font-light">
+                    Explore the multi-layered defense strategy and the continuous cycle of testing required to keep AI systems resilient.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-12 md:-mt-20 pb-24">
+        
+        <!-- Visual Centerpiece -->
+        <section class="mb-16">
+            <div class="zoom-container shadow-2xl bg-white p-4 md:p-8">
+                <div class="flex items-center justify-between mb-4 border-b border-slate-100 pb-4">
+                    <h2 class="text-sm font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        Security Architecture & Flow
+                    </h2>
+                    <span class="hidden md:block text-xs text-slate-400 italic">Hover to inspect details</span>
+                </div>
+                <div class="flex justify-center bg-slate-50 rounded-lg p-2 md:p-6 overflow-hidden">
+                    <img src='https://opal.google/board/blobs/369538cd-c881-43ae-a89d-6d5403ae2e56' alt='AI Security Layers and Testing Lifecycle Infographic' class="w-full max-w-4xl h-auto rounded-lg shadow-sm" />
+                </div>
+            </div>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-10 gap-12">
+            
+            <!-- Sidebar Navigation (Desktop) / Status (Mobile) -->
+            <aside class="lg:col-span-3 order-2 lg:order-1">
+                <div class="sidebar-sticky space-y-6">
+                    <div class="glass-card rounded-2xl p-6 shadow-sm">
+                        <h3 class="font-display font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Key Takeaways</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mt-1 shrink-0">1</span>
+                                <span class="text-sm text-slate-600">AI security protects Data, Models, and Infrastructure.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mt-1 shrink-0">2</span>
+                                <span class="text-sm text-slate-600">Continuous testing through the Iteration Loop is vital.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mt-1 shrink-0">3</span>
+                                <span class="text-sm text-slate-600">Red Teaming proactively identifies system vulnerabilities.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-indigo-100 text-indigo-600 flex items-center justify-center text-xs font-bold mt-1 shrink-0">4</span>
+                                <span class="text-sm text-slate-600">Monitoring ensures ongoing AI health and reliability.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="hidden lg:block glass-card rounded-2xl p-6 shadow-sm">
+                        <h3 class="font-display font-bold text-slate-800 mb-4 border-b border-slate-200 pb-2">Navigation</h3>
+                        <nav class="flex flex-col gap-2">
+                            <a href="#overview" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors">01. Overview</a>
+                            <a href="#points" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors">02. Learning Points</a>
+                            <a href="#layers" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors">03. The Three Layers</a>
+                            <a href="#loop" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors">04. The Iteration Loop</a>
+                            <a href="#summary" class="text-sm text-slate-500 hover:text-indigo-600 transition-colors">05. Summary</a>
+                        </nav>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Detailed Content -->
+            <div class="lg:col-span-7 order-1 lg:order-2 space-y-12">
+                
+                <!-- Overview -->
+                <section id="overview" class="heading-anchor">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600">01.</span> Overview
+                    </h2>
+                    <div class="prose prose-slate max-w-none text-slate-600">
+                        <p class="text-lg leading-relaxed mb-6">
+                            As Artificial Intelligence (AI) becomes integrated into everything from healthcare to finance, the "assets" that power these systems—the data, the math (the model), and the computers they run on—become high-value targets for attackers. 
+                        </p>
+                        <div class="pro-tip p-6 rounded-r-xl mb-6">
+                            <p class="font-medium text-slate-800 italic">
+                                "AI security is not just about stopping a single hacker; it is about ensuring the integrity, privacy, and availability of the entire system."
+                            </p>
+                        </div>
+                        <p>
+                            If an AI asset is compromised, it could leak sensitive personal information, provide biased or dangerous advice, or be "poisoned" to fail when needed most. This lesson explores the multi-layered defense strategy required to keep AI systems safe and the continuous cycle of testing used to stay ahead of threats.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Learning Points -->
+                <section id="points" class="heading-anchor glass-card p-8 rounded-3xl">
+                    <h2 class="text-2xl font-display font-bold text-slate-900 mb-6">Main Learning Points</h2>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                            <svg class="w-6 h-6 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-sm font-medium">Identify the three primary layers of AI security</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                            <svg class="w-6 h-6 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-sm font-medium">Explain the Iteration Loop of security testing</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                            <svg class="w-6 h-6 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-sm font-medium">Define Red Teaming and its proactive role</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-4 bg-white rounded-xl border border-slate-100 shadow-sm">
+                            <svg class="w-6 h-6 text-indigo-500 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            <span class="text-sm font-medium">Recognize continuous monitoring benefits</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Concepts: The Three Layers -->
+                <section id="layers" class="heading-anchor space-y-6">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 flex items-center gap-3">
+                        <span class="text-indigo-600">03.</span> The Three Layers of AI Security
+                    </h2>
+                    <p class="text-slate-600">Security in AI is often compared to an onion; you must peel back several layers before you reach the core. Each layer requires specific tools and strategies to defend.</p>
+                    
+                    <div class="space-y-4">
+                        <!-- Data Layer -->
+                        <div class="section-card bg-white p-6 rounded-2xl border border-slate-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800">1. Data Security (The Raw Material)</h3>
+                            </div>
+                            <p class="text-slate-600 mb-4">Data is the "food" that AI eats to learn. If the food is tainted, the AI gets sick.</p>
+                            <div class="grid sm:grid-cols-3 gap-4">
+                                <div class="p-4 bg-slate-50 rounded-lg">
+                                    <span class="block font-bold text-slate-700 mb-1">Encryption</span>
+                                    <span class="text-xs text-slate-500 leading-tight block">Scrambling data for authorized users only.</span>
+                                </div>
+                                <div class="p-4 bg-slate-50 rounded-lg">
+                                    <span class="block font-bold text-slate-700 mb-1">Access Control</span>
+                                    <span class="text-xs text-slate-500 leading-tight block">Ensuring only right people touch data.</span>
+                                </div>
+                                <div class="p-4 bg-slate-50 rounded-lg">
+                                    <span class="block font-bold text-slate-700 mb-1">Anonymization</span>
+                                    <span class="text-xs text-slate-500 leading-tight block">Removing personal details to keep patterns.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Model Layer -->
+                        <div class="section-card bg-white p-6 rounded-2xl border border-slate-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.364-6.364l-.707-.707M6.364 18.364l-.707.707M18.364 18.364l-.707.707M12 8v4l3 3"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800">2. Model Security (The Brain)</h3>
+                            </div>
+                            <p class="text-slate-600 mb-4">The model is the set of rules the AI has learned. This is often a company's most valuable intellectual property.</p>
+                            <div class="flex flex-col gap-3">
+                                <div class="p-3 border-l-2 border-indigo-200 bg-slate-50/50">
+                                    <span class="font-bold text-slate-700">Adversarial Defense:</span> <span class="text-slate-600">Protecting against "tricks" or specialized inputs designed to make the AI hallucinate.</span>
+                                </div>
+                                <div class="p-3 border-l-2 border-indigo-200 bg-slate-50/50">
+                                    <span class="font-bold text-slate-700">Model Auditing:</span> <span class="text-slate-600">Regularly checking outputs to ensure no unintended behavior.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Infrastructure Layer -->
+                        <div class="section-card bg-white p-6 rounded-2xl border border-slate-200">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div class="w-12 h-12 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-800">3. Infrastructure Security (The Home)</h3>
+                            </div>
+                            <p class="text-slate-600 mb-4">The physical or cloud-based environment where the AI lives and works.</p>
+                            <div class="grid sm:grid-cols-2 gap-4">
+                                <div class="flex items-start gap-2">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-2 shrink-0"></div>
+                                    <p class="text-sm text-slate-600"><strong class="text-slate-800">Network Security:</strong> Firewalls and secure connections to prevent outside intrusion.</p>
+                                </div>
+                                <div class="flex items-start gap-2">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-indigo-600 mt-2 shrink-0"></div>
+                                    <p class="text-sm text-slate-600"><strong class="text-slate-800">Vulnerability Management:</strong> Scanning software for "holes" or bugs that need patching.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Iteration Loop -->
+                <section id="loop" class="heading-anchor">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600">04.</span> The Security Iteration Loop
+                    </h2>
+                    <div class="bg-indigo-900 rounded-3xl p-8 text-indigo-100 overflow-hidden relative">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2"></div>
+                        
+                        <p class="mb-8 font-light text-indigo-200">
+                            In traditional security, you might build a wall and walk away. In AI, the <strong class="text-white">"Flow State"</strong> is critical—security is a constant, moving cycle.
+                        </p>
+
+                        <div class="grid md:grid-cols-2 gap-6 relative z-10">
+                            <div class="bg-white/10 p-5 rounded-2xl border border-white/10 hover:bg-white/15 transition-colors">
+                                <span class="text-xs font-bold bg-indigo-500 text-white px-2 py-1 rounded mb-3 inline-block">Step 1</span>
+                                <h4 class="font-bold text-white mb-2">Scan & Detect</h4>
+                                <p class="text-sm text-indigo-200">Automated tools looking for known problems like outdated software or weak credentials.</p>
+                            </div>
+                            <div class="bg-indigo-600/40 p-5 rounded-2xl border border-indigo-400/30 hover:bg-indigo-600/60 transition-colors">
+                                <span class="text-xs font-bold bg-white text-indigo-600 px-2 py-1 rounded mb-3 inline-block">Step 2</span>
+                                <h4 class="font-bold text-white mb-2">Simulate Attack (Red Teaming)</h4>
+                                <p class="text-sm text-indigo-200">Ethical hackers pretend to be bad guys to "break" the AI before real attackers can.</p>
+                            </div>
+                            <div class="bg-white/10 p-5 rounded-2xl border border-white/10 hover:bg-white/15 transition-colors">
+                                <span class="text-xs font-bold bg-indigo-500 text-white px-2 py-1 rounded mb-3 inline-block">Step 3</span>
+                                <h4 class="font-bold text-white mb-2">Analyze Vulnerabilities</h4>
+                                <p class="text-sm text-indigo-200">Understanding why the weakness happened—be it biased data or infrastructure gaps.</p>
+                            </div>
+                            <div class="bg-white/10 p-5 rounded-2xl border border-white/10 hover:bg-white/15 transition-colors">
+                                <span class="text-xs font-bold bg-indigo-500 text-white px-2 py-1 rounded mb-3 inline-block">Step 4</span>
+                                <h4 class="font-bold text-white mb-2">Apply Fixes</h4>
+                                <p class="text-sm text-indigo-200">Updating code, adding data filters, or strengthening the network connections.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-center">
+                            <div class="flex items-center gap-2 animate-pulse">
+                                <svg class="w-5 h-5 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                <span class="text-sm font-bold tracking-widest uppercase">The Loop Continues...</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Summary Section -->
+                <section id="summary" class="heading-anchor">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-8 flex items-center gap-3">
+                        <span class="text-indigo-600">05.</span> Summary
+                    </h2>
+                    <div class="grid gap-4">
+                        <div class="group p-6 bg-white rounded-2xl border border-slate-200 flex gap-4 items-start hover:border-indigo-400 transition-colors">
+                            <div class="p-3 rounded-lg bg-slate-50 group-hover:bg-indigo-50 transition-colors shrink-0">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.040L3 5.67v6.158c0 5.623 3.458 10.615 8.515 12.484A11.956 11.956 0 0021 11.828V5.67l-1.382-.686z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Defense in Depth</h4>
+                                <p class="text-slate-600 text-sm">Protect Data, the Model, and the Infrastructure simultaneously.</p>
+                            </div>
+                        </div>
+                        <div class="group p-6 bg-white rounded-2xl border border-slate-200 flex gap-4 items-start hover:border-indigo-400 transition-colors">
+                            <div class="p-3 rounded-lg bg-slate-50 group-hover:bg-indigo-50 transition-colors shrink-0">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Proactive Testing</h4>
+                                <p class="text-slate-600 text-sm">Using Red Teaming to simulate real-world attacks and find vulnerabilities.</p>
+                            </div>
+                        </div>
+                        <div class="group p-6 bg-white rounded-2xl border border-slate-200 flex gap-4 items-start hover:border-indigo-400 transition-colors">
+                            <div class="p-3 rounded-lg bg-slate-50 group-hover:bg-indigo-50 transition-colors shrink-0">
+                                <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-800">Continuous Improvement</h4>
+                                <p class="text-slate-600 text-sm">Security is a cycle of detecting, testing, analyzing, and fixing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Completion Status -->
+                <div class="bg-indigo-50 border border-indigo-100 rounded-2xl p-10 text-center">
+                    <div class="w-16 h-16 bg-indigo-600 text-white rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    </div>
+                    <h3 class="text-2xl font-display font-bold text-indigo-900 mb-2">Module Complete!</h3>
+                    <p class="text-indigo-700/70 mb-6">You've successfully covered the foundational layers of AI Security.</p>
+                    <button class="bg-indigo-600 hover:bg-indigo-700 text-white px-8 py-3 rounded-xl font-bold transition-all shadow-lg shadow-indigo-200">
+                        Explore Advanced Certification
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation Toggle / Footer Info (Sticky Bottom on Mobile) -->
+    <div class="lg:hidden fixed bottom-6 left-6 right-6 z-50">
+        <div class="bg-slate-900 text-white p-4 rounded-2xl shadow-2xl flex items-center justify-between border border-slate-700">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                <span class="text-xs font-bold uppercase tracking-widest">Live Learning Module</span>
+            </div>
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="text-xs bg-slate-800 px-3 py-2 rounded-lg hover:bg-slate-700">
+                Back to Top ↑
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Simple scroll spy or intersection observer for interaction could be added here
+        // To handle the visual feedback for desktop nav
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('nav a').forEach(link => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('text-indigo-600', 'font-bold');
+                            link.classList.remove('text-slate-500');
+                        } else {
+                            link.classList.remove('text-indigo-600', 'font-bold');
+                            link.classList.add('text-slate-500');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.heading-anchor').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

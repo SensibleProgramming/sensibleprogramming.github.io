@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Security & Tool-Config | Educational Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            50: '#eef2ff',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                        'premium-hover': '0 20px 40px -12px rgba(0, 0, 0, 0.15), 0 8px 10px -4px rgba(0, 0, 0, 0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: linear-gradient(to right, #f5f3ff, #ffffff);
+        }
+        .sticky-sidebar {
+            top: 2rem;
+            max-height: calc(100vh - 4rem);
+        }
+        .image-zoom-container {
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        .image-zoom-container img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .image-zoom-container:hover img {
+            transform: scale(1.03);
+        }
+        .content-section h2 {
+            font-family: 'Outfit', sans-serif;
+            color: #1e293b;
+            font-weight: 800;
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+        .content-section h3 {
+            font-family: 'Outfit', sans-serif;
+            color: #334155;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .content-section p {
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+        .content-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        .content-section li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .content-section li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Header Section -->
+    <header class="bg-white border-b border-slate-200 py-8 px-6 md:px-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-indigo-50 text-indigo-600 mb-3 border border-indigo-100">
+                    Target Audience: Intermediate
+                </span>
+                <h1 class="text-4xl md:text-5xl font-display font-extrabold text-slate-800 leading-tight">
+                    API Security & Tool-Config <span class="text-indigo-600">Vulnerabilities</span>
+                </h1>
+                <p class="text-slate-500 mt-2 text-lg max-w-2xl">Understanding the broader context: Authentication, Rate Limiting, API Keys, and OAuth.</p>
+            </div>
+            <div class="hidden lg:flex items-center space-x-4">
+                <div class="text-right">
+                    <p class="text-xs text-slate-400 font-medium uppercase tracking-widest">Course Status</p>
+                    <p class="text-slate-800 font-bold">In Progress (65%)</p>
+                </div>
+                <div class="w-12 h-12 rounded-full border-4 border-indigo-600 border-t-slate-200 animate-spin" style="animation-duration: 3s;"></div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 md:px-12 py-10">
+        
+        <!-- Infographic Feature -->
+        <section class="mb-16">
+            <div class="relative group">
+                <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-teal-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                <div class="relative image-zoom-container bg-white shadow-premium">
+                    <div class="p-2 md:p-4">
+                        <img src='https://opal.google/board/blobs/f61020ed-cdd1-46e5-ab81-c92c87c5bdd8' alt='API Security Infographic' class="w-full h-auto rounded-lg" />
+                    </div>
+                    <div class="absolute bottom-6 right-6 bg-slate-900/80 backdrop-blur px-4 py-2 rounded-full text-white text-xs font-medium flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                        Hover to inspect visual flow
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-10 gap-12">
+            
+            <!-- Sidebar (Desktop Right / Mobile Bottom) -->
+            <aside class="lg:col-span-3 order-2 lg:order-2">
+                <div class="sticky-sidebar space-y-6">
+                    <!-- Key Takeaways -->
+                    <div class="glass-card rounded-2xl p-6 shadow-sm">
+                        <h4 class="text-slate-900 font-bold text-sm uppercase tracking-widest mb-4 border-b pb-2">Key Takeaways</h4>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3 text-sm">
+                                <span class="bg-indigo-600 text-white h-5 w-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold">1</span>
+                                <span class="text-slate-600 italic">AuthN verifies identity; AuthZ verifies permissions.</span>
+                            </li>
+                            <li class="flex gap-3 text-sm">
+                                <span class="bg-indigo-600 text-white h-5 w-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold">2</span>
+                                <span class="text-slate-600 italic">Rate limiting is critical for availability and cost management.</span>
+                            </li>
+                            <li class="flex gap-3 text-sm">
+                                <span class="bg-indigo-600 text-white h-5 w-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold">3</span>
+                                <span class="text-slate-600 italic">API keys require lifecycle management, not just creation.</span>
+                            </li>
+                            <li class="flex gap-3 text-sm">
+                                <span class="bg-indigo-600 text-white h-5 w-5 rounded-full flex items-center justify-center shrink-0 text-[10px] font-bold">4</span>
+                                <span class="text-slate-600 italic">Config errors in CI/CD pipelines are high-impact attack vectors.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Navigation -->
+                    <nav class="glass-card rounded-2xl p-6 shadow-sm hidden md:block">
+                        <h4 class="text-slate-900 font-bold text-sm uppercase tracking-widest mb-4 border-b pb-2">Table of Contents</h4>
+                        <div class="flex flex-col gap-3">
+                            <a href="#overview" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">01. Overview</a>
+                            <a href="#learning-points" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">02. Learning Points</a>
+                            <a href="#auth-vs-auth" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">03. AuthN vs. AuthZ</a>
+                            <a href="#rate-limiting" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">04. Rate Limiting Pitfalls</a>
+                            <a href="#api-keys" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">05. API Key Management</a>
+                            <a href="#oauth" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">06. OAuth Vulnerabilities</a>
+                            <a href="#tool-config" class="text-sm text-slate-500 hover:text-indigo-600 font-medium transition">07. The Tool-Config Link</a>
+                        </div>
+                    </nav>
+
+                    <!-- Module Complete CTA -->
+                    <div class="bg-indigo-900 rounded-2xl p-6 text-white shadow-xl">
+                        <p class="text-indigo-300 text-xs font-bold uppercase tracking-widest mb-2">Next Step</p>
+                        <h5 class="font-display font-bold text-lg mb-4">Hands-on Lab: Configuring API Gateways</h5>
+                        <button onclick="alert('Proceeding to Simulation Lab...')" class="w-full bg-teal-500 hover:bg-teal-400 text-white font-bold py-3 rounded-xl transition duration-300 shadow-lg shadow-teal-500/20">
+                            Start Simulation
+                        </button>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Lesson Content Area -->
+            <article class="lg:col-span-7 order-1 lg:order-1 content-section">
+                
+                <section id="overview" class="bg-white rounded-3xl p-8 md:p-10 shadow-premium border border-slate-100">
+                    <h2 class="!mt-0">1. Overview</h2>
+                    <p class="text-lg text-slate-600 font-medium leading-relaxed">
+                        In modern application architecture, APIs are the connective tissue between microservices, third-party integrations, and client-side interfaces. 
+                        As organizations move toward <span class="text-indigo-600 font-bold">"Everything as Code,"</span> the security of these APIs is no longer just a coding concern but a configuration concern.
+                    </p>
+                    <p>
+                        Tool-configuration vulnerabilities arise when the settings governing API access—such as authentication protocols, rate limits, and secret management—are improperly defined or left at insecure defaults. This lesson explores the fundamental security pillars of APIs and how their misconfiguration in development and orchestration tools creates high-impact attack vectors.
+                    </p>
+
+                    <div id="learning-points" class="mt-12 pt-8 border-t border-slate-100">
+                        <h3 class="!mt-0">2. Main Learning Points</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <p class="text-sm text-slate-700 font-medium">Distinguish between <strong>Authentication</strong> and <strong>Authorization</strong>.</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <p class="text-sm text-slate-700 font-medium">Understand <strong>Rate Limiting</strong> for availability.</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <p class="text-sm text-slate-700 font-medium">Identify risks of <strong>API Keys</strong> and lifecycle needs.</p>
+                            </div>
+                            <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                                <p class="text-sm text-slate-700 font-medium">Comprehend <strong>OAuth flows</strong> and pitfalls.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="auth-vs-auth" class="mt-12 space-y-8">
+                    <div class="bg-white rounded-3xl p-8 md:p-10 shadow-premium border border-slate-100">
+                        <h3>Authentication vs. Authorization in APIs</h3>
+                        <p>While often used interchangeably, these are distinct layers of the security stack:</p>
+                        
+                        <div class="flex flex-col gap-4 my-6">
+                            <div class="p-5 rounded-2xl bg-indigo-50/50 border border-indigo-100">
+                                <span class="text-indigo-700 font-bold text-xs uppercase tracking-widest block mb-1">Authentication (AuthN)</span>
+                                <p class="text-slate-700 text-sm">The process of verifying <strong>who</strong> the requester is. Typically handled via JWTs, API keys, or certificates. Failure allows anonymous access.</p>
+                            </div>
+                            <div class="p-5 rounded-2xl bg-teal-50 border border-teal-100">
+                                <span class="text-teal-700 font-bold text-xs uppercase tracking-widest block mb-1">Authorization (AuthZ)</span>
+                                <p class="text-slate-700 text-sm">The process of verifying <strong>what</strong> an authenticated user is allowed to do. Prevents authenticated users from accessing unauthorized endpoints.</p>
+                            </div>
+                        </div>
+
+                        <div class="pro-tip p-6 rounded-2xl mb-6">
+                            <p class="text-sm font-bold text-indigo-900 mb-1">The Config Risk</p>
+                            <p class="text-sm text-slate-600">Tool-config vulnerabilities often occur when a tool is authenticated correctly but its authorization "scope" is too broad (e.g., a Jenkins plugin using a global admin token instead of a scoped service account).</p>
+                        </div>
+                    </div>
+
+                    <div id="rate-limiting" class="bg-white rounded-3xl p-8 md:p-10 shadow-premium border border-slate-100">
+                        <h3>Rate Limiting: Criticality and Pitfalls</h3>
+                        <p>Rate limiting restricts the number of requests a consumer can make within a specific timeframe. It is essential for preventing Denial of Service (DoS) attacks and managing costs.</p>
+                        
+                        <h4 class="font-bold text-slate-800 mt-6 mb-3 text-sm uppercase tracking-wide">Common Configuration Pitfalls:</h4>
+                        <ul class="space-y-4">
+                            <li><strong>IP-only Limiting:</strong> Attackers can bypass this using proxy rotations or botnets.</li>
+                            <li><strong>Lack of Tiering:</strong> Failing to differentiate between public endpoints and sensitive "heavy" endpoints (like search or PDF generation).</li>
+                            <li><strong>Soft Limits:</strong> Configuring limits that only trigger alerts rather than dropping traffic, allowing an attacker to brute-force credentials.</li>
+                        </ul>
+                    </div>
+
+                    <div id="api-keys" class="bg-white rounded-3xl p-8 md:p-10 shadow-premium border border-slate-100">
+                        <h3>API Keys: Usage and Risks</h3>
+                        <p>API Keys are long-lived strings used to identify a project. They are the most common form of API security due to simplicity, but also the most frequently abused.</p>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-6">
+                            <div>
+                                <h4 class="text-red-600 font-bold text-sm mb-4">The Risks</h4>
+                                <ul class="space-y-3">
+                                    <li class="text-sm"><strong>Leakage:</strong> Committed to public Git repositories or hardcoded in client code.</li>
+                                    <li class="text-sm"><strong>Lack of Rotation:</strong> Keys rarely expire and remain valid until manual revocation.</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="text-green-600 font-bold text-sm mb-4">Best Practices</h4>
+                                <ul class="space-y-3">
+                                    <li class="text-sm">Use <strong>Secret Management tools</strong> (e.g., HashiCorp Vault).</li>
+                                    <li class="text-sm">Apply <strong>IP whitelisting</strong> to the key itself.</li>
+                                    <li class="text-sm">Implement <strong>automatic rotation</strong>.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="oauth" class="bg-white rounded-3xl p-8 md:p-10 shadow-premium border border-slate-100">
+                        <h3>OAuth: High-Level Overview & Vulnerabilities</h3>
+                        <p>OAuth 2.0 is the industry standard for delegated authorization, allowing third-party apps to access resources without sharing credentials.</p>
+                        
+                        <div class="my-6 p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                            <h4 class="font-bold text-slate-800 mb-4 text-xs uppercase tracking-widest">The Flow in Brief</h4>
+                            <p class="text-sm text-slate-600">User authorizes tool &rarr; Tool receives <strong>Authorization Code</strong> &rarr; Exchanges code for <strong>Access Token</strong>.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="group cursor-default">
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 group-hover:text-indigo-600 transition">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                                    Redirect URI Issues
+                                </h4>
+                                <p class="text-sm text-slate-600 ml-3.5 mt-1">If the <code>redirect_uri</code> is not strictly validated, an attacker can steal the authorization code by redirecting it to a malicious domain.</p>
+                            </div>
+                            <div class="group cursor-default">
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 group-hover:text-indigo-600 transition">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                                    Missing 'state' Parameter
+                                </h4>
+                                <p class="text-sm text-slate-600 ml-3.5 mt-1">Failing to use a unique <code>state</code> parameter makes the flow susceptible to Cross-Site Request Forgery (CSRF).</p>
+                            </div>
+                            <div class="group cursor-default">
+                                <h4 class="font-bold text-slate-800 flex items-center gap-2 group-hover:text-indigo-600 transition">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                                    Scope Creep
+                                </h4>
+                                <p class="text-sm text-slate-600 ml-3.5 mt-1">Requesting "Full Access" when "Read Access" is sufficient increases the blast radius of a breach.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tool-config" class="bg-slate-900 rounded-3xl p-8 md:p-10 shadow-premium text-white relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+                        <h3 class="!text-white !mt-0">The Link to Tool-Config Vulnerabilities</h3>
+                        <p class="text-slate-300">API security concepts are the "what," and tool configuration is the "how." Vulnerabilities emerge during orchestration and integration:</p>
+                        
+                        <div class="grid grid-cols-1 gap-6 mt-8">
+                            <div class="flex gap-5">
+                                <div class="bg-indigo-600/20 p-3 rounded-xl h-fit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-indigo-300">CI/CD Pipelines</h5>
+                                    <p class="text-sm text-slate-400">Misconfiguring GitHub Actions to output secrets in logs or allowing unvetted PRs to access prod keys.</p>
+                                </div>
+                            </div>
+                            <div class="flex gap-5 border-t border-slate-800 pt-6">
+                                <div class="bg-teal-600/20 p-3 rounded-xl h-fit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h5 class="font-bold text-teal-300">API Gateways</h5>
+                                    <p class="text-sm text-slate-400">Leaving the default "Key Auth" plugin disabled or misconfigured to ignore "Header" requirements in Kong or Apigee.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-3xl p-8 md:p-10 shadow-premium border border-slate-100">
+                        <h3>Final Summary</h3>
+                        <p>API security is not a single feature but a layered defense strategy. Authentication identifies the user, Authorization restricts their actions, Rate Limiting ensures system availability, and protocols like OAuth allow for secure third-party delegation.</p>
+                        <p class="font-bold text-indigo-600 mt-4">
+                            For the intermediate learner, the shift from "How do I make this work?" to "How do I restrict this to the bare minimum?" is the key to securing the modern API ecosystem.
+                        </p>
+                    </div>
+                </section>
+            </article>
+        </div>
+
+        <!-- Completion Status Tracker -->
+        <div class="mt-20 flex flex-col items-center">
+            <div class="w-full h-2 bg-slate-200 rounded-full overflow-hidden max-w-md">
+                <div class="bg-teal-500 h-full w-full"></div>
+            </div>
+            <p class="mt-4 text-slate-500 text-sm font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-teal-500" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                Module 100% Complete
+            </p>
+        </div>
+    </main>
+
+    <script>
+        // Simple scroll spy for table of contents
+        window.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    const id = entry.target.getAttribute('id');
+                    const navLink = document.querySelector(`nav a[href="#${id}"]`);
+                    if (navLink) {
+                        if (entry.isIntersecting) {
+                            navLink.classList.add('text-indigo-600', 'translate-x-1');
+                            navLink.classList.remove('text-slate-500');
+                        } else {
+                            navLink.classList.remove('text-indigo-600', 'translate-x-1');
+                            navLink.classList.add('text-slate-500');
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            document.querySelectorAll('section[id]').forEach((section) => {
+                observer.observe(section);
+            });
+        });
+    </script>
+</body>
+</html>

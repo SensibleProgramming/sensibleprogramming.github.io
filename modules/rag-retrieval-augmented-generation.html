@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG - Professional EdTech Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 30px -10px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.03)',
+                        'hover': '0 20px 40px -15px rgba(0, 0, 0, 0.12), 0 8px 12px -4px rgba(0, 0, 0, 0.05)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .infographic-zoom {
+            transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .infographic-zoom:hover {
+            transform: scale(1.02);
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: #f1f5f9;
+        }
+        .sidebar-link.active {
+            color: #4f46e5;
+            border-left: 2px solid #4f46e5;
+            padding-left: 1rem;
+            font-weight: 600;
+        }
+        .sidebar-link {
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+            padding-left: 1rem;
+        }
+        .sidebar-link:hover {
+            color: #4f46e5;
+            border-left: 2px solid #e2e8f0;
+        }
+        /* Custom scrollbar for a premium feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="font-sans leading-relaxed text-slate-800">
+
+    <!-- Header / Hero Section -->
+    <header class="relative pt-12 pb-8 px-6 bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100">
+                    <span class="mr-2">Target Audience:</span>
+                    <span>Intermediate</span>
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-extrabold text-slate-900 tracking-tight leading-tight">
+                    RAG (Retrieval Augmented Generation)
+                </h1>
+                <p class="mt-4 text-lg text-slate-500 max-w-2xl">
+                    Master the industry-standard architecture for grounded AI: combining the reasoning power of LLMs with dynamic, authoritative knowledge bases.
+                </p>
+            </div>
+            <div class="hidden md:block">
+                <div class="flex items-center gap-4 text-sm font-medium text-slate-400">
+                    <span>Course Module: AI04</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span>
+                    <span>15 min read</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Visual Centerpiece -->
+    <section class="max-w-7xl mx-auto px-6 -mt-8 relative z-10">
+        <div class="bg-white rounded-2xl shadow-premium overflow-hidden border border-slate-200 p-2 md:p-4 group">
+            <div class="relative overflow-hidden rounded-xl bg-slate-50 aspect-video flex items-center justify-center">
+                <div class="infographic-zoom w-full h-full flex items-center justify-center p-4 md:p-8 cursor-zoom-in" onclick="toggleZoom(this)">
+                    <img src='https://opal.google/board/blobs/1fea0435-5d87-41a1-9865-687e9eaa0cc0' alt='RAG Infographic Summary' class="max-w-full max-h-full object-contain rounded-lg" />
+                </div>
+                <div class="absolute bottom-4 right-4 bg-slate-900/80 text-white px-3 py-1.5 rounded-lg text-xs backdrop-blur pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity">
+                    Click to Inspect Visual Details
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-6 py-16">
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Left: Main Content (70%) -->
+            <article class="lg:w-2/3 space-y-12">
+                
+                <!-- Overview -->
+                <section id="overview" class="scroll-mt-24">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm">01</span>
+                        Overview
+                    </h2>
+                    <div class="prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
+                        <p class="text-xl font-medium text-slate-700 leading-relaxed">
+                            Retrieval-Augmented Generation (RAG) is an architectural framework designed to optimize the output of Large Language Models (LLMs) by referencing an external, authoritative knowledge base before generating a response.
+                        </p>
+                        <p class="mt-4">
+                            While LLMs are trained on vast datasets, their knowledge is static and capped at a specific "cut-off" date. RAG resolves this by allowing the model to "look up" relevant information from specific documents, databases, or real-time feeds, ensuring that responses are grounded in factual, up-to-date, and domain-specific evidence.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Learning Points Card -->
+                <section id="learning-points" class="scroll-mt-24">
+                    <div class="bg-indigo-600 rounded-3xl p-8 md:p-10 text-white shadow-xl overflow-hidden relative">
+                        <div class="absolute top-0 right-0 p-8 opacity-10">
+                            <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2zm0-6h2v4h-2z"/></svg>
+                        </div>
+                        <h3 class="text-2xl font-display font-bold mb-8">Main Learning Points</h3>
+                        <div class="grid md:grid-cols-2 gap-6 relative z-10">
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white text-indigo-600 flex items-center justify-center text-xs font-bold">1</span>
+                                <p class="text-sm font-medium">Architecture: Understanding the retrieval vs generation stages.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white text-indigo-600 flex items-center justify-center text-xs font-bold">2</span>
+                                <p class="text-sm font-medium">Data Representation: Converting text into mathematical vectors.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white text-indigo-600 flex items-center justify-center text-xs font-bold">3</span>
+                                <p class="text-sm font-medium">Storage & Retrieval: The role of Vector Databases in semantic search.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-4 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20">
+                                <span class="flex-shrink-0 w-6 h-6 rounded-full bg-white text-indigo-600 flex items-center justify-center text-xs font-bold">4</span>
+                                <p class="text-sm font-medium">Prompt Augmentation: Techniques for merging context with queries.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Core Concepts -->
+                <section id="concepts" class="scroll-mt-24 space-y-12">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-2 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm">02</span>
+                        Detailed Concepts
+                    </h2>
+
+                    <!-- 1. Workflow -->
+                    <div class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm hover:shadow-premium transition-shadow">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4">1. The Core RAG Workflow</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-indigo-600">Ingestion (Offline)</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex gap-3">
+                                        <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></div>
+                                        <span class="text-sm text-slate-600"><strong>Loading:</strong> Extracting text from PDFs, Wikis, or SQL.</span>
+                                    </li>
+                                    <li class="flex gap-3">
+                                        <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></div>
+                                        <span class="text-sm text-slate-600"><strong>Chunking:</strong> Breaking text into smaller pieces (e.g., 500 tokens).</span>
+                                    </li>
+                                    <li class="flex gap-3">
+                                        <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-indigo-500 flex-shrink-0"></div>
+                                        <span class="text-sm text-slate-600"><strong>Embedding:</strong> Generating numerical vectors via models.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-sm font-bold uppercase tracking-widest text-teal-600">Inference (Online)</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex gap-3">
+                                        <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0"></div>
+                                        <span class="text-sm text-slate-600"><strong>Retrieval:</strong> Finding Top-K most similar chunks.</span>
+                                    </li>
+                                    <li class="flex gap-3">
+                                        <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0"></div>
+                                        <span class="text-sm text-slate-600"><strong>Augmentation:</strong> Context prepended to the query.</span>
+                                    </li>
+                                    <li class="flex gap-3">
+                                        <div class="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal-500 flex-shrink-0"></div>
+                                        <span class="text-sm text-slate-600"><strong>Generation:</strong> LLM produces a grounded response.</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Components -->
+                    <div class="space-y-6">
+                        <h3 class="text-xl font-bold text-slate-900">2. Embeddings & Vector Stores</h3>
+                        <div class="grid gap-4">
+                            <div class="p-6 rounded-xl border border-slate-200 bg-white shadow-sm">
+                                <span class="text-xs font-bold text-indigo-600 mb-2 block uppercase tracking-tighter">Vector Meaning</span>
+                                <p class="text-slate-600 italic">"Embeddings capture <strong>semantic meaning</strong>. For example, the vectors for 'king' and 'queen' will be mathematically closer than 'king' and 'apple.'"</p>
+                            </div>
+                            <div class="prose prose-slate prose-lg max-w-none text-slate-600">
+                                <p><strong>Vector Databases:</strong> Unlike traditional databases, these (Pinecone, FAISS, Milvus) index spatial coordinates. They use <strong>Approximate Nearest Neighbor (ANN)</strong> searches to scan millions of documents in milliseconds.</p>
+                                <p><strong>Retrieval Logic:</strong> Most common is <strong>Cosine Similarity</strong>, measuring the angle between vectors. High-end systems use <strong>Re-ranking</strong> where a secondary model sorts results to place the most vital context at the top.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3. Augmentation -->
+                    <div id="augmentation" class="scroll-mt-24 bg-slate-900 rounded-2xl p-8 text-slate-300">
+                        <h3 class="text-xl font-bold text-white mb-4">3. Context Injection Phase</h3>
+                        <p class="mb-6">This phase turns the LLM into a reasoning engine over provided reading material. A typical template looks like this:</p>
+                        <div class="bg-slate-800 rounded-lg p-5 font-mono text-sm border border-slate-700 text-indigo-300 leading-relaxed shadow-inner">
+                            <p class="text-slate-500 mb-2">// System Prompt</p>
+                            "Use the following pieces of retrieved context to answer the question. If you don't know, say you don't know.<br><br>
+                            <span class="text-white">Context: {retrieved_chunk_1}, {retrieved_chunk_2}</span><br>
+                            <span class="text-white">Question: {user_query}</span><br><br>
+                            Answer:"
+                        </div>
+                    </div>
+
+                    <!-- 4. Challenges -->
+                    <div id="challenges" class="scroll-mt-24">
+                        <h3 class="text-xl font-bold text-slate-900 mb-6">4. Challenges and Mitigations</h3>
+                        <div class="grid sm:grid-cols-2 gap-4">
+                            <div class="p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-200 transition-colors">
+                                <h5 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-amber-500" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"></path></svg>
+                                    Hallucination
+                                </h5>
+                                <p class="text-sm text-slate-600">Mitigated by "Chain of Verification" or strict system instructions to stick to the provided text.</p>
+                            </div>
+                            <div class="p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-200 transition-colors">
+                                <h5 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-indigo-500" fill="currentColor" viewBox="0 0 20 20"><path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path></svg>
+                                    Context Limits
+                                </h5>
+                                <p class="text-sm text-slate-600">Overlapping chunks and re-ranking ensure only vital data fits within the LLM's token window.</p>
+                            </div>
+                            <div class="p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-200 transition-colors">
+                                <h5 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path d="M4 2a1 1 0 00-1 1v12a1 1 0 001 1h12a1 1 0 001-1V3a1 1 0 00-1-1H4zm3 3h6v2H7V5zm0 4h6v2H7V9zm0 4h6v2H7v-2z"></path></svg>
+                                    Data Freshness
+                                </h5>
+                                <p class="text-sm text-slate-600">Avoid "Vector Staleness" by continuously syncing the vector store with your primary data sources.</p>
+                            </div>
+                            <div class="p-5 bg-white rounded-xl border border-slate-200 hover:border-indigo-200 transition-colors">
+                                <h5 class="font-bold text-slate-900 mb-2 flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-red-500" fill="currentColor" viewBox="0 0 20 20"><path d="M12.395 2.553a1 1 0 00-1.45 0c-.345.337-.614.732-.823 1.118-.23.426-.43.852-.622 1.258a43.238 43.238 0 00-1.213 2.803 2.227 2.227 0 00-1.889 1.478l-.348 1.045a1 1 0 00.329 1.155c.857.625 1.553 1.322 2.026 2.132.738 1.266.85 2.502.61 3.51a1 1 0 001.514.994c1.154-.703 2.157-1.455 3.056-2.344a1 1 0 00.17-.189c.738-.934 1.139-1.816 1.344-2.54a1 1 0 00-.338-1.048c-.644-.547-1.164-1.158-1.528-1.83-.341-.626-.501-1.272-.51-1.922a1 1 0 00-.176-.641c-.443-.635-.921-1.23-1.422-1.79z"></path></svg>
+                                    Noise
+                                </h5>
+                                <p class="text-sm text-slate-600">Irrelevant retrieval can confuse the model. Requires fine-tuning of similarity thresholds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RAG vs Alternatives -->
+                <section id="comparisons" class="scroll-mt-24">
+                    <h2 class="text-3xl font-display font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm">03</span>
+                        RAG vs. Alternatives
+                    </h2>
+                    <div class="pro-tip p-8 rounded-2xl mb-8">
+                        <h4 class="font-bold text-indigo-900 mb-2 uppercase text-xs tracking-widest">Key Metaphor</h4>
+                        <p class="text-indigo-800">
+                            <strong>Fine-Tuning</strong> is like an intensive exam prep where you memorize everything. <br>
+                            <strong>RAG</strong> is like an <strong>open-book exam</strong> where you look up answers in real-time.
+                        </p>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-slate-900">RAG vs. Simple Prompting</h4>
+                            <p class="text-slate-600 text-sm">Simple prompting is limited to what a human can manually paste. RAG unlocks millions of documents programmatically.</p>
+                        </div>
+                        <div class="space-y-4">
+                            <h4 class="font-bold text-slate-900">RAG vs. Fine-Tuning</h4>
+                            <p class="text-slate-600 text-sm">Fine-tuning is expensive and static. RAG is cost-effective, transparent (cites sources), and easily updatable.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Final Summary CTA -->
+                <section class="pt-8 border-t border-slate-200">
+                    <div class="bg-indigo-50 border border-indigo-100 rounded-3xl p-8 text-center">
+                        <h3 class="text-2xl font-bold text-indigo-900 mb-4">Module Complete</h3>
+                        <p class="text-indigo-700/80 mb-8 max-w-lg mx-auto">You've mastered the fundamentals of RAG. Ready to build your first grounded AI application?</p>
+                        <button class="px-8 py-3 bg-indigo-600 text-white rounded-full font-bold hover:bg-indigo-700 transition-all shadow-lg hover:shadow-indigo-200 hover:-translate-y-0.5">
+                            Next: Architecture Lab →
+                        </button>
+                    </div>
+                </section>
+
+            </article>
+
+            <!-- Right: Sidebar (30%) -->
+            <aside class="lg:w-1/3">
+                <div class="sticky top-12 space-y-8">
+                    
+                    <!-- Table of Contents -->
+                    <nav class="bg-white p-8 rounded-2xl border border-slate-200 shadow-sm">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-6">In this module</h4>
+                        <ul class="space-y-4 text-sm">
+                            <li><a href="#overview" class="sidebar-link active block">01. Overview</a></li>
+                            <li><a href="#learning-points" class="sidebar-link block">02. Main Highlights</a></li>
+                            <li><a href="#concepts" class="sidebar-link block">03. The Workflow</a></li>
+                            <li><a href="#augmentation" class="sidebar-link block">04. Context Injection</a></li>
+                            <li><a href="#challenges" class="sidebar-link block">05. Key Challenges</a></li>
+                            <li><a href="#comparisons" class="sidebar-link block">06. RAG vs Alternatives</a></li>
+                        </ul>
+                    </nav>
+
+                    <!-- Key Takeaways Card -->
+                    <div class="bg-slate-900 rounded-2xl p-8 text-white">
+                        <h4 class="text-xs font-bold uppercase tracking-widest text-slate-500 mb-6">Key Takeaways</h4>
+                        <ul class="space-y-6">
+                            <li class="flex gap-4">
+                                <div class="w-2 h-2 rounded-full bg-teal-400 mt-1.5 flex-shrink-0"></div>
+                                <p class="text-sm text-slate-300">Grounds LLMs in <strong>real-time</strong> data.</p>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-2 h-2 rounded-full bg-indigo-400 mt-1.5 flex-shrink-0"></div>
+                                <p class="text-sm text-slate-300">Uses <strong>Vector DBs</strong> for semantic lookup.</p>
+                            </li>
+                            <li class="flex gap-4">
+                                <div class="w-2 h-2 rounded-full bg-indigo-400 mt-1.5 flex-shrink-0"></div>
+                                <p class="text-sm text-slate-300">Scalable <strong>Open-Book</strong> approach.</p>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Interactive Status -->
+                    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-sm">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-500">PROGRESS</span>
+                            <span class="text-xs font-bold text-indigo-600">85%</span>
+                        </div>
+                        <div class="h-2 w-full bg-slate-100 rounded-full overflow-hidden">
+                            <div class="h-full bg-indigo-600 w-[85%] rounded-full"></div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Mobile Bottom Navigation (Floating) -->
+    <div class="lg:hidden fixed bottom-6 left-6 right-6 z-50">
+        <div class="bg-slate-900/90 backdrop-blur-md text-white rounded-full px-6 py-4 flex items-center justify-between shadow-2xl border border-white/10">
+            <span class="text-sm font-bold">RAG Module</span>
+            <div class="flex gap-4">
+                <button onclick="document.getElementById('overview').scrollIntoView()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7M5 14l7 7 7-7"></path></svg>
+                </button>
+                <button class="px-4 py-1 bg-indigo-600 rounded-full text-xs font-bold">Complete</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for interaction -->
+    <script>
+        function toggleZoom(el) {
+            const img = el.querySelector('img');
+            if (el.dataset.zoomed === 'true') {
+                el.style.transform = 'scale(1)';
+                el.dataset.zoomed = 'false';
+                el.style.zIndex = '1';
+                document.body.style.overflow = 'auto';
+            } else {
+                // This is a simple in-place zoom, 
+                // for a true lightbox one would clone to a fixed overlay
+                el.style.transform = 'scale(1.5)';
+                el.dataset.zoomed = 'true';
+                el.style.zIndex = '100';
+            }
+        }
+
+        // Intersection Observer for Sidebar Links
+        const observerOptions = {
+            root: null,
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    document.querySelectorAll('.sidebar-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+
+</body>
+</html>
+
