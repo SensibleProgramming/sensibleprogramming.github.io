@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neural Networking: A Premium EdTech Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            50: '#eef2ff',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .hero-gradient {
+            background: radial-gradient(circle at top right, #eef2ff 0%, #f8fafc 100%);
+        }
+        .prose h2 {
+            font-family: 'Outfit', sans-serif;
+            color: #1e293b;
+            font-weight: 800;
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+        .prose h3 {
+            font-family: 'Outfit', sans-serif;
+            color: #334155;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prose p {
+            margin-bottom: 1.5rem;
+            line-height: 1.75;
+            font-size: 1.1rem;
+        }
+        .sticky-sidebar {
+            position: sticky;
+            top: 2rem;
+        }
+        .zoom-container img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .zoom-container:hover img {
+            transform: scale(1.02);
+        }
+        .concept-card {
+            transition: all 0.3s ease;
+        }
+        .concept-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .toc-link.active {
+            color: #4f46e5;
+            border-left-color: #4f46e5;
+            background-color: #f5f3ff;
+        }
+    </style>
+</head>
+<body class="font-sans selection:bg-indigo-100 selection:text-indigo-900">
+
+    <!-- Hero Header -->
+    <header class="hero-gradient pt-16 pb-12 px-6 border-b border-slate-200">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div>
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold uppercase tracking-wider mb-4 border border-indigo-100">
+                        <span class="w-2 h-2 rounded-full bg-indigo-600 animate-pulse"></span>
+                        Module 01: Core Architecture
+                    </div>
+                    <h1 class="text-5xl md:text-6xl font-display font-extrabold text-slate-800 leading-tight">
+                        Neural Networking
+                    </h1>
+                    <p class="mt-4 text-xl text-slate-500 max-w-2xl font-light">
+                        Demystifying the complex architecture behind modern Artificial Intelligence through intuitive analogies and structural breakdowns.
+                    </p>
+                </div>
+                <div class="flex flex-col items-start md:items-end gap-3">
+                    <span class="px-4 py-2 bg-white rounded-xl shadow-sm border border-slate-200 text-slate-600 font-medium text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                        Target Audience: <span class="text-slate-900 font-bold">Beginner</span>
+                    </span>
+                    <span class="px-4 py-2 bg-indigo-600 rounded-xl shadow-md text-white font-medium text-sm flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Est. Reading: 12 mins
+                    </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 py-12">
+        <!-- Visual Centerpiece -->
+        <section class="mb-20">
+            <div class="relative group zoom-container overflow-hidden rounded-3xl bg-slate-900 shadow-2xl border-4 border-white">
+                <div class="absolute inset-0 bg-indigo-900/10 group-hover:bg-transparent transition-colors duration-500 z-10"></div>
+                <div class="relative z-0">
+                    <img src='https://opal.google/board/blobs/f07077d0-74ac-4a09-bbbe-ab96433f62b8' alt='Neural Network Infographic Summary' class="w-full h-auto object-cover opacity-95 group-hover:opacity-100 transition-opacity" />
+                </div>
+                <div class="absolute bottom-6 right-6 z-20 flex gap-2">
+                    <button class="bg-white/90 backdrop-blur px-4 py-2 rounded-full text-slate-800 text-sm font-bold shadow-lg flex items-center gap-2 hover:bg-white transition-all">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" /></svg>
+                        Hover to Inspect
+                    </button>
+                </div>
+            </div>
+            <p class="mt-4 text-center text-slate-400 text-sm italic italic">Figure 1.0: Conceptual mapping of data flow through neural layers.</p>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            <!-- Main Content Area -->
+            <div class="lg:col-span-8">
+                <article class="prose max-w-none text-slate-600">
+                    
+                    <section id="overview" class="mb-16">
+                        <h2 class="text-3xl border-b border-slate-200 pb-4 mb-8">1. Overview</h2>
+                        <div class="bg-indigo-50 border-l-4 border-indigo-600 p-8 rounded-r-2xl mb-8">
+                            <p class="text-indigo-900 font-medium text-lg leading-relaxed mb-0">
+                                Welcome to the world of Neural Networks. Traditionally, computers only do exactly what a human programs them to do. Neural networks represent a shift in this paradigm: they allow computers to learn from examples and recognize patterns on their own.
+                            </p>
+                        </div>
+                        <p>
+                            In this lesson, we will explore the foundational technology powering today's most exciting artificial intelligence, from the voice assistants on our phones to the systems that allow cars to drive themselves. By the end of this lesson, the complex terminology surrounding artificial intelligence will be demystified, and you will understand exactly how machines can learn from data.
+                        </p>
+                    </section>
+
+                    <section id="learning-points" class="mb-16">
+                        <h2 class="text-3xl border-b border-slate-200 pb-4 mb-8">2. Main Learning Points</h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 text-indigo-600 font-bold">1</div>
+                                <p class="text-sm font-semibold text-slate-700">Defining neural networks and their biological inspiration.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 text-indigo-600 font-bold">2</div>
+                                <p class="text-sm font-semibold text-slate-700">Understanding Neurons, Layers, Weights, and Biases.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 text-indigo-600 font-bold">3</div>
+                                <p class="text-sm font-semibold text-slate-700">Tracing the journey: Input, Activation, and Output.</p>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-slate-200 shadow-sm">
+                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center flex-shrink-0 text-indigo-600 font-bold">4</div>
+                                <p class="text-sm font-semibold text-slate-700">Correcting mistakes using Loss Functions and Backpropagation.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="concepts" class="mb-16 space-y-12">
+                        <h2 class="text-3xl border-b border-slate-200 pb-4 mb-8">3. Detailed Concept Study</h2>
+                        
+                        <div class="concept-card bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                            <h3 class="mt-0">What is a Neural Network?</h3>
+                            <p>A neural network is a type of computer program designed to recognize patterns in data. Instead of following a strict set of rules written by a programmer, it learns from experience. If you want a traditional computer program to sort apples from oranges, you have to write rules like <span class="bg-slate-100 px-2 py-0.5 rounded font-mono text-sm">if it is orange and bumpy, it is an orange.</span></p>
+                            <div class="mt-4 p-4 bg-slate-50 rounded-xl border-l-4 border-slate-300">
+                                <p class="text-sm italic mb-0">A neural network just needs to be shown thousands of pictures of apples and oranges until it figures out the difference on its own.</p>
+                            </div>
+                        </div>
+
+                        <div class="concept-card bg-white p-8 rounded-3xl border border-slate-100 shadow-sm">
+                            <h3 class="mt-0">Biological Mimicry</h3>
+                            <p>When you were a child learning to identify a dog, your parents didn't give you a biological checklist of canine features. They simply pointed to dogs and said, "Dog." Your brain made connections between the visual input (fur, four legs, tail) and the concept of a dog.</p>
+                            <p>The human brain does this using billions of interconnected cells called neurons. An artificial neural network mimics this biology mathematically. It uses artificial "neurons" connected in a web. As the network is exposed to more data, the mathematical connections grow stronger or weaker.</p>
+                        </div>
+
+                        <div class="space-y-6">
+                            <h3 class="text-slate-800 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                                </svg>
+                                The Core Components
+                            </h3>
+                            
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-2">Neurons (Nodes)</h4>
+                                    <p class="text-sm">The individual workers. They receive info, perform a calculation, and pass it on.</p>
+                                </div>
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-2">Layers</h4>
+                                    <p class="text-sm">Organization into Input (raw data), Hidden (thinking), and Output (decision).</p>
+                                </div>
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-2">Weights</h4>
+                                    <p class="text-sm">Importance markers. Determines which connections matter most for the result.</p>
+                                </div>
+                                <div class="p-6 rounded-2xl bg-slate-50 border border-slate-200">
+                                    <h4 class="font-bold text-slate-800 mb-2">Biases</h4>
+                                    <p class="text-sm">The threshold or "anchor" that decides if a signal is strong enough to pass.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900 rounded-3xl p-8 text-slate-100 shadow-xl">
+                            <h3 class="text-white mt-0">The Training Process</h3>
+                            <div class="space-y-8 mt-6">
+                                <div class="relative pl-10 border-l-2 border-indigo-500/30">
+                                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-indigo-500 shadow-[0_0_15px_rgba(79,70,229,0.5)]"></div>
+                                    <h4 class="text-indigo-400 font-bold mb-2">The Loss Function</h4>
+                                    <p class="text-slate-400 text-sm leading-relaxed">The network's grading system. It calculates exactly how wrong a guess was. Think of a blindfolded person throwing darts; the Loss Function is the coach measuring distance from the bullseye.</p>
+                                </div>
+                                <div class="relative pl-10 border-l-2 border-indigo-500/30">
+                                    <div class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-indigo-500 shadow-[0_0_15px_rgba(79,70,229,0.5)]"></div>
+                                    <h4 class="text-indigo-400 font-bold mb-2">Backpropagation</h4>
+                                    <p class="text-slate-400 text-sm leading-relaxed">The self-correction phase. The error grade is sent backwards, tweaking weights and biases to reduce future mistakes. This loop repeats millions of times.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="summary" class="mb-16">
+                        <h2 class="text-3xl border-b border-slate-200 pb-4 mb-8">4. Final Summary</h2>
+                        <div class="bg-gradient-to-br from-indigo-600 to-indigo-800 p-10 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-8 opacity-10">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-32 w-32" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                </svg>
+                            </div>
+                            <p class="text-indigo-100 text-lg leading-relaxed relative z-10 font-medium">
+                                A neural network is a powerful machine learning model inspired by the architecture of the human brain. Instead of following rigid rules, it learns from data. Information enters the Input Layer, is processed by mathematical Neurons across various Hidden Layers, and finally produces a result at the Output Layer. Through continuous trial, error, and adjustment via Backpropagation, these networks gain the ability to recognize complex patterns, giving life to modern AI.
+                            </p>
+                        </div>
+                    </section>
+
+                </article>
+
+                <!-- Module Complete Footer -->
+                <div class="mt-12 p-8 border-t border-slate-200 flex flex-col items-center gap-6">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center text-white shadow-lg shadow-teal-500/30">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="text-slate-900 font-bold text-xl leading-tight">Module Complete</p>
+                            <p class="text-slate-500 text-sm">You have mastered the foundations of Neural Networking.</p>
+                        </div>
+                    </div>
+                    <button class="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all transform hover:scale-105 shadow-xl shadow-indigo-600/20">
+                        Start Next Module: Deep Learning
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <aside class="lg:col-span-4">
+                <div class="sticky-sidebar space-y-6">
+                    <!-- TOC -->
+                    <div class="glass-card p-6 rounded-3xl shadow-sm">
+                        <h4 class="text-slate-900 font-display font-bold mb-4 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" /></svg>
+                            Lesson Chapters
+                        </h4>
+                        <nav class="space-y-1">
+                            <a href="#overview" class="toc-link block px-4 py-3 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all font-medium border-l-2 border-transparent">1. Overview</a>
+                            <a href="#learning-points" class="toc-link block px-4 py-3 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all font-medium border-l-2 border-transparent">2. Learning Points</a>
+                            <a href="#concepts" class="toc-link block px-4 py-3 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all font-medium border-l-2 border-transparent">3. Detailed Concepts</a>
+                            <a href="#summary" class="toc-link block px-4 py-3 rounded-xl text-slate-500 hover:bg-indigo-50 hover:text-indigo-600 transition-all font-medium border-l-2 border-transparent">4. Final Summary</a>
+                        </nav>
+                    </div>
+
+                    <!-- Key Takeaways -->
+                    <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-600/5 rounded-bl-full"></div>
+                        <h4 class="text-slate-900 font-display font-bold mb-4 uppercase text-xs tracking-widest text-indigo-600">Quick Reference</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3">
+                                <div class="w-2 h-2 rounded-full bg-teal-500 mt-2"></div>
+                                <span class="text-sm font-medium text-slate-700">Networks learn through patterns, not hard-coded rules.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-2 h-2 rounded-full bg-teal-500 mt-2"></div>
+                                <span class="text-sm font-medium text-slate-700">Weights determine importance; Biases set thresholds.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-2 h-2 rounded-full bg-teal-500 mt-2"></div>
+                                <span class="text-sm font-medium text-slate-700">Loss function measures error.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <div class="w-2 h-2 rounded-full bg-teal-500 mt-2"></div>
+                                <span class="text-sm font-medium text-slate-700">Backpropagation fixes the network's mistakes.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Pro Tip -->
+                    <div class="bg-teal-50 p-6 rounded-3xl border border-teal-100">
+                        <div class="flex items-center gap-3 mb-3">
+                            <span class="p-2 bg-teal-500 rounded-lg text-white">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor"><path d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.477.859h4z" /></svg>
+                            </span>
+                            <span class="font-bold text-teal-800 text-sm">Pro Tip</span>
+                        </div>
+                        <p class="text-teal-900/80 text-sm leading-relaxed">
+                            Think of <strong>Deep Learning</strong> as simply a neural network with a very high number of Hidden Layers. The "deeper" the network, the more complex patterns it can recognize.
+                        </p>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Floating Mobile Nav (visible only on small screens) -->
+    <div class="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50 w-[90%]">
+        <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-700 p-2 rounded-2xl flex justify-around items-center shadow-2xl">
+            <a href="#overview" class="p-3 text-slate-400 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            </a>
+            <a href="#concepts" class="p-3 text-slate-400 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+            </a>
+            <a href="#summary" class="p-3 text-slate-400 hover:text-white transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Smooth Active Link Tracking
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.toc-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced A/B Testing for AI Models | Learning Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .infographic-zoom {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .infographic-container:hover .infographic-zoom {
+            transform: scale(1.02);
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: linear-gradient(to right, #eef2ff, #ffffff);
+        }
+        .chapter-card {
+            transition: all 0.3s ease;
+        }
+        .chapter-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            border-left-color: #4f46e5;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Header Section -->
+    <header class="relative bg-slate-900 pt-16 pb-32 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 -left-1/4 w-96 h-96 bg-indigo-500 rounded-full blur-[120px]"></div>
+            <div class="absolute bottom-0 -right-1/4 w-96 h-96 bg-teal-500 rounded-full blur-[120px]"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="flex items-center space-x-3 mb-6">
+                <span class="px-3 py-1 text-xs font-bold tracking-widest uppercase bg-indigo-600 text-white rounded-full">
+                    Advanced Module
+                </span>
+                <span class="text-slate-400 text-sm font-medium">MLOps Certification Track</span>
+            </div>
+            
+            <h1 class="text-4xl md:text-6xl font-display font-extrabold text-white mb-6 leading-tight max-w-4xl">
+                A/B Testing for AI Models — <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-teal-400">Testing Variants in Production</span>
+            </h1>
+            
+            <p class="text-xl text-slate-300 max-w-2xl leading-relaxed">
+                Master the architectural frameworks and statistical rigor required to validate stochastic AI systems in live business environments.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 -mt-20 relative z-20 pb-20">
+        
+        <!-- Visual Centerpiece -->
+        <section class="mb-16">
+            <div class="infographic-container relative group overflow-hidden rounded-2xl shadow-2xl glass-card">
+                <div class="p-2 md:p-4">
+                    <div class="relative overflow-hidden rounded-xl bg-slate-100 aspect-video md:aspect-auto">
+                        <div class="infographic-zoom w-full h-full flex items-center justify-center">
+                            <!-- Provided Media -->
+                            <img src='https://opal.google/board/blobs/4622ed96-1ec1-4c00-8482-ae3364687599' alt='A/B Testing for AI Models Infographic Summary' class="max-w-full h-auto object-contain mx-auto shadow-sm" />
+                        </div>
+                        <div class="absolute bottom-4 right-4 bg-slate-900/80 backdrop-blur-md text-white px-4 py-2 rounded-lg text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                            </svg>
+                            Hover to Inspect Framework
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+            
+            <!-- Left Column: Detailed Content -->
+            <article class="lg:col-span-8 space-y-12">
+                
+                <!-- Overview Section -->
+                <section id="overview" class="chapter-card glass-card rounded-2xl p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">01</div>
+                        <h2 class="text-3xl font-display font-bold text-slate-800">Overview</h2>
+                    </div>
+                    <div class="prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed space-y-6">
+                        <p>
+                            In a mature Machine Learning Operations (MLOps) lifecycle, offline evaluation using holdout sets is a necessary but insufficient step for validating model efficacy. <strong>A/B testing serves as the critical bridge</strong> between offline proxy metrics and online business value, acting as the ultimate arbiter of model performance in production.
+                        </p>
+                        <p>
+                            Testing AI models presents unique challenges compared to traditional software testing. While traditional software is deterministic, AI systems are inherently stochastic and highly sensitive to non-stationary environments (concept drift and covariate shift). Furthermore, ML deployments are subject to complex feedback loops and delayed reward signals, making the isolation of treatment effects significantly more complex than standard UI/UX testing.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Learning Points Section -->
+                <section id="learning-points" class="chapter-card glass-card rounded-2xl p-8 md:p-12">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-10 h-10 rounded-lg bg-teal-100 flex items-center justify-center text-teal-600 font-bold">02</div>
+                        <h2 class="text-3xl font-display font-bold text-slate-800">Main Learning Points</h2>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="p-5 rounded-xl border border-slate-200 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-slate-800 mb-2">Infrastructure & Traffic Routing</h4>
+                            <p class="text-sm text-slate-600">Architecting resilient deployment pipelines using Shadow, Canary, and A/B configurations for model serving.</p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-slate-800 mb-2">Composite Metric Frameworks</h4>
+                            <p class="text-sm text-slate-600">Reconciling offline predictive metrics with online behavioral and business KPIs.</p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-slate-800 mb-2">Statistical Rigor</h4>
+                            <p class="text-sm text-slate-600">Applying advanced power analysis, variance reduction (CUPED), and sequential testing.</p>
+                        </div>
+                        <div class="p-5 rounded-xl border border-slate-200 hover:border-indigo-300 transition-colors">
+                            <h4 class="font-bold text-slate-800 mb-2">Evaluation Paradigms</h4>
+                            <p class="text-sm text-slate-600">Implementing Interleaving and Multi-Armed Bandits (MAB) to optimize exploration-exploitation.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Detailed Concepts -->
+                <section id="infrastructure" class="space-y-12">
+                    <div class="chapter-card glass-card rounded-2xl p-8 md:p-12">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-10 h-10 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold shadow-lg">03</div>
+                            <h2 class="text-3xl font-display font-bold text-slate-800">Deep Dive: Core Concepts</h2>
+                        </div>
+
+                        <div class="space-y-12">
+                            <!-- 3.1 Infrastructure -->
+                            <div id="routing">
+                                <h3 class="text-2xl font-display font-bold text-slate-800 mb-4">3.1 Infrastructure & Routing</h3>
+                                <p class="text-slate-600 mb-6">Moving a model from a notebook to production requires staggered deployment strategies to mitigate risk.</p>
+                                
+                                <div class="grid grid-cols-1 gap-4">
+                                    <div class="p-6 rounded-xl bg-white border border-slate-100 shadow-sm">
+                                        <span class="text-xs font-bold text-indigo-600 tracking-widest uppercase">Technique</span>
+                                        <h4 class="text-xl font-bold text-slate-800 mt-1 mb-2">Shadow Deployments (Dark Launching)</h4>
+                                        <p class="text-slate-600">The challenger model receives live production traffic asynchronously. Its predictions are logged but not served. This validates system health without business risk.</p>
+                                    </div>
+                                    <div class="p-6 rounded-xl bg-white border border-slate-100 shadow-sm">
+                                        <span class="text-xs font-bold text-indigo-600 tracking-widest uppercase">Technique</span>
+                                        <h4 class="text-xl font-bold text-slate-800 mt-1 mb-2">Canary Releases</h4>
+                                        <p class="text-slate-600">A small subset of traffic (e.g., 1-5%) is routed to the challenger. This acts as a "blast-radius" limitation strategy before committing to a full A/B test.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3.2 Metric Design -->
+                            <div id="metrics" class="pro-tip p-8 rounded-r-xl">
+                                <h3 class="text-2xl font-display font-bold text-slate-800 mb-4">3.2 Metric Design: The Proxy Metric Trap</h3>
+                                <div class="space-y-4 text-slate-600">
+                                    <p>A critical failure point in ML experimentation is metric misalignment.</p>
+                                    <ul class="list-disc pl-5 space-y-2">
+                                        <li><strong>Model vs. Business Metrics:</strong> Offline metrics (F1-score, AUC-ROC) evaluate mathematical power. Online KPIs (CTR, Conversion Rate, LTV) measure economic impact.</li>
+                                        <li><strong>The Trap:</strong> Optimizing strictly for a model metric can degrade business value. Example: Clickbait recommendation vs. long-term retention.</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- 3.3 Statistical Rigor -->
+                            <div id="rigor">
+                                <h3 class="text-2xl font-display font-bold text-slate-800 mb-6">3.3 Statistical Rigor in Live Environments</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div class="p-6 rounded-xl bg-slate-900 text-white">
+                                        <h4 class="text-lg font-bold text-indigo-400 mb-2">CUPED</h4>
+                                        <p class="text-slate-300 text-sm">Controlled Experiments Using Pre-Experiment Data utilizing historical user data to reduce metric variance, significantly shortening test duration.</p>
+                                    </div>
+                                    <div class="p-6 rounded-xl bg-slate-900 text-white">
+                                        <h4 class="text-lg font-bold text-indigo-400 mb-2">Sequential Testing</h4>
+                                        <p class="text-slate-300 text-sm">Use Sequential Probability Ratio Tests (mSPRT) to allow for early stopping without inflating false positive rates from "peeking."</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3.4 Advanced Techniques -->
+                            <div id="advanced" class="bg-indigo-50 p-8 rounded-2xl border border-indigo-100">
+                                <h3 class="text-2xl font-display font-bold text-indigo-900 mb-4">3.4 Advanced Evaluation Techniques</h3>
+                                <div class="space-y-6">
+                                    <div class="flex gap-4">
+                                        <div class="hidden sm:block mt-1">
+                                            <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800">Interleaving</h4>
+                                            <p class="text-slate-600">Combines outputs of both models into a single list. Can detect a winner with 10x-100x fewer samples than traditional A/B testing.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div class="hidden sm:block mt-1">
+                                            <div class="w-8 h-8 rounded-full bg-teal-600 flex items-center justify-center text-white">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-slate-800">Multi-Armed Bandits (MAB)</h4>
+                                            <p class="text-slate-600">Exploration vs. exploitation problem. Dynamically re-allocates traffic to the winning model in real-time to minimize opportunity cost.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 3.5 Guardrails -->
+                            <div id="guardrails">
+                                <h3 class="text-2xl font-display font-bold text-slate-800 mb-4">3.5 Guardrail Metrics & Detection</h3>
+                                <div class="bg-white border border-slate-200 rounded-xl overflow-hidden shadow-sm">
+                                    <div class="bg-slate-50 border-bottom border-slate-200 px-6 py-4 font-bold text-slate-700">Safety Implementation</div>
+                                    <div class="p-6 space-y-4">
+                                        <p class="text-slate-600 italic">"AI models can succeed at their primary KPI while causing systemic damage elsewhere."</p>
+                                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div>
+                                                <h5 class="font-bold text-slate-800 mb-1">Operational Boundaries</h5>
+                                                <p class="text-sm text-slate-500">P99 latency, unsubscribe rates, and fairness constraints.</p>
+                                            </div>
+                                            <div>
+                                                <h5 class="font-bold text-slate-800 mb-1">Circuit Breakers</h5>
+                                                <p class="text-sm text-slate-500">Real-time monitoring of distribution shifts (e.g., KL divergence).</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Final Summary -->
+                <section id="summary" class="bg-gradient-to-br from-indigo-900 to-slate-900 rounded-2xl p-8 md:p-12 text-white shadow-xl">
+                    <h2 class="text-3xl font-display font-bold mb-6">Final Summary</h2>
+                    <p class="text-indigo-100 text-lg leading-relaxed mb-8">
+                        A robust AI experimentation culture acknowledges that offline validation is merely a prerequisite. Success requires a standardized MLOps pipeline that automatically graduates models from Shadow to Canary to A/B deployment. By aligning offline proxies with business KPIs, utilizing variance reduction, and enforcing rigorous guardrails, ML teams can safely measure the true causal impact of their models and drive iterative improvement.
+                    </p>
+                    <div class="flex flex-col sm:flex-row items-center gap-6 p-6 bg-white/10 rounded-xl border border-white/10">
+                        <div class="flex-1">
+                            <div class="text-sm font-bold text-indigo-300 uppercase tracking-widest mb-1">Module Status</div>
+                            <div class="text-xl font-bold">Training Complete</div>
+                        </div>
+                        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-full sm:w-auto px-8 py-4 bg-indigo-500 hover:bg-indigo-400 text-white font-bold rounded-xl transition-all shadow-lg shadow-indigo-500/25">
+                            Return to Top
+                        </button>
+                    </div>
+                </section>
+
+            </article>
+
+            <!-- Right Column: Sticky Sidebar -->
+            <aside class="lg:col-span-4">
+                <div class="sticky top-8 space-y-6">
+                    
+                    <!-- Table of Contents -->
+                    <nav class="glass-card rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Module Content</h4>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#overview" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Overview</a>
+                            </li>
+                            <li>
+                                <a href="#learning-points" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Learning Points</a>
+                            </li>
+                            <li>
+                                <a href="#routing" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Deployment & Routing</a>
+                            </li>
+                            <li>
+                                <a href="#metrics" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Metric Design Trap</a>
+                            </li>
+                            <li>
+                                <a href="#rigor" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Statistical Rigor</a>
+                            </li>
+                            <li>
+                                <a href="#advanced" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Advanced Techniques</a>
+                            </li>
+                            <li>
+                                <a href="#guardrails" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium">Guardrails & Safety</a>
+                            </li>
+                            <li>
+                                <a href="#summary" class="nav-link block pl-4 border-l-2 border-slate-200 text-slate-600 hover:text-indigo-600 hover:border-indigo-600 transition-all text-sm font-medium font-bold">Conclusion</a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Key Takeaways Sidebar Widget -->
+                    <div class="bg-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
+                        <h4 class="text-sm font-bold uppercase tracking-widest mb-4 opacity-80">Quick Reference</h4>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <p class="text-sm font-medium">Offline metrics &ne; Online KPIs</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <p class="text-sm font-medium">Use CUPED for variance reduction</p>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-300 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                <p class="text-sm font-medium">MAB reduces test opportunity cost</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Bottom Navigation (Mobile Only) -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-t border-slate-200 px-6 py-4 flex justify-around items-center">
+        <a href="#overview" class="flex flex-col items-center gap-1 text-indigo-600">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" /></svg>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Start</span>
+        </a>
+        <a href="#rigor" class="flex flex-col items-center gap-1 text-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Deep Dive</span>
+        </a>
+        <a href="#summary" class="flex flex-col items-center gap-1 text-slate-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+            <span class="text-[10px] font-bold uppercase tracking-tighter">Finish</span>
+        </a>
+    </div>
+
+    <script>
+        // Simple active state for navigation
+        window.addEventListener('scroll', () => {
+            const sections = ['overview', 'learning-points', 'routing', 'metrics', 'rigor', 'advanced', 'guardrails', 'summary'];
+            let current = '';
+
+            sections.forEach((section) => {
+                const element = document.getElementById(section);
+                if (element) {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top <= 150) {
+                        current = section;
+                    }
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach((link) => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth reveal animations for cards
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('opacity-100', 'translate-y-0');
+                    entry.target.classList.remove('opacity-0', 'translate-y-8');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.chapter-card').forEach(card => {
+            card.classList.add('transform', 'transition-all', 'duration-700', 'opacity-0', 'translate-y-8');
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>

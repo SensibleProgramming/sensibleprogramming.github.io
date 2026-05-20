@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Privacy & Compliance | Educational Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#1e293b',
+                            indigo: '#4f46e5',
+                            teal: '#0d9488',
+                            slate: '#f8fafc',
+                            border: '#e2e8f0'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                        'hover-lift': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -6px rgba(0, 0, 0, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
+        .section-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: linear-gradient(to right, #eef2ff, transparent);
+        }
+
+        .zoom-container {
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: zoom-in;
+        }
+
+        .zoom-container img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .zoom-container:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Sticky Nav Adjustment */
+        .sticky-nav {
+            top: 2rem;
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Hero Header -->
+    <header class="relative pt-16 pb-24 px-6 overflow-hidden bg-brand-navy text-white">
+        <!-- Abstract Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 rounded-full bg-brand-indigo blur-3xl"></div>
+            <div class="absolute top-1/2 -right-24 w-64 h-64 rounded-full bg-brand-teal blur-3xl"></div>
+        </div>
+
+        <div class="max-w-6xl mx-auto relative z-10 text-center">
+            <span class="inline-block py-1 px-4 rounded-full bg-brand-indigo/20 border border-brand-indigo/30 text-brand-indigo text-sm font-semibold mb-6 tracking-wide uppercase">
+                Learning Module
+            </span>
+            <h1 class="font-display text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-tight">
+                Data Privacy & Compliance
+            </h1>
+            <p class="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">
+                Mastering GDPR, PII protection, and ethical data handling for the modern digital era.
+            </p>
+            
+            <div class="mt-8 flex items-center justify-center gap-4">
+                <span class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                    Target Audience: <span class="text-white font-medium">Beginner</span>
+                </span>
+                <span class="flex items-center gap-2 px-4 py-2 bg-white/5 rounded-lg border border-white/10 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-brand-teal" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Estimated: <span class="text-white font-medium">15 mins</span>
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-6 -mt-12 relative z-20 pb-20">
+        
+        <!-- Visual Centerpiece (Infographic) -->
+        <section class="mb-16 fade-in">
+            <div class="glass-card p-4 rounded-2xl shadow-premium">
+                <div class="zoom-container group relative">
+                    <div class="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/5 transition-colors duration-300 z-10 pointer-events-none"></div>
+                    <div class="bg-slate-100 flex items-center justify-center min-h-[400px]">
+                        <!-- Render Infographic -->
+                        <img src='https://opal.google/board/blobs/405a80a9-8cf8-4f51-b7d6-2fb6123f548a' alt='Data Privacy Infographic Summary' class="w-full h-auto object-contain block mx-auto max-h-[600px] shadow-sm rounded-lg" />
+                    </div>
+                    <div class="absolute bottom-4 right-4 z-20 bg-white/90 px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 shadow-sm border border-slate-200">
+                        Hover to Inspect Details
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two Column Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-10 gap-12">
+            
+            <!-- Sidebar (Navigation & Takeaways) - Desktop 3/10 -->
+            <aside class="lg:col-span-3 order-last lg:order-first">
+                <div class="sticky sticky-nav space-y-8">
+                    
+                    <!-- Table of Contents -->
+                    <nav class="bg-white rounded-2xl p-8 border border-brand-border shadow-sm">
+                        <h4 class="font-display font-bold text-brand-navy mb-6 flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-brand-indigo" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h7" />
+                            </svg>
+                            Curriculum
+                        </h4>
+                        <ul class="space-y-4">
+                            <li>
+                                <a href="#overview" class="group flex items-center gap-3 text-sm font-medium text-slate-500 hover:text-brand-indigo transition-colors">
+                                    <span class="w-6 h-6 rounded flex items-center justify-center bg-slate-100 group-hover:bg-brand-indigo/10 group-hover:text-brand-indigo text-xs">1</span>
+                                    Overview
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#learning-points" class="group flex items-center gap-3 text-sm font-medium text-slate-500 hover:text-brand-indigo transition-colors">
+                                    <span class="w-6 h-6 rounded flex items-center justify-center bg-slate-100 group-hover:bg-brand-indigo/10 group-hover:text-brand-indigo text-xs">2</span>
+                                    Core Learning Points
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#pii-protection" class="group flex items-center gap-3 text-sm font-medium text-slate-500 hover:text-brand-indigo transition-colors">
+                                    <span class="w-6 h-6 rounded flex items-center justify-center bg-slate-100 group-hover:bg-brand-indigo/10 group-hover:text-brand-indigo text-xs">3</span>
+                                    Understanding PII
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#data-lifecycle" class="group flex items-center gap-3 text-sm font-medium text-slate-500 hover:text-brand-indigo transition-colors">
+                                    <span class="w-6 h-6 rounded flex items-center justify-center bg-slate-100 group-hover:bg-brand-indigo/10 group-hover:text-brand-indigo text-xs">4</span>
+                                    Data Handling Lifecycle
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#gdpr-framework" class="group flex items-center gap-3 text-sm font-medium text-slate-500 hover:text-brand-indigo transition-colors">
+                                    <span class="w-6 h-6 rounded flex items-center justify-center bg-slate-100 group-hover:bg-brand-indigo/10 group-hover:text-brand-indigo text-xs">5</span>
+                                    GDPR Framework
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Sticky Callout -->
+                    <div class="bg-brand-navy rounded-2xl p-8 text-white shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-8 -bottom-8 w-24 h-24 bg-brand-teal/20 rounded-full blur-2xl"></div>
+                        <h4 class="font-display font-bold text-lg mb-4">Privacy Manifesto</h4>
+                        <p class="text-slate-300 text-sm leading-relaxed italic">
+                            "If you don't need it, don't collect it. If you collect it, protect it. Once done, delete it."
+                        </p>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Detailed Content - Desktop 7/10 -->
+            <div class="lg:col-span-7 space-y-12">
+                
+                <!-- Section 1: Overview -->
+                <section id="overview" class="section-card bg-white rounded-2xl p-8 md:p-12 border border-brand-border shadow-sm">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="p-3 bg-brand-indigo/10 rounded-xl text-brand-indigo">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <h2 class="text-2xl md:text-3xl font-display font-bold text-brand-navy">Module Overview</h2>
+                    </div>
+                    <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed text-lg">
+                        <p>In the modern digital landscape, data is one of the most valuable assets a company or individual can possess. However, with the rise of data collection comes a significant responsibility to protect that information from misuse, theft, or loss.</p>
+                        <p class="mt-4">This lesson introduces the fundamental concepts of <strong>data privacy and compliance</strong>. The goal is to provide beginners with the knowledge to identify sensitive information, understand ethical data handling, and recognize the legal frameworks, like GDPR, that govern these practices globally.</p>
+                    </div>
+                </section>
+
+                <!-- Section 2: Learning Points -->
+                <section id="learning-points" class="section-card bg-white rounded-2xl p-8 md:p-12 border border-brand-border shadow-sm">
+                    <h2 class="text-2xl font-display font-bold text-brand-navy mb-8">Main Learning Points</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="flex items-start gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-brand-teal"></div>
+                            <p class="text-slate-700 font-medium">Identifying Personally Identifiable Information (PII).</p>
+                        </div>
+                        <div class="flex items-start gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-brand-teal"></div>
+                            <p class="text-slate-700 font-medium">The 4-stage lifecycle of ethical data handling.</p>
+                        </div>
+                        <div class="flex items-start gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-brand-teal"></div>
+                            <p class="text-slate-700 font-medium">Objectives and scope of the GDPR.</p>
+                        </div>
+                        <div class="flex items-start gap-4 p-5 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-brand-teal"></div>
+                            <p class="text-slate-700 font-medium">Best practices for daily data security tasks.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: PII Deep Dive -->
+                <section id="pii-protection" class="section-card bg-white rounded-2xl p-8 md:p-12 border border-brand-border shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-display font-bold text-brand-navy mb-6">What is PII (Personally Identifiable Information)?</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">PII refers to any data that can be used to distinguish or trace an individual’s identity. It is generally categorized into two key types:</p>
+                    
+                    <div class="space-y-6">
+                        <div class="p-6 rounded-2xl border border-brand-border bg-brand-slate">
+                            <h4 class="font-bold text-brand-indigo mb-2">1. Direct Identifiers</h4>
+                            <p class="text-sm text-slate-600 mb-3">Information that is unique to an individual and can identify them immediately.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">Full Name</span>
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">SSN</span>
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">Driver's License</span>
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">Physical Address</span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 rounded-2xl border border-brand-border bg-brand-slate">
+                            <h4 class="font-bold text-brand-teal mb-2">2. Indirect Identifiers</h4>
+                            <p class="text-sm text-slate-600 mb-3">Information that might combine with other data to reveal an identity.</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">Birth Dates</span>
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">Zip Codes</span>
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">Job Titles</span>
+                                <span class="px-3 py-1 bg-white border border-slate-200 rounded-md text-xs font-semibold text-slate-500">IP Addresses</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pro-tip p-6 rounded-r-xl">
+                        <h5 class="font-bold text-brand-navy mb-1">Why it matters</h5>
+                        <p class="text-sm text-slate-600 leading-relaxed">Protecting PII is the cornerstone of data privacy. If PII is leaked, it can lead to identity theft, financial fraud, and a total loss of consumer trust.</p>
+                    </div>
+                </section>
+
+                <!-- Section 4: Data Lifecycle -->
+                <section id="data-lifecycle" class="section-card bg-white rounded-2xl p-8 md:p-12 border border-brand-border shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-display font-bold text-brand-navy mb-8">Principles of Proper Data Handling</h3>
+                    <div class="space-y-4">
+                        <!-- Step 1 -->
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-slate border border-brand-border flex items-center justify-center font-bold text-brand-indigo group-hover:bg-brand-indigo group-hover:text-white transition-all">1</div>
+                            <div>
+                                <h5 class="font-bold text-brand-navy mb-1 text-lg">Data Minimization (Collection)</h5>
+                                <p class="text-slate-600">Only collect information absolutely necessary for the task. If you don't need a phone number to provide the service, don't ask for it.</p>
+                            </div>
+                        </div>
+                        <div class="ml-6 border-l-2 border-slate-100 h-8"></div>
+                        <!-- Step 2 -->
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-slate border border-brand-border flex items-center justify-center font-bold text-brand-indigo group-hover:bg-brand-indigo group-hover:text-white transition-all">2</div>
+                            <div>
+                                <h5 class="font-bold text-brand-navy mb-1 text-lg">Storage Limitation (Storage)</h5>
+                                <p class="text-slate-600">Data should not be kept longer than necessary. Organizations must ensure it is kept in secure, encrypted environments.</p>
+                            </div>
+                        </div>
+                        <div class="ml-6 border-l-2 border-slate-100 h-8"></div>
+                        <!-- Step 3 -->
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-slate border border-brand-border flex items-center justify-center font-bold text-brand-indigo group-hover:bg-brand-indigo group-hover:text-white transition-all">3</div>
+                            <div>
+                                <h5 class="font-bold text-brand-navy mb-1 text-lg">Purpose Limitation (Usage)</h5>
+                                <p class="text-slate-600">Data should only be used for the reason it was originally collected. Avoid unrelated marketing spam without explicit consent.</p>
+                            </div>
+                        </div>
+                        <div class="ml-6 border-l-2 border-slate-100 h-8"></div>
+                        <!-- Step 4 -->
+                        <div class="flex gap-6 group">
+                            <div class="flex-shrink-0 w-12 h-12 rounded-full bg-brand-slate border border-brand-border flex items-center justify-center font-bold text-brand-indigo group-hover:bg-brand-indigo group-hover:text-white transition-all">4</div>
+                            <div>
+                                <h5 class="font-bold text-brand-navy mb-1 text-lg">Safe Disposal (Deletion)</h5>
+                                <p class="text-slate-600">When data is no longer needed, it must be destroyed securely—either by shredding physical docs or digital wiping.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 5: GDPR -->
+                <section id="gdpr-framework" class="section-card bg-white rounded-2xl p-8 md:p-12 border border-brand-border shadow-sm">
+                    <h3 class="text-xl md:text-2xl font-display font-bold text-brand-navy mb-6">Introduction to GDPR</h3>
+                    <p class="text-slate-600 mb-8 leading-relaxed">The <strong>General Data Protection Regulation (GDPR)</strong>, enacted by the EU in 2018, applies globally to any organization processing data of people living in the EU.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-indigo/30 transition-colors">
+                            <div class="mb-4 text-brand-indigo">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                            </div>
+                            <h5 class="font-bold text-brand-navy mb-2">Individual Rights</h5>
+                            <p class="text-xs text-slate-500 leading-relaxed">Includes the "Right to be Forgotten" and "Right of Access" to personal data copies.</p>
+                        </div>
+                        <div class="p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-indigo/30 transition-colors">
+                            <div class="mb-4 text-brand-teal">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <h5 class="font-bold text-brand-navy mb-2">Clear Consent</h5>
+                            <p class="text-xs text-slate-500 leading-relaxed">Silence or pre-ticked boxes don't count. Users must give clear, affirmative action.</p>
+                        </div>
+                        <div class="p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-brand-indigo/30 transition-colors">
+                            <div class="mb-4 text-red-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                </svg>
+                            </div>
+                            <h5 class="font-bold text-brand-navy mb-2">Accountability</h5>
+                            <p class="text-xs text-slate-500 leading-relaxed">Breaches can lead to massive fines—up to 4% of annual global turnover.</p>
+                        </div>
+                    </div>
+
+                    <div class="bg-brand-indigo/5 p-8 rounded-2xl border border-brand-indigo/10">
+                        <p class="text-slate-700 text-sm italic">
+                            "GDPR changed the global standard for privacy, shifting the power back to the individual and making privacy a fundamental human right rather than an afterthought."
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Summary Section -->
+                <section class="section-card bg-brand-navy rounded-3xl p-10 md:p-14 text-white shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-indigo/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                    <div class="relative z-10">
+                        <h2 class="text-3xl font-display font-bold mb-6">Final Summary</h2>
+                        <p class="text-slate-300 text-lg leading-relaxed mb-8">
+                            Data privacy is about more than just following laws; it is about respecting the identity and safety of individuals. By understanding PII, adhering to the principles of minimization, and respecting frameworks like GDPR, we create a secure digital environment.
+                        </p>
+                        
+                        <div class="flex flex-col md:flex-row items-center justify-between gap-8 pt-8 border-t border-white/10">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-full bg-brand-teal flex items-center justify-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">Module Complete</p>
+                                    <p class="text-xs text-slate-400">Knowledge Assessment Ready</p>
+                                </div>
+                            </div>
+                            <button class="w-full md:w-auto px-8 py-4 bg-brand-indigo hover:bg-brand-indigo/90 text-white rounded-xl font-bold transition-all transform hover:scale-105 shadow-lg flex items-center justify-center gap-2">
+                                Start Certification Quiz
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation Toggle (Bottom Anchored) -->
+    <div class="lg:hidden fixed bottom-6 left-6 right-6 z-50">
+        <button id="mobile-nav-toggle" class="w-full bg-brand-navy text-white px-6 py-4 rounded-2xl shadow-2xl flex items-center justify-between border border-white/10">
+            <span class="font-bold flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                Course Menu
+            </span>
+            <span class="text-xs bg-brand-indigo px-3 py-1 rounded-full">Progress: 100%</span>
+        </button>
+        
+        <!-- Mobile Drawer (Hidden by Default) -->
+        <div id="mobile-nav-drawer" class="hidden absolute bottom-20 left-0 right-0 bg-white rounded-2xl border border-brand-border p-6 shadow-2xl space-y-4 fade-in">
+            <a href="#overview" class="block py-2 text-slate-600 font-medium">1. Overview</a>
+            <a href="#learning-points" class="block py-2 text-slate-600 font-medium">2. Main Points</a>
+            <a href="#pii-protection" class="block py-2 text-slate-600 font-medium">3. PII Protection</a>
+            <a href="#data-lifecycle" class="block py-2 text-slate-600 font-medium">4. Lifecycle</a>
+            <a href="#gdpr-framework" class="block py-2 text-slate-600 font-medium">5. GDPR Policy</a>
+        </div>
+    </div>
+
+    <script>
+        // Simple script for mobile menu toggle
+        const toggle = document.getElementById('mobile-nav-toggle');
+        const drawer = document.getElementById('mobile-nav-drawer');
+
+        if (toggle && drawer) {
+            toggle.addEventListener('click', () => {
+                drawer.classList.toggle('hidden');
+            });
+
+            // Close drawer when clicking links
+            const links = drawer.querySelectorAll('a');
+            links.forEach(link => {
+                link.addEventListener('click', () => {
+                    drawer.classList.add('hidden');
+                });
+            });
+        }
+
+        // Add smooth intersection observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.section-card').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Versioning | Educational Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            950: '#0f172a',
+                            900: '#1e293b',
+                            800: '#334155',
+                            50: '#f8fafc',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            scroll-behavior: smooth;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .prose h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: #1e293b;
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+        .prose h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 1.5rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prose h4 {
+            font-weight: 700;
+            color: #4f46e5;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+        .prose p {
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+        .prose ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin-bottom: 1.5rem;
+        }
+        .prose ul li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose ul li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+        .prose code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.25rem;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #ef4444;
+        }
+        .sticky-sidebar {
+            position: sticky;
+            top: 2rem;
+        }
+        .image-zoom-container {
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+        .image-zoom-container img {
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .image-zoom-container:hover img {
+            transform: scale(1.05);
+        }
+        .pro-tip {
+            border-left: 4px solid #14b8a6;
+            background: #f0fdfa;
+            padding: 1.5rem;
+            border-radius: 0 0.5rem 0.5rem 0;
+            margin: 2rem 0;
+        }
+        .nav-link {
+            transition: all 0.2s;
+        }
+        .nav-link:hover {
+            color: #4f46e5;
+            transform: translateX(4px);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-slate-800">
+
+    <!-- Hero Header -->
+    <header class="relative bg-slate-900 text-white pt-16 pb-32 px-6 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="currentColor" stroke-width="0.5"/></pattern></defs>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        <div class="max-w-6xl mx-auto relative z-10">
+            <span class="inline-block px-4 py-1.5 rounded-full bg-indigo-600 text-xs font-bold tracking-widest uppercase mb-6">
+                Level: Intermediate
+            </span>
+            <h1 class="text-4xl md:text-6xl font-extrabold font-display leading-tight mb-6 max-w-4xl">
+                Version Control for <span class="text-indigo-400">Models & Data</span>
+            </h1>
+            <p class="text-xl text-slate-400 max-w-2xl leading-relaxed">
+                The MLOps counterpart to Git. Master the art of tracking state, parameters, and massive datasets in professional machine learning lifecycles.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-6 -mt-20 relative z-20 pb-20">
+        <!-- Visual Centerpiece -->
+        <section class="mb-16">
+            <div class="image-zoom-container bg-white p-2">
+                <div class="relative group cursor-zoom-in">
+                    <img src="https://opal.google/board/blobs/b7ac2c55-f19e-4b93-a396-ab6694fa9986" alt="MLOps Versioning Infographic" class="w-full h-auto block rounded-lg">
+                    <div class="absolute inset-0 bg-indigo-900/0 group-hover:bg-indigo-900/10 transition-colors duration-300 flex items-center justify-center">
+                        <span class="opacity-0 group-hover:opacity-100 bg-white text-slate-900 px-4 py-2 rounded-full text-sm font-semibold shadow-xl transition-opacity duration-300">
+                            Hover to Zoom Infographic
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <p class="mt-4 text-center text-sm text-slate-500 italic">Figure 1: Conceptual overview of the MLOps Versioning Ecosystem</p>
+        </section>
+
+        <div class="grid grid-cols-1 lg:grid-cols-10 gap-12">
+            <!-- Sidebar Navigation (Desktop) -->
+            <aside class="hidden lg:block lg:col-span-3">
+                <div class="sticky-sidebar glass-card p-8 rounded-2xl">
+                    <h4 class="text-slate-900 font-bold mb-6 flex items-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                        Contents
+                    </h4>
+                    <nav class="space-y-4">
+                        <a href="#overview" class="nav-link block text-sm font-medium text-slate-600">01. Overview</a>
+                        <a href="#learning-points" class="nav-link block text-sm font-medium text-slate-600">02. Learning Points</a>
+                        <a href="#concepts" class="nav-link block text-sm font-medium text-slate-600">03. Core Concepts</a>
+                        <a href="#workflow" class="nav-link block text-sm font-medium text-slate-600">04. Practical Workflow</a>
+                        <a href="#summary" class="nav-link block text-sm font-medium text-slate-600">05. Final Summary</a>
+                    </nav>
+
+                    <div class="mt-12 pt-8 border-t border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Course Status</h4>
+                        <div class="flex items-center gap-3">
+                            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                                <div class="bg-teal-500 h-full" style="width: 65%"></div>
+                            </div>
+                            <span class="text-xs font-bold text-slate-600">65%</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Content Area -->
+            <article class="lg:col-span-7 prose max-w-none">
+                
+                <section id="overview" class="glass-card p-8 md:p-12 rounded-3xl mb-12 shadow-sm">
+                    <h2>01. Overview</h2>
+                    <p class="text-lg">In traditional software engineering, versioning source code with Git is sufficient to ensure reproducibility. However, in machine learning, the code is only one part of the equation. A model’s behavior is defined by a combination of the code, the specific version of the dataset used for training, and the environment/hyperparameters.</p>
+                    <p>Traditional Git is not designed to handle large binary files (weights) or massive datasets (TB-scale). MLOps versioning bridges this gap by creating a system where data and models are versioned alongside code, ensuring that any model in production can be traced back to the exact data and parameters that created it.</p>
+                </section>
+
+                <section id="learning-points" class="mb-16">
+                    <h2 class="px-4 border-l-4 border-indigo-600">02. Main Learning Points</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                            <h4 class="mt-0">Limitations</h4>
+                            <p class="text-sm mb-0">Understand why Git fails for large-scale data and model binaries.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                            <h4 class="mt-0">Metadata</h4>
+                            <p class="text-sm mb-0">Distinguish between tracking file metadata and actual binary blobs.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                            <h4 class="mt-0">Tracking</h4>
+                            <p class="text-sm mb-0">Learn how to log model artifacts using tools like MLflow or W&B.</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-slate-200 hover:shadow-md transition-shadow">
+                            <h4 class="mt-0">Lineage</h4>
+                            <p class="text-sm mb-0">Master the audit trail to ensure 100% experiment reproducibility.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="concepts" class="mb-16">
+                    <h2>03. Detailed Descriptions of Concepts</h2>
+                    
+                    <h3>The Limitations of Git for ML</h3>
+                    <p>Git was designed for text-based source code. It struggles with ML assets for three primary reasons:</p>
+                    <ul class="space-y-4">
+                        <li><strong>File Size:</strong> Git stores the entire history of a file. Storing multi-gigabyte datasets or model weights quickly leads to repository bloat.</li>
+                        <li><strong>Binary Formats:</strong> Data formats like <code>.parquet</code> or model weights <code>.pth</code> are binary; Git cannot show "diffs".</li>
+                        <li><strong>Storage Efficiency:</strong> Git expects files to live locally, whereas ML workflows require cloud-native storage like S3 or GCS.</li>
+                    </ul>
+
+                    <div class="pro-tip">
+                        <strong class="text-teal-700 block mb-2 uppercase text-xs tracking-widest">Key Concept: Meta-Pointers</strong>
+                        Instead of storing the data in Git, we store <strong>meta-pointers</strong>—small text files containing hashes of the large data.
+                    </div>
+
+                    <h3>Data Versioning: Principles and Tools</h3>
+                    <p>Data versioning treats datasets as immutable snapshots.</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                        <div class="p-6 bg-slate-900 text-white rounded-2xl">
+                            <h4 class="text-indigo-400 mt-0">DVC</h4>
+                            <p class="text-sm text-slate-300">Creates <code>.dvc</code> pointer files. Use <code>git checkout</code> for the code and <code>dvc pull</code> for the corresponding data.</p>
+                        </div>
+                        <div class="p-6 bg-slate-900 text-white rounded-2xl">
+                            <h4 class="text-teal-400 mt-0">LakeFS</h4>
+                            <p class="text-sm text-slate-300">Provides a Git-like interface over an object store (S3). Allows branching and merging directly on the data lake.</p>
+                        </div>
+                    </div>
+
+                    <h3>Model Versioning: Weights and Metadata</h3>
+                    <p>Model versioning involves tracking the "Model Registry." This is more than just saving a pickle file; it's about context.</p>
+                    <ul class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <li class="bg-white border border-slate-200 p-4 rounded-lg text-sm"><strong>Weights:</strong> Serialized parameters (.onnx, .pth).</li>
+                        <li class="bg-white border border-slate-200 p-4 rounded-lg text-sm"><strong>Metadata:</strong> Hyperparameters, metrics, and library versions.</li>
+                        <li class="bg-white border border-slate-200 p-4 rounded-lg text-sm"><strong>State:</strong> Tagged as Staging, Production, or Archived.</li>
+                    </ul>
+
+                    <div class="mt-10 p-8 bg-indigo-50 border border-indigo-100 rounded-3xl">
+                        <h3 class="mt-0">The Concept of Lineage</h3>
+                        <p>Lineage is the "audit trail" of an ML model. To achieve full lineage, you must link:</p>
+                        <div class="flex flex-wrap gap-2 mt-4">
+                            <span class="bg-indigo-600 text-white px-3 py-1 rounded text-xs font-bold">Code Version</span>
+                            <span class="bg-slate-300 text-slate-700 px-3 py-1 rounded text-xs font-bold">+</span>
+                            <span class="bg-indigo-600 text-white px-3 py-1 rounded text-xs font-bold">Data Version</span>
+                            <span class="bg-slate-300 text-slate-700 px-3 py-1 rounded text-xs font-bold">+</span>
+                            <span class="bg-indigo-600 text-white px-3 py-1 rounded text-xs font-bold">Environment</span>
+                            <span class="bg-slate-300 text-slate-700 px-3 py-1 rounded text-xs font-bold">=</span>
+                            <span class="bg-teal-600 text-white px-3 py-1 rounded text-xs font-bold">Verifiable Artifact</span>
+                        </div>
+                        <p class="mt-6 text-sm text-indigo-900 italic">"Which dataset version caused this model to exhibit bias in production?" - Lineage provides the answer.</p>
+                    </div>
+                </section>
+
+                <section id="workflow" class="mb-16">
+                    <h2 class="px-4 border-l-4 border-teal-500">04. Practical Workflow</h2>
+                    <div class="space-y-6 mt-8">
+                        <div class="flex gap-6 items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">1</div>
+                            <div>
+                                <h4 class="mt-0">Initialize Project</h4>
+                                <p class="text-sm">Initialize Git and DVC. Configure a remote storage (S3/GCS).</p>
+                                <code class="block mt-2 p-3 bg-slate-100 text-xs">dvc remote add -d mys3 s3://my-bucket/data</code>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">2</div>
+                            <div>
+                                <h4 class="mt-0">Version the Data</h4>
+                                <p class="text-sm">Track raw data with DVC and commit the pointer to Git.</p>
+                                <code class="block mt-2 p-3 bg-slate-100 text-xs">dvc add data/raw_images.zip && git add raw_images.zip.dvc</code>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">3</div>
+                            <div>
+                                <h4 class="mt-0">Experimental Run</h4>
+                                <p class="text-sm">Execute training scripts while logging artifacts to MLflow.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="flex-shrink-0 w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center font-bold">4</div>
+                            <div>
+                                <h4 class="mt-0">Link and Commit</h4>
+                                <p class="text-sm">Capture the Run ID in your git commit message for ultimate traceability.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="summary" class="bg-slate-900 text-white p-8 md:p-12 rounded-3xl shadow-2xl mb-12">
+                    <h2 class="text-white mt-0 border-none">05. Final Summary</h2>
+                    <p class="text-slate-300 text-lg">Versioning in MLOps is the evolution of software versioning to account for the non-deterministic nature of data. While Git manages your logic, tools like DVC and MLflow manage your state and results.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                        <div>
+                            <h4 class="text-teal-400">Key Takeaway</h4>
+                            <p class="text-sm text-slate-400">Never store large data or models directly in Git. Maintain a persistent link between code, data hash, and experiment metadata.</p>
+                        </div>
+                        <div>
+                            <h4 class="text-indigo-400">Next Steps</h4>
+                            <ul class="text-sm text-slate-400 space-y-2">
+                                <li>Explore <strong>DVC Pipelines</strong></li>
+                                <li>Investigate <strong>Model Registries</strong></li>
+                                <li>Integrate <strong>CI/CD for ML (CML)</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-6">
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-teal-500 flex items-center justify-center shadow-lg shadow-teal-500/20">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                            </div>
+                            <div>
+                                <p class="font-bold text-sm">Module Complete</p>
+                                <p class="text-xs text-slate-400">Mastery Level: 100%</p>
+                            </div>
+                        </div>
+                        <button class="bg-indigo-600 hover:bg-indigo-500 text-white px-8 py-3 rounded-full font-bold transition-all transform hover:scale-105">
+                            Start Next Module
+                        </button>
+                    </div>
+                </section>
+
+            </article>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation (Sticky Bottom) -->
+    <nav class="lg:hidden fixed bottom-4 left-4 right-4 z-50">
+        <div class="glass-card rounded-full p-2 flex justify-around items-center shadow-2xl border-indigo-100">
+            <a href="#overview" class="p-3 text-slate-500 hover:text-indigo-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            </a>
+            <a href="#concepts" class="p-3 text-slate-500 hover:text-indigo-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </a>
+            <a href="#workflow" class="p-3 text-slate-500 hover:text-indigo-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+            </a>
+            <a href="#summary" class="p-3 text-indigo-600">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+            </a>
+        </div>
+    </nav>
+
+    <script>
+        // Intersection Observer for highlighting sidebar links
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('text-indigo-600', 'translate-x-4');
+                link.classList.add('text-slate-600');
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.classList.remove('text-slate-600');
+                    link.classList.add('text-indigo-600', 'translate-x-4');
+                }
+            });
+        });
+
+        // Smooth reveal animations
+        const revealElements = document.querySelectorAll('.prose section, .image-zoom-container');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        revealElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            revealObserver.observe(el);
+        });
+    </script>
+</body>
+</html>

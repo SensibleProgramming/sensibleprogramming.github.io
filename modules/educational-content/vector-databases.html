@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Databases: The Engine of RAG</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            50: '#eef2ff',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .infographic-container:hover img {
+            transform: scale(1.02);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: linear-gradient(to right, #f5f3ff, #ffffff);
+        }
+        .sticky-nav {
+            top: 2rem;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-slate-800 antialiased selection:bg-indigo-100 selection:text-indigo-700">
+
+    <!-- Header Section -->
+    <header class="relative bg-slate-900 pt-16 pb-32 overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+            <div class="absolute top-0 left-0 w-96 h-96 bg-indigo-600 rounded-full blur-[120px] -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-teal-500 rounded-full blur-[120px] translate-x-1/2 translate-y-1/2"></div>
+        </div>
+        
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 mb-6">
+                    Target Audience: Intermediate
+                </span>
+                <h1 class="font-display text-4xl md:text-6xl font-extrabold text-white leading-tight mb-6">
+                    Vector Databases: <br><span class="text-indigo-400">The Engine of Retrieval-Augmented Generation</span>
+                </h1>
+                <p class="text-slate-400 text-lg md:text-xl max-w-2xl leading-relaxed">
+                    A deep dive into how high-dimensional embeddings and semantic search are revolutionizing Large Language Model interactions.
+                </p>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 -mt-20 relative z-20 pb-24">
+        
+        <!-- Visual Centerpiece (Infographic) -->
+        <section class="mb-16">
+            <div class="infographic-container glass-card rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 max-w-5xl mx-auto">
+                <div class="p-4 bg-white border-b border-slate-100 flex items-center justify-between">
+                    <span class="text-sm font-medium text-slate-500 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                        Architecture Overview
+                    </span>
+                    <button class="text-xs text-indigo-600 font-semibold hover:text-indigo-700 transition-colors uppercase tracking-widest">
+                        Click to Expand
+                    </button>
+                </div>
+                <div class="bg-slate-100 cursor-zoom-in group relative overflow-hidden flex items-center justify-center p-8">
+                    <div class="transition-transform duration-700 ease-out">
+                         <img src='https://opal.google/board/blobs/2646669f-0758-4270-94cc-b6fe3ff45d51' alt='Vector Database Infographic' class="rounded-lg shadow-sm w-full h-auto object-cover" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 max-w-7xl mx-auto">
+            
+            <!-- Left Column: Lesson Content -->
+            <div class="lg:col-span-8 space-y-12">
+                
+                <!-- Overview Card -->
+                <div id="overview" class="glass-card p-8 md:p-12 rounded-3xl shadow-sm animate-fade-in">
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+                        <span class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-sm">1</span>
+                        Overview
+                    </h2>
+                    <div class="prose prose-slate prose-lg max-w-none text-slate-600 leading-relaxed">
+                        <p>
+                            This lesson explores the symbiotic relationship between Vector Databases and Retrieval-Augmented Generation (RAG). While Large Language Models (LLMs) possess vast general knowledge, they are limited by fixed training data and finite context windows. 
+                        </p>
+                        <p class="mt-4">
+                            Vector databases serve as an <strong>external, long-term memory</strong> for these models. By converting unstructured data into numerical vectors, these databases allow RAG systems to retrieve relevant information based on meaning rather than exact keywords, effectively "grounding" the LLM in private or real-time datasets.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Detailed Concepts -->
+                <div id="embeddings" class="glass-card p-8 md:p-12 rounded-3xl shadow-sm animate-fade-in" style="animation-delay: 0.1s;">
+                    <h2 class="font-display text-3xl font-bold text-slate-900 mb-8">Detailed Concepts</h2>
+                    
+                    <div class="space-y-10">
+                        <!-- Concept: Embeddings -->
+                        <div class="border-b border-slate-100 pb-10 last:border-0 last:pb-0">
+                            <h3 class="text-2xl font-bold text-indigo-600 mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                                </svg>
+                                Embeddings: Vector Representation
+                            </h3>
+                            <div class="text-slate-600 leading-relaxed space-y-4">
+                                <p>At the core of a vector database is the "Embedding." An embedding is a numerical representation of data (text, images, or audio) in a high-dimensional space.</p>
+                                <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                                    <li class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="font-bold text-slate-900 block mb-1">Dimensionality</span>
+                                        Models represent a single sentence as hundreds or thousands of floating-point numbers.
+                                    </li>
+                                    <li class="bg-white p-4 rounded-xl border border-slate-100 shadow-sm">
+                                        <span class="font-bold text-slate-900 block mb-1">Dense Vectors</span>
+                                        Embeddings capture abstract features of meaning across every dimension.
+                                    </li>
+                                </ul>
+                                <div class="pro-tip p-6 rounded-xl mt-6">
+                                    <span class="text-xs font-bold text-indigo-700 uppercase tracking-widest mb-1 block">Key Concept: Spatial Proximity</span>
+                                    <p class="text-sm italic">The fundamental principle is that semantically similar items are mathematically mapped closer together in this high-dimensional coordinate system.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept: Similarity Search -->
+                        <div id="similarity" class="border-b border-slate-100 pb-10 last:border-0 last:pb-0">
+                            <h3 class="text-2xl font-bold text-indigo-600 mb-4 flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                Similarity Search: Metrics & Indexing
+                            </h3>
+                            <p class="text-slate-600 mb-6">Vector databases do not use conventional SQL "WHERE" clauses. Instead, they perform a <strong>nearest-neighbor search</strong>.</p>
+                            
+                            <div class="space-y-4">
+                                <button onclick="toggleAccordion('metrics')" class="w-full flex items-center justify-between p-5 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors">
+                                    <span class="font-bold text-slate-900">Distance Metrics</span>
+                                    <svg id="arrow-metrics" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div id="accordion-metrics" class="hidden px-5 py-2 space-y-3">
+                                    <div class="flex gap-4 items-start">
+                                        <div class="h-2 w-2 rounded-full bg-indigo-500 mt-2 shrink-0"></div>
+                                        <p><span class="font-bold">Cosine Similarity:</span> Best for text; focuses on angle/orientation rather than magnitude.</p>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <div class="h-2 w-2 rounded-full bg-indigo-500 mt-2 shrink-0"></div>
+                                        <p><span class="font-bold">Euclidean Distance (L2):</span> Straight-line distance; used when absolute magnitude matters.</p>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <div class="h-2 w-2 rounded-full bg-indigo-500 mt-2 shrink-0"></div>
+                                        <p><span class="font-bold">Dot Product:</span> Combines angle and magnitude; ideal for ranking systems.</p>
+                                    </div>
+                                </div>
+
+                                <button onclick="toggleAccordion('indexing')" class="w-full flex items-center justify-between p-5 bg-slate-100 rounded-xl hover:bg-slate-200 transition-colors">
+                                    <span class="font-bold text-slate-900">Indexing Algorithms (ANN)</span>
+                                    <svg id="arrow-indexing" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" /></svg>
+                                </button>
+                                <div id="accordion-indexing" class="hidden px-5 py-2 space-y-3">
+                                    <div class="flex gap-4 items-start">
+                                        <div class="h-2 w-2 rounded-full bg-teal-500 mt-2 shrink-0"></div>
+                                        <p><span class="font-bold">HNSW:</span> A graph-based index for extremely fast "small world" traversal.</p>
+                                    </div>
+                                    <div class="flex gap-4 items-start">
+                                        <div class="h-2 w-2 rounded-full bg-teal-500 mt-2 shrink-0"></div>
+                                        <p><span class="font-bold">IVF:</span> Clusters vectors to narrow the search space to relevant clusters.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept: Semantic Understanding -->
+                        <div id="semantic" class="border-b border-slate-100 pb-10 last:border-0 last:pb-0">
+                            <h3 class="text-2xl font-bold text-indigo-600 mb-4">Semantic vs. Keyword</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="p-6 bg-slate-50 border border-slate-200 rounded-2xl">
+                                    <div class="flex items-center gap-2 mb-3 text-slate-500 font-bold uppercase text-xs">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                                        Lexical Search
+                                    </div>
+                                    <p class="text-sm text-slate-600">Fails on "cat wellness" vs "feline healthcare" because word tokens do not match exactly.</p>
+                                </div>
+                                <div class="p-6 bg-indigo-50 border border-indigo-100 rounded-2xl">
+                                    <div class="flex items-center gap-2 mb-3 text-indigo-600 font-bold uppercase text-xs">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+                                        Semantic Search
+                                    </div>
+                                    <p class="text-sm text-slate-700 font-medium italic">"The database understands context, synonyms, and even cross-lingual queries."</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Concept: Role in RAG -->
+                        <div id="rag" class="last:border-0 last:pb-0">
+                            <h3 class="text-2xl font-bold text-indigo-600 mb-6">The Role in RAG</h3>
+                            <div class="relative pl-8 border-l-2 border-indigo-100 space-y-8">
+                                <div class="relative">
+                                    <div class="absolute -left-10 top-0 w-4 h-4 bg-indigo-600 rounded-full border-4 border-white"></div>
+                                    <h4 class="font-bold text-slate-900 mb-2">1. Encoding & Retrieval</h4>
+                                    <p class="text-slate-600">The query is vectorized and the database finds the Top-K relevant chunks in milliseconds.</p>
+                                </div>
+                                <div class="relative">
+                                    <div class="absolute -left-10 top-0 w-4 h-4 bg-indigo-600 rounded-full border-4 border-white"></div>
+                                    <h4 class="font-bold text-slate-900 mb-2">2. Augmentation & Generation</h4>
+                                    <p class="text-slate-600">Retrieved context is prepended to the prompt, grounding the LLM in factual evidence.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Final Summary -->
+                <div id="summary" class="bg-indigo-900 p-8 md:p-12 rounded-3xl shadow-xl text-white">
+                    <h2 class="font-display text-3xl font-bold mb-6">Conclusion</h2>
+                    <p class="text-indigo-100 text-lg leading-relaxed">
+                        Vector databases are the engine that makes RAG performant, accurate, and scalable. By shifting from literal keyword matching to high-dimensional semantic search, they allow LLMs to access vast, dynamic libraries of information. Through the use of embeddings and optimized similarity metrics, vector databases ensure that the most contextually relevant data is retrieved, transforming a generic AI into a specialized tool.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Sidebar -->
+            <aside class="lg:col-span-4 lg:block hidden">
+                <div class="sticky sticky-nav space-y-8">
+                    
+                    <!-- Table of Contents -->
+                    <div class="glass-card p-6 rounded-2xl shadow-sm">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-6">Contents</h4>
+                        <nav class="space-y-4">
+                            <a href="#overview" class="flex items-center gap-3 text-slate-600 hover:text-indigo-600 transition-colors group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-600"></span>
+                                <span class="text-sm font-medium">Module Overview</span>
+                            </a>
+                            <a href="#embeddings" class="flex items-center gap-3 text-slate-600 hover:text-indigo-600 transition-colors group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-600"></span>
+                                <span class="text-sm font-medium">Embeddings & Vectors</span>
+                            </a>
+                            <a href="#similarity" class="flex items-center gap-3 text-slate-600 hover:text-indigo-600 transition-colors group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-600"></span>
+                                <span class="text-sm font-medium">Similarity Metrics</span>
+                            </a>
+                            <a href="#rag" class="flex items-center gap-3 text-slate-600 hover:text-indigo-600 transition-colors group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-slate-300 group-hover:bg-indigo-600"></span>
+                                <span class="text-sm font-medium">The RAG Pipeline</span>
+                            </a>
+                        </nav>
+                    </div>
+
+                    <!-- Key Takeaways -->
+                    <div class="bg-indigo-600 rounded-2xl p-6 text-white shadow-lg shadow-indigo-200">
+                        <h4 class="text-xs font-bold text-indigo-300 uppercase tracking-widest mb-4">Key Takeaways</h4>
+                        <ul class="space-y-4">
+                            <li class="flex gap-3 text-sm">
+                                <svg class="h-5 w-5 shrink-0 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Understand Dense Embeddings
+                            </li>
+                            <li class="flex gap-3 text-sm">
+                                <svg class="h-5 w-5 shrink-0 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Differentiate Cosine vs Euclidean
+                            </li>
+                            <li class="flex gap-3 text-sm">
+                                <svg class="h-5 w-5 shrink-0 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Recognize Semantic Strengths
+                            </li>
+                            <li class="flex gap-3 text-sm">
+                                <svg class="h-5 w-5 shrink-0 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Explain "Grounding" in RAG
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- CTA -->
+                    <div class="glass-card p-6 rounded-2xl border-dashed border-2 border-indigo-200 flex flex-col items-center text-center">
+                        <div class="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center text-indigo-600 mb-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
+                        </div>
+                        <h5 class="font-bold text-slate-900 mb-2">Ready for the Quiz?</h5>
+                        <p class="text-xs text-slate-500 mb-4">Test your knowledge of similarity search and vector indexing.</p>
+                        <button class="w-full py-2 bg-slate-900 text-white rounded-lg text-sm font-bold hover:bg-slate-800 transition-colors">Start Assessment</button>
+                    </div>
+
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Mobile Navigation Overlay (Visible only on mobile) -->
+    <div class="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-t border-slate-200 px-6 py-4 flex justify-around">
+        <a href="#overview" class="p-2 text-slate-400 hover:text-indigo-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/></svg>
+        </a>
+        <a href="#embeddings" class="p-2 text-slate-400 hover:text-indigo-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </a>
+        <a href="#summary" class="p-2 text-slate-400 hover:text-indigo-600">
+            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </a>
+    </div>
+
+    <script>
+        function toggleAccordion(id) {
+            const accordion = document.getElementById(`accordion-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            
+            if (accordion.classList.contains('hidden')) {
+                accordion.classList.remove('hidden');
+                arrow.style.transform = 'rotate(180deg)';
+            } else {
+                accordion.classList.add('hidden');
+                arrow.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // Intersection Observer for fade-in effects on scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

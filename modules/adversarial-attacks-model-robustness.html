@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adversarial Attacks & Model Robustness | Premium EdTech</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f4ff',
+                            100: '#e0e7ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#1e293b', // Deep Navy for headings
+                        },
+                        slate: {
+                            50: '#f8fafc', // Soft off-white
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+        .prose-custom h2 {
+            font-family: 'Outfit', sans-serif;
+            color: #1e293b;
+            font-weight: 800;
+            font-size: 1.875rem;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+        .prose-custom h3 {
+            font-family: 'Outfit', sans-serif;
+            color: #4338ca;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose-custom p {
+            line-height: 1.75;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .nav-link {
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+        .nav-link:hover {
+            color: #4f46e5;
+            padding-left: 0.5rem;
+        }
+        .nav-link.active {
+            color: #4f46e5;
+            border-left: 2px solid #4f46e5;
+            padding-left: 0.5rem;
+            font-weight: 600;
+        }
+        /* Zoom effect for image */
+        .zoom-container {
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: zoom-in;
+        }
+        .zoom-container img {
+            transition: transform 0.5s ease;
+        }
+        .zoom-container:hover img {
+            transform: scale(1.05);
+        }
+        
+        .accent-box {
+            border-left: 4px solid #6366f1;
+            background: #f5f7ff;
+            padding: 1.5rem;
+            border-radius: 0 0.75rem 0.75rem 0;
+        }
+    </style>
+</head>
+<body class="selection:bg-brand-200">
+
+    <!-- Top Progress Bar -->
+    <div class="fixed top-0 left-0 w-full h-1.5 bg-slate-200 z-50">
+        <div id="scroll-progress" class="h-full bg-brand-600 w-0 transition-all duration-150"></div>
+    </div>
+
+    <!-- Hero Header -->
+    <header class="pt-20 pb-12 px-6 bg-white border-b border-slate-100">
+        <div class="max-w-6xl mx-auto text-center animate-fade-in">
+            <div class="inline-flex items-center px-3 py-1 mb-6 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-sm font-semibold tracking-wide">
+                <span class="w-2 h-2 rounded-full bg-brand-500 mr-2 animate-pulse"></span>
+                TARGET AUDIENCE: INTERMEDIATE
+            </div>
+            <h1 class="text-4xl md:text-6xl font-display font-extrabold text-brand-900 mb-6 leading-tight">
+                Adversarial Attacks & <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-indigo-500">Model Robustness</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Exploring the mathematical frontiers of AI security and structural vulnerabilities beyond simple prompt manipulation.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-12">
+        <!-- Visual Centerpiece -->
+        <section class="mb-16 animate-slide-up">
+            <div class="zoom-container shadow-2xl relative group">
+                <div class="absolute inset-0 bg-brand-900/10 group-hover:bg-transparent transition-colors z-10"></div>
+                <img src='https://opal.google/board/blobs/d6f1f40c-6c99-4414-82b9-596603b69b08' alt='Adversarial Attacks Infographic Summary' class="w-full h-auto block" />
+                <div class="absolute bottom-4 right-4 z-20 bg-white/90 backdrop-blur px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                    Click to Inspect Concept Map
+                </div>
+            </div>
+            <p class="mt-4 text-center text-sm text-slate-400 font-medium italic">Figure 1.0: Comprehensive taxonomy of mathematical vulnerabilities in neural networks.</p>
+        </section>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Main Content Area -->
+            <article class="lg:w-[70%] prose-custom animate-slide-up" style="animation-delay: 0.2s">
+                
+                <section id="overview" class="glass-card p-8 md:p-10 rounded-2xl shadow-sm mb-10">
+                    <h2 class="!mt-0">1. Overview</h2>
+                    <p>Adversarial attacks represent a sophisticated frontier in AI security. Unlike prompt injection, which manipulates the semantic output of a model through linguistic trickery, adversarial attacks target the <strong>structural and mathematical essence</strong> of machine learning systems.</p>
+                    
+                    <div class="grid md:grid-cols-2 gap-6 mt-8">
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                            <h4 class="font-bold text-brand-900 mb-2 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                Underlying Vulnerabilities
+                            </h4>
+                            <p class="text-sm text-slate-600 m-0">Models operate in high-dimensional continuous spaces. Attacks exploit vulnerabilities within architecture and weight distribution.</p>
+                        </div>
+                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                            <h4 class="font-bold text-brand-900 mb-2 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-brand-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.040L3 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622l-.382-3.016z"></path></svg>
+                                Model Robustness
+                            </h4>
+                            <p class="text-sm text-slate-600 m-0">A system's resilience against these underlying mathematical manipulations across all modalities (text, vision, audio).</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="evasion-attacks" class="mb-16">
+                    <h2 class="flex items-center">
+                        <span class="w-10 h-10 bg-brand-100 text-brand-600 rounded-lg flex items-center justify-center mr-4 text-xl">02</span>
+                        Evasion Attacks
+                    </h2>
+                    <p class="text-slate-500 font-medium mb-6">Inference-Stage Attacks occurring after deployment.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="group p-8 rounded-2xl bg-white border border-slate-200 hover:border-brand-300 hover:shadow-xl transition-all duration-300">
+                            <h3>Adversarial Perturbations</h3>
+                            <p>These are meticulously calculated changes added to input data. While they often remain invisible to human perception, they are magnified by the linearity of neural networks in high-dimensional spaces, drastically altering the final activation and crossing decision boundaries.</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="accent-box">
+                                <span class="text-xs font-bold text-brand-600 uppercase tracking-widest">White-Box Attack</span>
+                                <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">FGSM</h4>
+                                <p class="text-sm leading-relaxed text-slate-600"><strong>Fast Gradient Sign Method</strong> uses the gradient of the loss with respect to input data. It adds a small fraction (scaled by epsilon) to the original input to maximize loss quickly.</p>
+                            </div>
+                            <div class="accent-box border-teal-500 bg-teal-50/30">
+                                <span class="text-xs font-bold text-teal-600 uppercase tracking-widest">Iterative Attack</span>
+                                <h4 class="text-lg font-bold text-slate-900 mt-1 mb-2">PGD</h4>
+                                <p class="text-sm leading-relaxed text-slate-600"><strong>Projected Gradient Descent</strong> takes multiple smaller steps in the gradient direction, projecting the input back into a valid mathematical boundary (epsilon-ball) after each step.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-slate-900 text-slate-300 p-8 rounded-2xl">
+                            <h4 class="text-white font-bold mb-3 flex items-center">
+                                <svg class="w-5 h-5 mr-2 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                                Physical Evasion Case Study
+                            </h4>
+                            <p class="text-sm leading-relaxed">Attacks are not limited to digital noise. <strong>Physical artifacts</strong>, such as specifically patterned tape on a "Stop" sign, can act as adversarial patches. This causes autonomous vehicle models to misclassify the sign, demonstrating real-world safety implications.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="poisoning-attacks" class="mb-16">
+                    <h2 class="flex items-center">
+                        <span class="w-10 h-10 bg-brand-100 text-brand-600 rounded-lg flex items-center justify-center mr-4 text-xl">03</span>
+                        Poisoning Attacks
+                    </h2>
+                    <p class="text-slate-500 font-medium mb-6">Training-Stage Attacks targeting the learning phase.</p>
+
+                    <div class="space-y-6">
+                        <details class="group glass-card rounded-xl overflow-hidden border border-slate-200">
+                            <summary class="flex justify-between items-center p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+                                <span class="font-bold text-slate-800">Targeted Poisoning (Backdoor/Trojan)</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed">
+                                <p>Attackers introduce a hidden "trigger" (like a specific pixel pattern) into training data and associate it with an incorrect label. The model learns normally but contains a silent vulnerability: it behaves correctly until it encounters that specific trigger at inference time.</p>
+                            </div>
+                        </details>
+
+                        <details class="group glass-card rounded-xl overflow-hidden border border-slate-200">
+                            <summary class="flex justify-between items-center p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+                                <span class="font-bold text-slate-800">Data Availability Attacks</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed">
+                                <p>Instead of a specific target, these aim to degrade the overall accuracy and performance of the model by injecting subtly corrupted data throughout the training set.</p>
+                            </div>
+                        </details>
+
+                        <details class="group glass-card rounded-xl overflow-hidden border border-slate-200">
+                            <summary class="flex justify-between items-center p-6 cursor-pointer list-none hover:bg-slate-50 transition-colors">
+                                <span class="font-bold text-slate-800">LLM Context Poisoning</span>
+                                <svg class="w-5 h-5 transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </summary>
+                            <div class="px-6 pb-6 text-slate-600 text-sm leading-relaxed">
+                                <p>Crucial for RAG systems. Attackers host web pages with invisible text or malicious structures. When a model scrapes or retrieves this data, it absorbs poisoned information into its weights or active context window.</p>
+                            </div>
+                        </details>
+                    </div>
+                </section>
+
+                <section id="defense-strategies" class="mb-16">
+                    <h2 class="flex items-center">
+                        <span class="w-10 h-10 bg-brand-100 text-brand-600 rounded-lg flex items-center justify-center mr-4 text-xl">04</span>
+                        Defense Strategies
+                    </h2>
+                    
+                    <div class="grid gap-6">
+                        <div class="p-8 rounded-2xl bg-gradient-to-br from-brand-600 to-indigo-700 text-white shadow-lg">
+                            <h3 class="!text-white !mt-0 mb-4 flex items-center">
+                                Adversarial Training
+                                <span class="ml-auto text-xs bg-white/20 px-2 py-1 rounded">Most Direct</span>
+                            </h3>
+                            <p class="text-brand-50 mb-0 opacity-90">During training, adversarial examples (generated via PGD) are actively included in training batches with correct labels. This forces the model to learn correct decision boundaries even in the presence of mathematical noise.</p>
+                        </div>
+
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="p-6 bg-white border border-slate-200 rounded-2xl hover:shadow-md transition-shadow">
+                                <h3 class="!text-lg !mt-0">Defensive Distillation</h3>
+                                <p class="text-sm text-slate-600">A "student" model is trained on the output probabilities (soft labels) of a larger "teacher" model. This smooths decision boundaries, making the network less sensitive to small gradient shifts.</p>
+                            </div>
+                            <div class="p-6 bg-white border border-slate-200 rounded-2xl hover:shadow-md transition-shadow">
+                                <h3 class="!text-lg !mt-0">Feature Squeezing</h3>
+                                <p class="text-sm text-slate-600">Sanitizing data before it reaches the inference engine by reducing complexity (e.g., color bit-depth reduction). This "squeezes" out imperceptible perturbations.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Final Summary Card -->
+                <section class="bg-brand-900 rounded-3xl p-10 text-white mt-12 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-brand-500/10 rounded-full -mr-32 -mt-32"></div>
+                    <div class="relative z-10">
+                        <h2 class="!text-white !mt-0 mb-6 font-display">Module Summary</h2>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 mr-3 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>AI security encompasses structural, mathematical exploits in addition to logical manipulation.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 mr-3 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Evasion attacks (FGSM, PGD) weaponize gradients for misclassification.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <svg class="w-6 h-6 mr-3 text-brand-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                <span>Poisoning attacks corrupt foundational data, embedding silent vulnerabilities.</span>
+                            </li>
+                        </ul>
+                        
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+                            <div class="flex items-center">
+                                <div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-2xl mr-4">✓</div>
+                                <div>
+                                    <p class="font-bold text-white leading-none mb-1">Module Complete</p>
+                                    <p class="text-xs text-brand-300 uppercase tracking-widest">Foundational AI Security</p>
+                                </div>
+                            </div>
+                            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="px-8 py-3 bg-brand-600 hover:bg-brand-500 rounded-xl font-bold transition-all shadow-lg hover:shadow-brand-500/25 active:scale-95">
+                                Start Next Module
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </article>
+
+            <!-- Sticky Sidebar -->
+            <aside class="lg:w-[30%] order-first lg:order-last">
+                <div class="sidebar-sticky space-y-6">
+                    <!-- Progress Card -->
+                    <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Your Progress</h4>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm font-semibold text-slate-700">Completion</span>
+                            <span id="progress-percent" class="text-sm font-bold text-brand-600">0%</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-100 rounded-full overflow-hidden">
+                            <div id="inner-progress" class="h-full bg-brand-500 w-0 transition-all duration-300"></div>
+                        </div>
+                    </div>
+
+                    <!-- Table of Contents -->
+                    <div class="glass-card p-6 rounded-2xl shadow-sm border border-slate-200">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Contents</h4>
+                        <nav class="space-y-1">
+                            <a href="#overview" class="nav-link block py-2 text-sm text-slate-600 hover:text-brand-600 active-nav" data-target="overview">01. Overview</a>
+                            <a href="#evasion-attacks" class="nav-link block py-2 text-sm text-slate-600 hover:text-brand-600" data-target="evasion-attacks">02. Evasion Attacks</a>
+                            <a href="#poisoning-attacks" class="nav-link block py-2 text-sm text-slate-600 hover:text-brand-600" data-target="poisoning-attacks">03. Poisoning Attacks</a>
+                            <a href="#defense-strategies" class="nav-link block py-2 text-sm text-slate-600 hover:text-brand-600" data-target="defense-strategies">04. Defense Strategies</a>
+                        </nav>
+                    </div>
+
+                    <!-- Key Takeaways Sidebar -->
+                    <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 shadow-sm">
+                        <h4 class="text-xs font-bold text-indigo-800 uppercase tracking-widest mb-4">Key Takeaways</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start text-sm text-indigo-900/80">
+                                <span class="text-indigo-500 mr-2 font-bold">•</span>
+                                Mathematical perturbations target architecture, not syntax.
+                            </li>
+                            <li class="flex items-start text-sm text-indigo-900/80">
+                                <span class="text-indigo-500 mr-2 font-bold">•</span>
+                                PGD is the gold standard for testing robustness.
+                            </li>
+                            <li class="flex items-start text-sm text-indigo-900/80">
+                                <span class="text-indigo-500 mr-2 font-bold">•</span>
+                                Defense-in-depth is mandatory; no silver bullet exists.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // Update progress bars on scroll
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            document.getElementById("scroll-progress").style.width = scrolled + "%";
+            document.getElementById("inner-progress").style.width = scrolled + "%";
+            document.getElementById("progress-percent").innerText = Math.round(scrolled) + "%";
+
+            // Update active state of navigation
+            const sections = document.querySelectorAll('section[id]');
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (winScroll >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-target') === current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Smooth scroll for nav links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

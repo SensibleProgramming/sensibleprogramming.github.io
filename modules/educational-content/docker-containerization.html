@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educational Module: Docker & Containerization</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            50: '#f0f4f8',
+                            100: '#d9e2ec',
+                            200: '#bcccdc',
+                            300: '#9fb3c8',
+                            400: '#829ab1',
+                            500: '#627d98',
+                            600: '#486581',
+                            700: '#334e68',
+                            800: '#243b53',
+                            900: '#1e293b',
+                        },
+                        indigo: {
+                            50: '#eef2ff',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05)',
+                        'hover': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 1);
+        }
+        .pro-tip {
+            border-left: 4px solid #4f46e5;
+            background: #f5f3ff;
+        }
+        .key-concept {
+            border-left: 4px solid #14b8a6;
+            background: #f0fdfa;
+        }
+        .zoom-img-container {
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: zoom-in;
+        }
+        .zoom-img-container img {
+            transition: transform 0.5s ease;
+        }
+        .zoom-img-container:hover img {
+            transform: scale(1.03);
+        }
+        .sidebar-sticky {
+            position: sticky;
+            top: 2rem;
+        }
+        .toc-link.active {
+            color: #4f46e5;
+            font-weight: 600;
+            border-left-color: #4f46e5;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Top Navigation / Header -->
+    <header class="w-full bg-white border-b border-slate-200 py-8 px-6 lg:px-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="bg-indigo-50 text-indigo-600 text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase">Level: Beginner</span>
+                    <span class="bg-teal-50 text-teal-600 text-xs font-bold px-3 py-1 rounded-full tracking-wider uppercase">Technical Module</span>
+                </div>
+                <h1 class="font-display font-800 text-4xl lg:text-5xl text-navy-900 tracking-tight leading-tight">
+                    Docker & Containerization — Natural follow-up to your CI/CD + AI agents content
+                </h1>
+            </div>
+            <div class="flex flex-shrink-0 gap-3">
+                <div class="h-12 w-12 rounded-full border-4 border-slate-100 flex items-center justify-center bg-indigo-600 text-white font-bold">
+                    10%
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 lg:px-12 py-10 lg:py-16">
+        
+        <!-- Visual Centerpiece -->
+        <section class="mb-16">
+            <div class="zoom-img-container glass-card shadow-premium p-4 md:p-6 flex justify-center items-center">
+                <div class="w-full max-w-4xl rounded-lg overflow-hidden shadow-sm">
+                    <img src='https://opal.google/board/blobs/5f1a729d-0a21-4758-b200-909c63b4aeee' alt='Docker Infographic Summary' class="w-full h-auto object-contain" />
+                </div>
+            </div>
+            <p class="mt-4 text-center text-sm text-slate-500 italic">Visual Guide: The Architecture of Modern Containerization</p>
+        </section>
+
+        <!-- Content Grid -->
+        <div class="flex flex-col lg:flex-row gap-12">
+            
+            <!-- Sidebar (Table of Contents / Takeaways) -->
+            <aside class="w-full lg:w-1/4 order-last lg:order-none">
+                <div class="sidebar-sticky space-y-6">
+                    <div class="glass-card rounded-2xl p-6 shadow-premium">
+                        <h4 class="font-display font-bold text-navy-900 mb-4 text-lg border-b pb-2">Module Sections</h4>
+                        <nav class="space-y-1">
+                            <a href="#overview" class="block py-2 px-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all border-l-2 border-transparent toc-link">01 Overview</a>
+                            <a href="#learning-points" class="block py-2 px-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all border-l-2 border-transparent toc-link">02 Key Points</a>
+                            <a href="#concepts" class="block py-2 px-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all border-l-2 border-transparent toc-link">03 Core Concepts</a>
+                            <a href="#lifecycle" class="block py-2 px-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all border-l-2 border-transparent toc-link">04 Docker Lifecycle</a>
+                            <a href="#summary" class="block py-2 px-3 text-slate-600 hover:bg-slate-50 rounded-lg transition-all border-l-2 border-transparent toc-link">05 Conclusion</a>
+                        </nav>
+                    </div>
+
+                    <div class="bg-navy-900 rounded-2xl p-6 shadow-premium text-white">
+                        <h4 class="font-display font-bold mb-4 text-lg flex items-center gap-2">
+                            <svg class="w-5 h-5 text-teal-500" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+                            Key Takeaways
+                        </h4>
+                        <ul class="text-sm text-navy-200 space-y-3">
+                            <li class="flex gap-2">
+                                <span class="text-teal-500 font-bold">•</span>
+                                Containers are lighter than Virtual Machines.
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-teal-500 font-bold">•</span>
+                                Docker Hub is your registry for sharing.
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-teal-500 font-bold">•</span>
+                                "Ship Anywhere" consistency.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Lesson Content -->
+            <div class="w-full lg:w-3/4 space-y-12">
+                
+                <!-- Section 1: Overview -->
+                <section id="overview" class="scroll-mt-24">
+                    <h2 class="font-display font-bold text-3xl text-navy-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600 bg-indigo-50 w-10 h-10 rounded-lg flex items-center justify-center text-xl">01</span>
+                        Overview
+                    </h2>
+                    <div class="glass-card rounded-2xl p-8 shadow-premium leading-relaxed text-slate-700">
+                        <p class="text-lg mb-6">
+                            In modern software development, a common challenge is the <span class="font-semibold text-navy-900 italic">"it works on my machine"</span> phenomenon—where code runs perfectly for a developer but fails in production due to different environments.
+                        </p>
+                        <div class="key-concept p-6 rounded-r-xl rounded-l-none mb-6">
+                            <p class="font-medium text-slate-800">
+                                <span class="text-teal-600 font-bold">Containerization</span> solves this by packaging an application and everything it needs (libraries, dependencies, configurations) into a single, isolated unit.
+                            </p>
+                        </div>
+                        <p>
+                            <strong>Docker</strong> is the industry-standard platform used to create and manage these containers. As a natural follow-up to CI/CD and AI agents, Docker provides the consistent environment needed for automated pipelines to test code and for AI agents to operate reliably across different cloud and local systems.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 2: Main Learning Points -->
+                <section id="learning-points" class="scroll-mt-24">
+                    <h2 class="font-display font-bold text-3xl text-navy-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600 bg-indigo-50 w-10 h-10 rounded-lg flex items-center justify-center text-xl">02</span>
+                        Main Learning Points
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-5 glass-card rounded-xl hover:shadow-hover transition-all duration-300">
+                            <div class="text-indigo-600 font-bold text-sm mb-1 uppercase tracking-wider">Concept 1</div>
+                            <h4 class="font-bold text-navy-900 mb-2">The Container Concept</h4>
+                            <p class="text-sm text-slate-600">Shifting from heavy Virtual Machines to lightweight, portable containers.</p>
+                        </div>
+                        <div class="p-5 glass-card rounded-xl hover:shadow-hover transition-all duration-300">
+                            <div class="text-indigo-600 font-bold text-sm mb-1 uppercase tracking-wider">Concept 2</div>
+                            <h4 class="font-bold text-navy-900 mb-2">Images vs. Containers</h4>
+                            <p class="text-sm text-slate-600">The "blueprint" (Image) versus the "living process" (Container).</p>
+                        </div>
+                        <div class="p-5 glass-card rounded-xl hover:shadow-hover transition-all duration-300">
+                            <div class="text-indigo-600 font-bold text-sm mb-1 uppercase tracking-wider">Concept 3</div>
+                            <h4 class="font-bold text-navy-900 mb-2">The Dockerfile</h4>
+                            <p class="text-sm text-slate-600">Automating environment setup using a simple text instruction file.</p>
+                        </div>
+                        <div class="p-5 glass-card rounded-xl hover:shadow-hover transition-all duration-300">
+                            <div class="text-indigo-600 font-bold text-sm mb-1 uppercase tracking-wider">Concept 4</div>
+                            <h4 class="font-bold text-navy-900 mb-2">The Lifecycle</h4>
+                            <p class="text-sm text-slate-600">Mastering build, run, and manage commands for professional workflow.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Detailed Descriptions -->
+                <section id="concepts" class="scroll-mt-24">
+                    <h2 class="font-display font-bold text-3xl text-navy-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600 bg-indigo-50 w-10 h-10 rounded-lg flex items-center justify-center text-xl">03</span>
+                        Deep Dive: Concepts
+                    </h2>
+                    
+                    <div class="space-y-8">
+                        <!-- What is a Container? -->
+                        <div class="glass-card rounded-2xl p-8 shadow-premium">
+                            <h3 class="text-xl font-bold text-navy-900 mb-4 border-l-4 border-indigo-600 pl-4">What is a Container? (vs. Virtual Machines)</h3>
+                            <p class="text-slate-700 mb-6">A <strong>Container</strong> is a lightweight, standalone package of software.</p>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                                    <h5 class="font-bold text-slate-800 mb-2 flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                                        Virtual Machines
+                                    </h5>
+                                    <p class="text-sm text-slate-600 italic">Heavy, slow, and resource-intensive. Includes an entire guest OS.</p>
+                                </div>
+                                <div class="bg-indigo-50 p-5 rounded-xl border border-indigo-100">
+                                    <h5 class="font-bold text-indigo-900 mb-2 flex items-center gap-2">
+                                        <svg class="w-5 h-5 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                                        Containers
+                                    </h4>
+                                    <p class="text-sm text-indigo-800 italic font-medium">Share the host kernel. Small, instant start, minimal resource use.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- What is an Image? -->
+                        <div class="glass-card rounded-2xl p-8 shadow-premium">
+                            <h3 class="text-xl font-bold text-navy-900 mb-4 border-l-4 border-indigo-600 pl-4">What is an Image?</h3>
+                            <p class="text-slate-700">
+                                A <strong>Docker Image</strong> is a read-only template used to create containers. If a container is like a house, the image is the blueprint. It contains the OS base, the application code, and all required tools. Images are built in layers, which makes them efficient to store and share.
+                            </p>
+                        </div>
+
+                        <!-- The Dockerfile -->
+                        <div class="glass-card rounded-2xl p-8 shadow-premium">
+                            <h3 class="text-xl font-bold text-navy-900 mb-4 border-l-4 border-indigo-600 pl-4">The Dockerfile (The Blueprint)</h3>
+                            <p class="text-slate-700 mb-6">
+                                The <strong>Dockerfile</strong> is a plain text file that contains the instructions for building a Docker Image.
+                            </p>
+                            <div class="bg-slate-900 rounded-xl p-6 text-indigo-300 font-mono text-sm overflow-x-auto">
+                                <div class="flex gap-4 mb-2"><span class="text-slate-500 w-12 shrink-0">FROM</span> <span class="text-teal-400">python:3.10</span> <span class="text-slate-500"># Define starting point</span></div>
+                                <div class="flex gap-4 mb-2"><span class="text-slate-500 w-12 shrink-0">COPY</span> <span class="text-teal-400">. /app</span> <span class="text-slate-500"># Move local code in</span></div>
+                                <div class="flex gap-4 mb-2"><span class="text-slate-500 w-12 shrink-0">RUN</span> <span class="text-teal-400">pip install langchain</span> <span class="text-slate-500"># Install dependencies</span></div>
+                                <div class="flex gap-4"><span class="text-slate-500 w-12 shrink-0">CMD</span> <span class="text-teal-400">["python", "agent.py"]</span> <span class="text-slate-500"># Start command</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Lifecycle & Registry -->
+                <section id="lifecycle" class="scroll-mt-24">
+                    <h2 class="font-display font-bold text-3xl text-navy-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600 bg-indigo-50 w-10 h-10 rounded-lg flex items-center justify-center text-xl">04</span>
+                        Operations & Distribution
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                        <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-200 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 font-bold mb-4">1</div>
+                            <h4 class="font-bold text-navy-900 mb-2">Build</h4>
+                            <p class="text-sm text-slate-600">Turning a Dockerfile into an Image using <code class="bg-slate-100 px-1 rounded">docker build</code>.</p>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-200 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 font-bold mb-4">2</div>
+                            <h4 class="font-bold text-navy-900 mb-2">Run</h4>
+                            <p class="text-sm text-slate-600">Starting a live instance (Container) from an Image using <code class="bg-slate-100 px-1 rounded">docker run</code>.</p>
+                        </div>
+                        <div class="p-6 bg-white border border-slate-200 rounded-2xl shadow-sm hover:border-indigo-200 transition-colors">
+                            <div class="w-10 h-10 bg-indigo-100 rounded-lg flex items-center justify-center text-indigo-600 font-bold mb-4">3</div>
+                            <h4 class="font-bold text-navy-900 mb-2">Stop</h4>
+                            <p class="text-sm text-slate-600">Gracefully shutting down a running container with <code class="bg-slate-100 px-1 rounded">docker stop</code>.</p>
+                        </div>
+                    </div>
+
+                    <div class="pro-tip p-8 rounded-2xl shadow-premium">
+                        <h4 class="font-display font-bold text-navy-900 mb-3 flex items-center gap-2 text-xl">
+                            <svg class="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            The Registry (Docker Hub)
+                        </h4>
+                        <p class="text-slate-700 leading-relaxed">
+                            A <strong>Registry</strong> is a library of images. <strong>Docker Hub</strong> is the world's largest public registry. Developers "pull" pre-made images (like official databases or Python environments) from the hub and "push" their own custom-built images to it so they can be easily deployed elsewhere.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Section 5: Summary -->
+                <section id="summary" class="scroll-mt-24 pb-12">
+                    <h2 class="font-display font-bold text-3xl text-navy-900 mb-6 flex items-center gap-3">
+                        <span class="text-indigo-600 bg-indigo-50 w-10 h-10 rounded-lg flex items-center justify-center text-xl">05</span>
+                        Final Summary
+                    </h2>
+                    <div class="bg-navy-900 rounded-2xl p-8 lg:p-12 text-white shadow-premium relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-indigo-600 rounded-full blur-[120px] -mr-32 -mt-32 opacity-20"></div>
+                        <div class="relative z-10">
+                            <p class="text-xl lg:text-2xl font-light text-navy-100 leading-relaxed mb-8">
+                                Docker transforms software from a fragile set of files into a portable, <span class="text-teal-400 font-semibold">"ship-anywhere" package</span>. By mastering containerization, you ensure that your AI agents and CI/CD pipelines operate in a predictable, stable environment.
+                            </p>
+                            <p class="text-navy-300">
+                                Docker is the essential "packaging" that allows modern software to scale and move seamlessly from a developer's laptop to the global cloud.
+                            </p>
+                            
+                            <div class="mt-12 pt-12 border-t border-navy-700 flex flex-col md:flex-row items-center justify-between gap-6">
+                                <div class="flex items-center gap-4">
+                                    <div class="h-14 w-14 rounded-full bg-teal-500 flex items-center justify-center text-white">
+                                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                    <div>
+                                        <div class="text-sm text-navy-400 uppercase tracking-widest font-bold">Current Progress</div>
+                                        <div class="text-xl font-display font-bold">Module Complete</div>
+                                    </div>
+                                </div>
+                                <button class="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 transition-all rounded-xl font-bold shadow-xl shadow-indigo-900/40">
+                                    Continue to Next Module
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Scroll to Top (Mobile) -->
+    <a href="#" class="fixed bottom-6 right-6 lg:hidden w-12 h-12 bg-white shadow-xl rounded-full flex items-center justify-center text-navy-900 border border-slate-200 z-50">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </a>
+
+    <script>
+        // Simple Intersection Observer for Table of Contents highlighting
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.3
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const tocLink = document.querySelector(`.toc-link[href="#${id}"]`);
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('.toc-link').forEach(l => l.classList.remove('active', 'bg-indigo-50', 'text-indigo-600', 'border-indigo-600'));
+                    tocLink?.classList.add('active', 'bg-indigo-50', 'text-indigo-600', 'border-indigo-600');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach((section) => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

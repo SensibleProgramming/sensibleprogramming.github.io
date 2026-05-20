@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git Fundamentals | Premium EdTech Module</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        slate: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        indigo: {
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.6s ease-out forwards',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #334155;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(226, 232, 240, 0.5);
+        }
+        .prose h2 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.875rem;
+            color: #1e293b;
+            margin-top: 2.5rem;
+            margin-bottom: 1.25rem;
+            letter-spacing: -0.025em;
+        }
+        .prose h3 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 1.5rem;
+            color: #1e293b;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .prose p {
+            line-height: 1.8;
+            margin-bottom: 1.25rem;
+            font-size: 1.05rem;
+        }
+        .prose ul {
+            margin-bottom: 1.5rem;
+            list-style-type: none;
+            padding-left: 0;
+        }
+        .prose li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .prose li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4f46e5;
+            font-weight: bold;
+        }
+        .code-snippet {
+            font-family: ui-monospace, monospace;
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+            font-weight: 500;
+        }
+        .hero-gradient {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #e2e8f0;
+            border-radius: 10px;
+        }
+        .infographic-container img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: zoom-in;
+        }
+        .infographic-container:hover img {
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body class="font-sans">
+
+    <!-- Hero Header -->
+    <header class="hero-gradient text-white py-16 px-6 lg:py-24 overflow-hidden relative">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/></pattern></defs>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        <div class="max-w-7xl mx-auto relative z-10 animate-fade-in">
+            <div class="inline-flex items-center space-x-2 bg-indigo-600/20 border border-indigo-400/30 px-3 py-1 rounded-full text-indigo-300 text-sm font-semibold tracking-wide uppercase mb-6">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
+                </span>
+                <span>Level: Beginner</span>
+            </div>
+            <h1 class="font-display text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                Most common git commands <br class="hidden md:block"/><span class="text-indigo-400">and what they do</span>
+            </h1>
+            <p class="text-slate-300 text-lg md:text-xl max-w-2xl font-light">
+                Master the essential version control tools used by top software engineering teams worldwide.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="max-w-7xl mx-auto px-4 md:px-6 -mt-10 pb-20">
+        
+        <!-- Infographic Section -->
+        <section class="mb-16 animate-slide-up" style="animation-delay: 0.2s;">
+            <div class="bg-white p-2 rounded-2xl shadow-2xl border border-slate-200 infographic-container overflow-hidden group">
+                <div class="absolute top-4 right-4 z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <span class="bg-slate-900/80 text-white text-xs px-3 py-1 rounded-full backdrop-blur-sm">Click to Enlarge</span>
+                </div>
+                <img src='https://opal.google/board/blobs/3b0e921b-121e-4513-920b-58e6a487490c' alt='Git Commands Infographic' onclick="this.classList.toggle('scale-150'); this.classList.toggle('z-50'); this.classList.toggle('relative'); document.body.classList.toggle('overflow-hidden')" class="shadow-inner" />
+            </div>
+        </section>
+
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Lesson Text (70%) -->
+            <article class="lg:w-8/12 animate-slide-up" style="animation-delay: 0.4s;">
+                <div class="prose max-w-none">
+                    <section id="overview" class="mb-12 bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-200">
+                        <h2 class="!mt-0">1. Overview</h2>
+                        <p>
+                            This lesson introduces the fundamental Git commands necessary for version control. Git is a distributed version control system that allows developers to track changes in their code, collaborate with others, and manage different versions of a project. For beginners, mastering these core commands provides the foundation for any modern software development workflow.
+                        </p>
+                    </section>
+
+                    <section id="learning-points" class="mb-12 bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-200">
+                        <h2 class="!mt-0">2. Main Learning Points</h2>
+                        <div class="grid md:grid-cols-2 gap-4 mt-6">
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <p class="font-bold text-slate-800 mb-1">Initialization & Setup</p>
+                                <p class="text-sm text-slate-600">Start local repositories or sync from the cloud.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <p class="font-bold text-slate-800 mb-1">The Git Workflow</p>
+                                <p class="text-sm text-slate-600">Working Directory vs. Staging vs. Repository.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <p class="font-bold text-slate-800 mb-1">Tracking Changes</p>
+                                <p class="text-sm text-slate-600">Stage and save snapshots of your progress.</p>
+                            </div>
+                            <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+                                <p class="font-bold text-slate-800 mb-1">Collaboration</p>
+                                <p class="text-sm text-slate-600">Sync with remote servers seamlessly.</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="deep-dive" class="space-y-8">
+                        <div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-200">
+                            <h2 class="!mt-0">3. Detailed Descriptions of Concepts</h2>
+                            
+                            <h3 class="flex items-center gap-3">
+                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 text-sm">A</span>
+                                Initializing and Cloning
+                            </h3>
+                            <div class="space-y-6">
+                                <div class="group border-l-4 border-indigo-500 pl-6 py-2">
+                                    <p class="font-mono text-indigo-600 font-bold text-lg mb-2">git init</p>
+                                    <p class="text-slate-600">This command creates a new, empty Git repository in your current directory. It initializes the hidden <code class="code-snippet">.git</code> folder where Git tracks every change you make from that point forward.</p>
+                                </div>
+                                <div class="group border-l-4 border-indigo-500 pl-6 py-2">
+                                    <p class="font-mono text-indigo-600 font-bold text-lg mb-2">git clone [url]</p>
+                                    <p class="text-slate-600">Think of this as "downloading" a project with its entire history. It creates a local copy of a repository that already exists on a remote server (like GitHub).</p>
+                                </div>
+                            </div>
+
+                            <h3 class="flex items-center gap-3 mt-12">
+                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 text-sm">B</span>
+                                The Staging and Committing Cycle
+                            </h3>
+                            <div class="space-y-6">
+                                <div class="group border-l-4 border-teal-500 pl-6 py-2">
+                                    <p class="font-mono text-teal-600 font-bold text-lg mb-2">git status</p>
+                                    <p class="text-slate-600">This is your "check-in" command. It tells you which files have been modified, which are "staged", and which are not yet tracked.</p>
+                                </div>
+                                <div class="group border-l-4 border-teal-500 pl-6 py-2">
+                                    <p class="font-mono text-teal-600 font-bold text-lg mb-2">git add [file-name]</p>
+                                    <p class="text-slate-600">Before saving a change, you must "stage" it. This moves changes from workspace to Staging Area. Tip: use <code class="code-snippet">git add .</code> for everything.</p>
+                                </div>
+                                <div class="group border-l-4 border-teal-500 pl-6 py-2">
+                                    <div class="bg-slate-50 p-4 rounded-lg mb-4 border border-slate-100 italic text-sm text-slate-500">
+                                        "Pro-Tip: Always write descriptive commit messages to help your future self!"
+                                    </div>
+                                    <p class="font-mono text-teal-600 font-bold text-lg mb-2">git commit -m "message"</p>
+                                    <p class="text-slate-600">Takes everything in the Staging Area and saves it as a permanent version in your project's history.</p>
+                                </div>
+                            </div>
+
+                            <h3 class="flex items-center gap-3 mt-12">
+                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 text-sm">C</span>
+                                Synchronization and Logs
+                            </h3>
+                            <div class="space-y-6">
+                                <ul class="space-y-4">
+                                    <li><strong class="text-slate-800">git log:</strong> View project history, listing all commits, authors, and timestamps.</li>
+                                    <li><strong class="text-slate-800">git push:</strong> Upload your local commits to a remote server.</li>
+                                    <li><strong class="text-slate-800">git pull:</strong> Fetch and merge latest changes from the remote server.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div id="summary" class="bg-indigo-900 rounded-2xl p-8 md:p-12 shadow-xl text-white relative overflow-hidden">
+                            <div class="absolute -right-20 -bottom-20 w-64 h-64 bg-indigo-500 rounded-full opacity-10"></div>
+                            <h2 class="!mt-0 text-white">4. Final Summary</h2>
+                            <p class="text-indigo-100 leading-relaxed">
+                                Git can seem complex, but for beginners, the vast majority of work involves just these few commands. By following a steady cycle of <code class="bg-indigo-800 px-2 py-1 rounded">git status</code> &rarr; <code class="bg-indigo-800 px-2 py-1 rounded">git add</code> &rarr; <code class="bg-indigo-800 px-2 py-1 rounded">git commit</code>, you ensure your progress is always saved. 
+                            </p>
+                            <p class="text-indigo-100 leading-relaxed mt-4">
+                                When working with others, <code class="bg-indigo-800 px-2 py-1 rounded">git pull</code> and <code class="bg-indigo-800 px-2 py-1 rounded">git push</code> act as the bridge between your personal computer and the rest of your team.
+                            </p>
+                        </div>
+                    </section>
+                </div>
+            </article>
+
+            <!-- Sidebar (30%) -->
+            <aside class="lg:w-4/12">
+                <div class="sticky top-10 space-y-6">
+                    <!-- TOC Card -->
+                    <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
+                        <h4 class="font-display font-bold text-slate-800 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                            Table of Contents
+                        </h4>
+                        <nav class="space-y-1">
+                            <a href="#overview" class="block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">1. Overview</a>
+                            <a href="#learning-points" class="block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">2. Learning Points</a>
+                            <a href="#deep-dive" class="block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">3. Deep Dive</a>
+                            <a href="#summary" class="block py-2 px-3 rounded-lg text-slate-600 hover:bg-slate-50 hover:text-indigo-600 transition-colors">4. Final Summary</a>
+                        </nav>
+                    </div>
+
+                    <!-- Key Takeaways Card -->
+                    <div class="bg-indigo-50 rounded-2xl p-6 border border-indigo-100 shadow-sm">
+                        <h4 class="font-display font-bold text-indigo-900 mb-4 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Key Takeaways
+                        </h4>
+                        <ul class="space-y-3 text-sm text-indigo-800">
+                            <li class="flex gap-2">
+                                <span class="text-indigo-600 font-bold">•</span>
+                                <span>Git tracks history, not just current files.</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-indigo-600 font-bold">•</span>
+                                <span>Always status before you commit.</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-indigo-600 font-bold">•</span>
+                                <span>Atomic commits make reverts easier.</span>
+                            </li>
+                            <li class="flex gap-2">
+                                <span class="text-indigo-600 font-bold">•</span>
+                                <span>Pull often to avoid merge conflicts.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- CTA Progress -->
+                    <div class="bg-slate-900 rounded-2xl p-6 text-white text-center">
+                        <div class="mb-4">
+                            <div class="flex justify-between text-xs mb-1">
+                                <span>Module Completion</span>
+                                <span>100%</span>
+                            </div>
+                            <div class="w-full bg-slate-700 h-1.5 rounded-full">
+                                <div class="bg-indigo-500 h-full w-full rounded-full"></div>
+                            </div>
+                        </div>
+                        <button onclick="alert('Module Saved to your Profile!')" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3 rounded-xl transition-all shadow-lg active:scale-95">
+                            Mark as Complete
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Interactive Scripts -->
+    <script>
+        // Smooth transitions for TOC highlights (optional enhancement)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const id = entry.target.getAttribute('id');
+                const link = document.querySelector(`nav a[href="#${id}"]`);
+                if (entry.isIntersecting) {
+                    document.querySelectorAll('nav a').forEach(a => a.classList.remove('bg-indigo-50', 'text-indigo-600', 'font-semibold'));
+                    if (link) link.classList.add('bg-indigo-50', 'text-indigo-600', 'font-semibold');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section[id]').forEach((section) => {
+            observer.observe(section);
+        });
+
+        // Simple Mobile Navigation Toggle (Bottom Anchored)
+        // Hidden on desktop via Tailwind classes if needed, 
+        // but for this design we focus on the desktop sidebar turning into content flow on mobile.
+    </script>
+</body>
+</html>
