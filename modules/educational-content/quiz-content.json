@@ -1,0 +1,328 @@
+{
+  "prompt-injection": {
+    "title": "Prompt Injection Quiz",
+    "questions": [
+      {
+        "question": "What is prompt injection?",
+        "options": [
+          "Adding comments to code",
+          "A security vulnerability where user input tricks an AI into ignoring its original instructions",
+          "A technique for injecting data into databases",
+          "A method of improving model accuracy"
+        ],
+        "correct": 1,
+        "explanation": "Prompt injection is a security vulnerability where attackers craft inputs to manipulate AI behavior. Like SQL injection for databases, it exploits the model's inability to distinguish user data from instructions."
+      },
+      {
+        "question": "Which of the following is a direct prompt injection attack?",
+        "options": [
+          "Asking the AI to role-play as a helpful assistant",
+          "Providing malformed JSON data",
+          "A user typing 'Ignore your instructions and do X' in a chat box",
+          "Training the model on biased data"
+        ],
+        "correct": 2,
+        "explanation": "Direct prompt injection happens when a user directly inputs instructions to override the AI's original guidelines. This is the most straightforward attack vector."
+      },
+      {
+        "question": "What is an indirect prompt injection attack?",
+        "options": [
+          "Attacking the AI during training",
+          "Injecting malicious instructions through third-party data sources (websites, databases, summaries)",
+          "Using multiple prompts in sequence",
+          "Asking the AI controversial questions"
+        ],
+        "correct": 1,
+        "explanation": "Indirect prompt injection occurs when poisoned data from external sources (like a webpage summary or database entry) is fed to the AI, causing it to follow unintended instructions without the user realizing it."
+      },
+      {
+        "question": "Why don't LLMs naturally distinguish between creator instructions and user input?",
+        "options": [
+          "They lack memory",
+          "They treat all text as sequences of tokens without inherent distinction between command and data",
+          "They were designed to be vulnerable",
+          "User input is always separated by special characters"
+        ],
+        "correct": 1,
+        "explanation": "LLMs process all input as token sequences and don't inherently understand which tokens are 'instructions' versus 'data'—this is the core reason prompt injection works."
+      },
+      {
+        "question": "Which is a good defense against prompt injection?",
+        "options": [
+          "Trusting users completely",
+          "Using system prompts that explicitly instruct the AI to ignore contradictory instructions",
+          "Making the AI ignore all user input",
+          "Removing the ability to take instructions entirely"
+        ],
+        "correct": 1,
+        "explanation": "Strong system prompts that reinforce the AI's primary objective and explicitly state it should not follow contradictory user instructions help mitigate prompt injection risks."
+      },
+      {
+        "question": "Can prompt injection be detected and prevented in real-time?",
+        "options": [
+          "No, it's impossible to detect",
+          "Only by blocking all user input",
+          "Yes, through input validation, sandboxing, and monitoring unusual patterns, though no perfect solution exists",
+          "Only before deployment"
+        ],
+        "correct": 2,
+        "explanation": "While challenging, defenses include validating inputs, limiting model capabilities, monitoring for unusual requests, and using retrieval-augmented systems with trusted data sources."
+      }
+    ]
+  },
+
+  "rag-retrieval-augmented-generation": {
+    "title": "RAG Quiz",
+    "questions": [
+      {
+        "question": "What does RAG stand for?",
+        "options": [
+          "Rapid Attention Generation",
+          "Retrieval Augmented Generation",
+          "Response Analysis Gateway",
+          "Real-time Algorithmic Growth"
+        ],
+        "correct": 1,
+        "explanation": "RAG = Retrieval Augmented Generation. It's an architecture that combines retrieval of relevant documents with LLM generation to produce grounded, factual outputs."
+      },
+      {
+        "question": "What is the primary benefit of using RAG?",
+        "options": [
+          "It makes models faster",
+          "It reduces hallucinations by grounding the LLM in retrieved, factual data",
+          "It eliminates the need for training",
+          "It allows offline operation"
+        ],
+        "correct": 1,
+        "explanation": "RAG's main advantage is reducing hallucinations. By retrieving relevant context before generation, the model reasons over trusted data rather than generating from memory alone."
+      },
+      {
+        "question": "In a RAG pipeline, what happens first?",
+        "options": [
+          "The LLM generates an answer",
+          "A vector database is created",
+          "User query is converted to an embedding and used to retrieve relevant documents",
+          "The model is fine-tuned"
+        ],
+        "correct": 2,
+        "explanation": "In RAG, the retrieval phase comes first: the user's query is vectorized and semantically similar documents are fetched. Then the LLM generates using those documents as context."
+      },
+      {
+        "question": "What is a potential limitation of RAG?",
+        "options": [
+          "It requires internet connection",
+          "Token limits: retrieved context + prompt + generation can exceed the model's context window",
+          "It only works with English",
+          "It requires labeled training data"
+        ],
+        "correct": 1,
+        "explanation": "A key challenge is fitting everything within token limits. If too many documents are retrieved or the query is long, you may exceed the model's maximum context length."
+      },
+      {
+        "question": "How does RAG differ from fine-tuning?",
+        "options": [
+          "They are identical",
+          "RAG is faster but less accurate",
+          "RAG provides dynamic, up-to-date context at inference time; fine-tuning bakes knowledge into model weights",
+          "Fine-tuning is only for language models"
+        ],
+        "correct": 2,
+        "explanation": "RAG retrieves fresh data at runtime, making it useful for rapidly changing information. Fine-tuning permanently alters the model, which is slower but good for stable domain knowledge."
+      }
+    ]
+  },
+
+  "vector-databases": {
+    "title": "Vector Databases Quiz",
+    "questions": [
+      {
+        "question": "What is an embedding in the context of vector databases?",
+        "options": [
+          "A compressed version of text",
+          "A numerical representation of data in high-dimensional space",
+          "A database index",
+          "A type of encryption"
+        ],
+        "correct": 1,
+        "explanation": "Embeddings are numerical vectors that represent the semantic meaning of data. Semantically similar items are mapped close together in this high-dimensional space."
+      },
+      {
+        "question": "Why are vector databases better than keyword search for semantic queries?",
+        "options": [
+          "They are always faster",
+          "They understand synonyms and context, not just exact word matches. 'cat wellness' and 'feline healthcare' are recognized as similar",
+          "They use less storage",
+          "They don't require indexing"
+        ],
+        "correct": 1,
+        "explanation": "Vector databases compute semantic similarity, so they understand that 'cat' and 'feline' are related even without exact word matches. Keyword search would miss this."
+      },
+      {
+        "question": "What search method do vector databases use to find similar vectors?",
+        "options": [
+          "Boolean logic",
+          "Regular expressions",
+          "Nearest-neighbor search in vector space (finding vectors closest by cosine similarity or other distance metrics)",
+          "Full-text indexing"
+        ],
+        "correct": 2,
+        "explanation": "Vector databases find the Top-K closest vectors using distance metrics like cosine similarity or Euclidean distance. This is much faster than comparing every vector."
+      },
+      {
+        "question": "How are vector databases commonly used with RAG?",
+        "options": [
+          "They serve as the model architecture",
+          "They store model weights",
+          "They retrieve relevant documents by semantic similarity when given a query embedding",
+          "They fine-tune the model"
+        ],
+        "correct": 2,
+        "explanation": "In RAG pipelines, the user query is embedded, then the vector database retrieves semantically similar documents. These documents become context for the LLM."
+      },
+      {
+        "question": "What is an advantage of vector embeddings over raw text for large-scale search?",
+        "options": [
+          "They preserve exact formatting",
+          "They enable fast approximate nearest-neighbor search at scale without comparing every document",
+          "They eliminate the need for preprocessing",
+          "They work only with structured data"
+        ],
+        "correct": 1,
+        "explanation": "Vector embeddings + approximate nearest-neighbor algorithms (like HNSW or IVF) enable fast retrieval even with billions of documents, which is impossible with naive text comparison."
+      }
+    ]
+  },
+
+  "ai-ethics-bias": {
+    "title": "AI Ethics & Bias Quiz",
+    "questions": [
+      {
+        "question": "What are the three main types of bias in ML systems?",
+        "options": [
+          "Bias, variance, and overfitting",
+          "Data bias, algorithmic bias, and societal bias",
+          "Training bias, testing bias, and deployment bias",
+          "Confirmation bias, selection bias, and recall bias"
+        ],
+        "correct": 1,
+        "explanation": "The three types: Data Bias (flawed training data), Algorithmic Bias (design choices that embed bias), and Societal Bias (models amplifying systemic inequalities in feedback loops)."
+      },
+      {
+        "question": "What is data bias?",
+        "options": [
+          "Incorrect predictions",
+          "Incomplete or unrepresentative training data leading to skewed model outputs",
+          "A mistake in the algorithm",
+          "Bias against a specific programming language"
+        ],
+        "correct": 1,
+        "explanation": "Data bias occurs before training. It includes historical bias (flawed past data), sampling bias (unequal representation), and labeling bias (human prejudice in labels)."
+      },
+      {
+        "question": "How can using a proxy variable create algorithmic bias?",
+        "options": [
+          "It doesn't—proxy variables are always safe",
+          "A proxy variable (like zip code) can correlate with protected attributes (like race), inadvertently encoding discrimination",
+          "Proxy variables make models faster",
+          "They only affect test accuracy"
+        ],
+        "correct": 1,
+        "explanation": "If zip code is used as a feature and it strongly correlates with race, the model learns to discriminate based on location, even if race isn't explicitly in the data."
+      },
+      {
+        "question": "What is societal bias in AI systems?",
+        "options": [
+          "Bias in how society evaluates AI",
+          "Post-deployment feedback loops where biased models amplify systemic inequalities (e.g., predictive policing increasing arrests in specific neighborhoods)",
+          "Bias in how companies market AI",
+          "Bias in model documentation"
+        ],
+        "correct": 1,
+        "explanation": "Societal bias emerges when a biased model is deployed and its predictions feed back into the system, amplifying the original bias. Example: biased arrests increase future predictions of arrests in the same area."
+      },
+      {
+        "question": "Which of these is a mitigation technique for model bias?",
+        "options": [
+          "Ignoring fairness metrics",
+          "Using fairness-aware ML algorithms, auditing for disparate impact, and diversifying training data",
+          "Removing all protected attributes from data",
+          "Only deploying in wealthy areas"
+        ],
+        "correct": 1,
+        "explanation": "Mitigations include: diverse training data, fairness constraints in loss functions, auditing for disparate impact, and interpretability tools (SHAP, LIME) to understand why predictions are made."
+      },
+      {
+        "question": "What does 'explainability' mean in responsible AI?",
+        "options": [
+          "Making the code readable",
+          "The ability to understand and interpret why a model made a specific prediction",
+          "Writing good documentation",
+          "Reducing model complexity"
+        ],
+        "correct": 1,
+        "explanation": "Explainability (or interpretability) means stakeholders can understand the reasoning behind a model's decision. Tools like SHAP and LIME help explain individual predictions."
+      }
+    ]
+  },
+
+  "llms-large-language-models-deep-dive": {
+    "title": "LLMs Deep Dive Quiz",
+    "questions": [
+      {
+        "question": "What is the core mechanism that powers modern LLMs?",
+        "options": [
+          "Convolutional neural networks",
+          "The Transformer architecture with self-attention mechanisms",
+          "Recurrent neural networks",
+          "Decision trees"
+        ],
+        "correct": 1,
+        "explanation": "Transformers use self-attention to weight the importance of different tokens relative to each other. This allows parallel processing and better capture of long-range dependencies than RNNs."
+      },
+      {
+        "question": "What is a 'token' in the context of LLMs?",
+        "options": [
+          "A security credential",
+          "A small unit of text (word, subword, or character) that the model processes",
+          "A type of encryption key",
+          "A database transaction"
+        ],
+        "correct": 1,
+        "explanation": "Tokens are the smallest units a model works with. 'Hello' might be 1 token, while 'unforgettable' might be 2-3 tokens depending on the tokenizer."
+      },
+      {
+        "question": "What is the 'context window' of an LLM?",
+        "options": [
+          "The size of the training dataset",
+          "The maximum number of tokens the model can process in a single input/output pair",
+          "The time it takes to generate a response",
+          "The number of parameters in the model"
+        ],
+        "correct": 1,
+        "explanation": "Context window (e.g., 4K, 8K, 128K tokens) is the limit on how much input text the model can consider at once. Exceeding it means losing earlier context."
+      },
+      {
+        "question": "How is an LLM trained to understand language?",
+        "options": [
+          "Through explicit grammar rules",
+          "By predicting the next token in a sequence using large amounts of text data (autoregressive training)",
+          "By memorizing dictionary definitions",
+          "Through human annotation of every word"
+        ],
+        "correct": 1,
+        "explanation": "LLMs learn through next-token prediction: given a sequence, predict the most likely next token. This is repeated on billions of tokens, allowing the model to learn language patterns."
+      },
+      {
+        "question": "What is 'fine-tuning' in the context of LLMs?",
+        "options": [
+          "Fixing grammatical errors",
+          "Adjusting model weights on task-specific data to specialize the base model for a particular domain",
+          "Improving the tokenizer",
+          "Adding more training data"
+        ],
+        "correct": 1,
+        "explanation": "Fine-tuning takes a pre-trained LLM and continues training it on domain-specific data (e.g., medical text) to adapt it for specialized tasks."
+      }
+    ]
+  }
+}
