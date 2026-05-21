@@ -526,6 +526,131 @@
             });
         });
     </script>
-</body>
-</html>
 
+
+
+
+
+
+<section id="quiz" class="scroll-mt-10 mt-24 pt-16 border-t border-slate-200">
+    <div class="max-w-4xl">
+        <h2 class="text-3xl font-bold font-display text-slate-900 mb-2">Test Your Knowledge</h2>
+        <p class="text-slate-600 mb-8">Take this quiz to verify you've grasped the key concepts. You can retake it as many times as you want.</p>
+        <div id="quiz-container" class="space-y-6"></div>
+        <div id="quiz-results" class="hidden mt-8 p-8 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl border-2 border-indigo-200">
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Quiz Results</h3>
+            <div class="flex items-baseline gap-2 mb-6">
+                <span class="text-5xl font-extrabold text-indigo-600" id="score-percentage">0%</span>
+                <span class="text-lg text-slate-600">correct</span>
+            </div>
+            <p class="text-slate-700 mb-6" id="score-message"></p>
+            <button onclick="location.reload()" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors">Retake Quiz</button>
+        </div>
+    </div>
+</section>
+
+<style>
+    .quiz-question { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; }
+    .quiz-question.answered { border-color: #4f46e5; background: #f1f5f9; }
+    .quiz-question h3 { font-size: 1.125rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; }
+    .quiz-option { display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; cursor: pointer; }
+    .quiz-option:hover { background-color: #f1f5f9; }
+    .quiz-option input[type="radio"] { margin-top: 0.25rem; cursor: pointer; }
+    .quiz-option label { cursor: pointer; flex: 1; }
+    .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display: none; }
+    .quiz-feedback.show { display: block; }
+    .correct { background-color: #d1fae5; border-left: 4px solid #10b981; color: #065f46; }
+    .incorrect { background-color: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d; }
+    .submit-btn { background-color: #4f46e5; color: white; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; margin-top: 1rem; }
+    .submit-btn:hover { background-color: #4338ca; }
+</style>
+
+<script>
+const QUIZ_DATA = {
+    title: "ML Monitoring & Observability Quiz",
+    questions: [
+        {
+            question: "What is model drift?",
+            options: ["Model inaccuracy", "When model performance degrades over time due to changing data distributions", "Code mistakes", "Training errors"],
+            correct: 1,
+            explanation: "Drift occurs when the real-world data diverges from training data (e.g., new user behaviors)."
+        },
+        {
+            question: "What causes model drift?",
+            options: ["Code bugs", "Feature drift (input distributions change), label drift (target changes), or concept drift (relationships change)", "Poor training", "No cause"],
+            correct: 1,
+            explanation: "Examples: app user base shifts, prediction targets change, or seasonal patterns emerge."
+        },
+        {
+            question: "How can you detect drift?",
+            options: ["Impossible", "Monitor accuracy metrics, track input distributions, compare training vs production data", "Hope for best", "Annual audits"],
+            correct: 1,
+            explanation: "Automated dashboards comparing metrics and distributions catch drift in real-time."
+        },
+        {
+            question: "What is model observability?",
+            options: ["Model visibility", "Ability to understand model behavior, performance, and health in production", "Monitoring only", "Logging"],
+            correct: 1,
+            explanation: "Observability includes logging, tracing, and metrics to diagnose issues."
+        },
+        {
+            question: "What should you monitor in production?",
+            options: ["Just accuracy", "Accuracy, latency, throughput, resource usage, feature distributions, and error rates", "Uptime only", "Nothing"],
+            correct: 1,
+            explanation: "Comprehensive monitoring catches performance degradation, resource issues, and data anomalies."
+        }
+    ]
+};
+
+function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    QUIZ_DATA.questions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'quiz-question';
+        questionDiv.id = `q${index}`;
+        let optionsHtml = '';
+        q.options.forEach((opt, optIndex) => {
+            optionsHtml += `<label class="quiz-option"><input type="radio" name="q${index}" value="${optIndex}" onchange="checkAnswer(${index}, ${optIndex})"><span>${opt}</span></label>`;
+        });
+        questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3><div>${optionsHtml}</div><div id="feedback${index}" class="quiz-feedback"></div>`;
+        container.appendChild(questionDiv);
+    });
+    const submitBtn = document.createElement('button');
+    submitBtn.className = 'submit-btn';
+    submitBtn.textContent = 'Submit Quiz';
+    submitBtn.onclick = submitQuiz;
+    container.appendChild(submitBtn);
+}
+
+function checkAnswer(idx, selected) {
+    const correct = QUIZ_DATA.questions[idx].correct;
+    const feedback = document.getElementById(`feedback${idx}`);
+    const question = document.getElementById(`q${idx}`);
+    const isCorrect = selected === correct;
+    feedback.className = `quiz-feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+    feedback.innerHTML = `<strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</strong><br>${QUIZ_DATA.questions[idx].explanation}`;
+    question.classList.add('answered');
+}
+
+function submitQuiz() {
+    let score = 0, answered = 0;
+    QUIZ_DATA.questions.forEach((q, idx) => {
+        const sel = document.querySelector(`input[name="q${idx}"]:checked`);
+        if (sel) { answered++; if (parseInt(sel.value) === q.correct) score++; }
+    });
+    if (!answered) { alert('Answer at least one question!'); return; }
+    const pct = Math.round((score / QUIZ_DATA.questions.length) * 100);
+    document.getElementById('score-percentage').textContent = pct + '%';
+    let msg = 'Review the key concepts and retake the quiz.';
+    if (pct === 100) msg = 'Perfect! You have mastered this material.';
+    else if (pct >= 80) msg = 'Great job! You have a solid understanding.';
+    else if (pct >= 60) msg = 'Good effort! Review the material and try again.';
+    document.getElementById('score-message').textContent = `You scored ${score}/${QUIZ_DATA.questions.length}. ${msg}`;
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('quiz-results').classList.remove('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', initQuiz);
+</script>
+
+</html>

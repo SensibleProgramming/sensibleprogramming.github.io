@@ -402,28 +402,7 @@
         </div>
     
 <!-- QUIZ SECTION -->
-<section id="quiz" class="scroll-mt-10 mt-24 pt-16 border-t border-slate-200">
-    <div class="max-w-4xl">
-        <h2 class="text-3xl font-bold font-display text-slate-900 mb-2">Test Your Knowledge</h2>
-        <p class="text-slate-600 mb-8">Take this quiz to verify you've grasped the key concepts. You can retake it as many times as you want.</p>
 
-        <div id="quiz-container" class="space-y-6">
-            <!-- Quiz questions will be inserted here -->
-        </div>
-
-        <div id="quiz-results" class="hidden mt-8 p-8 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl border-2 border-indigo-200">
-            <h3 class="text-2xl font-bold text-slate-900 mb-4">Quiz Results</h3>
-            <div class="flex items-baseline gap-2 mb-6">
-                <span class="text-5xl font-extrabold text-indigo-600" id="score-percentage">0%</span>
-                <span class="text-lg text-slate-600">correct</span>
-            </div>
-            <p class="text-slate-700 mb-6" id="score-message"></p>
-            <button onclick="location.reload()" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors">
-                Retake Quiz
-            </button>
-        </div>
-    </div>
-</section>
 
 <style>
     .quiz-question { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; transition: all 0.3s ease; }
@@ -559,5 +538,136 @@ document.addEventListener('DOMContentLoaded', initQuiz);
             });
         });
     </script>
-</body>
+
+
+
+
+
+<section id="quiz" class="scroll-mt-10 mt-24 pt-16 border-t border-slate-200">
+    <div class="max-w-4xl">
+        <h2 class="text-3xl font-bold font-display text-slate-900 mb-2">Test Your Knowledge</h2>
+        <p class="text-slate-600 mb-8">Take this quiz to verify you've grasped the key concepts. You can retake it as many times as you want.</p>
+        <div id="quiz-container" class="space-y-6"></div>
+        <div id="quiz-results" class="hidden mt-8 p-8 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl border-2 border-indigo-200">
+            <h3 class="text-2xl font-bold text-slate-900 mb-4">Quiz Results</h3>
+            <div class="flex items-baseline gap-2 mb-6">
+                <span class="text-5xl font-extrabold text-indigo-600" id="score-percentage">0%</span>
+                <span class="text-lg text-slate-600">correct</span>
+            </div>
+            <p class="text-slate-700 mb-6" id="score-message"></p>
+            <button onclick="location.reload()" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-700 transition-colors">Retake Quiz</button>
+        </div>
+    </div>
+</section>
+
+<style>
+    .quiz-question { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; }
+    .quiz-question.answered { border-color: #4f46e5; background: #f1f5f9; }
+    .quiz-question h3 { font-size: 1.125rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; }
+    .quiz-option { display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; cursor: pointer; }
+    .quiz-option:hover { background-color: #f1f5f9; }
+    .quiz-option input[type="radio"] { margin-top: 0.25rem; cursor: pointer; }
+    .quiz-option label { cursor: pointer; flex: 1; }
+    .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display: none; }
+    .quiz-feedback.show { display: block; }
+    .correct { background-color: #d1fae5; border-left: 4px solid #10b981; color: #065f46; }
+    .incorrect { background-color: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d; }
+    .submit-btn { background-color: #4f46e5; color: white; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; margin-top: 1rem; }
+    .submit-btn:hover { background-color: #4338ca; }
+</style>
+
+<script>
+const QUIZ_DATA = {
+    title: "Prompt Injection Quiz",
+    questions: [
+        {
+            question: "What is prompt injection?",
+            options: ["Adding comments to code", "A security vulnerability where user input tricks an AI into ignoring its original instructions", "A technique for injecting data into databases", "A method of improving model accuracy"],
+            correct: 1,
+            explanation: "Prompt injection exploits the model's inability to distinguish user data from instructions."
+        },
+        {
+            question: "Which of the following is a direct prompt injection attack?",
+            options: ["Asking the AI to role-play", "Providing malformed JSON", "A user typing 'Ignore your instructions and do X'", "Training on biased data"],
+            correct: 2,
+            explanation: "Direct prompt injection happens when a user directly inputs overriding instructions."
+        },
+        {
+            question: "What is an indirect prompt injection attack?",
+            options: ["Attacking during training", "Injecting via third-party data sources like websites or databases", "Using multiple prompts sequentially", "Asking controversial questions"],
+            correct: 1,
+            explanation: "Indirect injection occurs when poisoned data from external sources is fed to the AI."
+        },
+        {
+            question: "Why don't LLMs naturally distinguish between creator instructions and user input?",
+            options: ["They lack memory", "They treat all text as token sequences without inherent distinction", "They were designed vulnerable", "User input is always separated"],
+            correct: 1,
+            explanation: "LLMs process all input as tokens and don't understand which are 'instructions' vs 'data'."
+        },
+        {
+            question: "Which is a good defense against prompt injection?",
+            options: ["Trusting users", "Using strong system prompts that reject contradictory instructions", "Ignoring all user input", "Removing instruction ability"],
+            correct: 1,
+            explanation: "Strong system prompts that reinforce the AI's primary objective help mitigate risks."
+        },
+        {
+            question: "Can prompt injection be detected in real-time?",
+            options: ["No, impossible", "Only by blocking all input", "Yes, through input validation, sandboxing, and monitoring", "Only before deployment"],
+            correct: 2,
+            explanation: "Defenses include input validation, limiting capabilities, and monitoring for unusual requests."
+        }
+    ]
+};
+
+function initQuiz() {
+    const container = document.getElementById('quiz-container');
+    QUIZ_DATA.questions.forEach((q, index) => {
+        const questionDiv = document.createElement('div');
+        questionDiv.className = 'quiz-question';
+        questionDiv.id = `q${index}`;
+        let optionsHtml = '';
+        q.options.forEach((opt, optIndex) => {
+            optionsHtml += `<label class="quiz-option"><input type="radio" name="q${index}" value="${optIndex}" onchange="checkAnswer(${index}, ${optIndex})"><span>${opt}</span></label>`;
+        });
+        questionDiv.innerHTML = `<h3>${index + 1}. ${q.question}</h3><div>${optionsHtml}</div><div id="feedback${index}" class="quiz-feedback"></div>`;
+        container.appendChild(questionDiv);
+    });
+    const submitBtn = document.createElement('button');
+    submitBtn.className = 'submit-btn';
+    submitBtn.textContent = 'Submit Quiz';
+    submitBtn.onclick = submitQuiz;
+    container.appendChild(submitBtn);
+}
+
+function checkAnswer(idx, selected) {
+    const correct = QUIZ_DATA.questions[idx].correct;
+    const feedback = document.getElementById(`feedback${idx}`);
+    const question = document.getElementById(`q${idx}`);
+    const isCorrect = selected === correct;
+    feedback.className = `quiz-feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+    feedback.innerHTML = `<strong>${isCorrect ? '✓ Correct!' : '✗ Incorrect'}</strong><br>${QUIZ_DATA.questions[idx].explanation}`;
+    question.classList.add('answered');
+}
+
+function submitQuiz() {
+    let score = 0, answered = 0;
+    QUIZ_DATA.questions.forEach((q, idx) => {
+        const sel = document.querySelector(`input[name="q${idx}"]:checked`);
+        if (sel) { answered++; if (parseInt(sel.value) === q.correct) score++; }
+    });
+    if (!answered) { alert('Answer at least one question!'); return; }
+    const pct = Math.round((score / QUIZ_DATA.questions.length) * 100);
+    document.getElementById('score-percentage').textContent = pct + '%';
+    let msg = 'Review the key concepts and retake the quiz.';
+    if (pct === 100) msg = 'Perfect! You have mastered this material.';
+    else if (pct >= 80) msg = 'Great job! You have a solid understanding.';
+    else if (pct >= 60) msg = 'Good effort! Review the material and try again.';
+    document.getElementById('score-message').textContent = `You scored ${score}/${QUIZ_DATA.questions.length}. ${msg}`;
+    document.getElementById('quiz-container').style.display = 'none';
+    document.getElementById('quiz-results').classList.remove('hidden');
+}
+
+document.addEventListener('DOMContentLoaded', initQuiz);
+</script>
+
 </html>
