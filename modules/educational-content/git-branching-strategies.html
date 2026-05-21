@@ -1,6 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+    /* Reset and modal-friendly spacing */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    
+    main {
+        flex: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1.5rem !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+    
+    /* Override Tailwind max-width constraints */
+    .max-w-7xl {
+        max-width: 100% !important;
+    }
+    
+    /* Allow sections to expand */
+    section {
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Override padding on section cards */
+    section.bg-white,
+    .module-card,
+    .lesson-container section {
+        padding: 1.5rem !important;
+    }
+    
+    /* Allow article to expand */
+    article {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Grid adjustments */
+    .grid {
+        display: grid !important;
+        width: 100% !important;
+        gap: 1.5rem !important;
+    }
+    
+    .lg\:col-span-7 {
+        grid-column: span 7 !important;
+        width: 100% !important;
+    }
+    
+    /* Typography fixes */
+    :root {
+        --primary-blue: #1E6FCE;
+        --dark-bg: #0F1419;
+        --dark-card: #1a1f2e;
+        --border-blue: #2563EB;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --accent: #00d4ff;
+    }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        background-color: var(--dark-bg) !important;
+        color: var(--text-primary) !important;
+        line-height: 1.6 !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-blue) !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 1rem auto !important;
+    }
+    
+    /* Quiz styles */
+    .quiz-question {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    .quiz-question.answered {
+        border-color: #4f46e5;
+        background: #f1f5f9;
+    }
+    .quiz-question h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+    .quiz-option {
+        color: #1e293b;
+        display: flex;
+        align-items: start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .quiz-option:hover {
+        background-color: #f1f5f9;
+    }
+    .quiz-option input[type="radio"] {
+        margin-top: 0.25rem;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .quiz-option label {
+        cursor: pointer;
+        flex: 1;
+        margin: 0;
+    }
+    .quiz-feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+    }
+    .quiz-feedback.show {
+        display: block;
+    }
+    .correct {
+        background-color: #d1fae5;
+        border-left: 4px solid #10b981;
+        color: #065f46;
+    }
+    .incorrect {
+        background-color: #fee2e2;
+        border-left: 4px solid #ef4444;
+        color: #7f1d1d;
+    }
+    .submit-btn {
+        background-color: #4f46e5;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+        margin-top: 1rem;
+    }
+    .submit-btn:hover {
+        background-color: #4338ca;
+    }
+    /* White-bg card text fix — body !important override */
+    .bg-white p, .bg-white li, .bg-white span, .bg-white td,
+    .step-card p, .step-card li, .step-card span,
+    .module-card p, .module-card li,
+    #summary p, #summary li, #summary span,
+    .glass-card p, .glass-card li, .glass-card span {
+        color: #475569 !important;
+    }
+    .bg-white h1,.bg-white h2,.bg-white h3,.bg-white h4,.bg-white h5,.bg-white h6,
+    .step-card h1,.step-card h2,.step-card h3,.step-card h4,
+    #summary h1, #summary h2, #summary h3, #summary h4,
+    .glass-card h1, .glass-card h2, .glass-card h3, .glass-card h4 {
+        color: #1e293b !important;
+    }
+</style>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mastering Git Branching Strategies | Educational Module</title>
@@ -29,91 +219,8 @@
             }
         }
     </script>
-    <style>
-        body {
-            background-color: #f8fafc;
-            color: #334155;
-            scroll-behavior: smooth;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .nav-link {
-            transition: all 0.3s ease;
-        }
-        .nav-link:hover {
-            color: #4f46e5;
-            transform: translateX(4px);
-        }
-        .pro-tip {
-            border-left: 4px solid #4f46e5;
-            background: #eef2ff;
-        }
-        .concept-card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .concept-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-        .zoom-img-container {
-            overflow: hidden;
-            border-radius: 12px;
-        }
-        .zoom-img-container img {
-            transition: transform 0.5s ease;
-        }
-        .zoom-img-container:hover img {
-            transform: scale(1.03);
-        }
-        .sticky-sidebar {
-            position: sticky;
-            top: 2rem;
-        }
     
-        /* Modal-friendly spacing */
-        html {
-            height: 100%;
-        }
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f8fafc;
-        }
-        main {
-            flex: 1;
-            padding: 2rem 1.5rem;
-        }
-        section {
-            margin-bottom: 3rem;
-        }
-        /* Ensure proper image sizing in modals */
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        /* Better heading spacing */
-        h1, h2, h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        /* Ensure content doesn't get squished */
-        .max-w-7xl {
-            width: 100%;
-            padding: 0 1.5rem;
-        }
-        @media (max-width: 768px) {
-            main {
-                padding: 1.5rem 1rem;
-            }
-            section {
-                margin-bottom: 2rem;
-            }
-        }
-</style>
+
 </head>
 <body class="font-sans antialiased">
 
@@ -144,7 +251,7 @@
         <section class="mb-16">
             <div class="zoom-img-container bg-white shadow-2xl p-2 ring-1 ring-brand-navy/5">
                 <div class="bg-slate-100 rounded-lg overflow-hidden flex items-center justify-center min-h-[300px]">
-                    <img src='https://opal.google/board/blobs/b2557a55-c049-4832-ac11-d6f832cd056d' alt='SDLC Branching Strategy Infographic' class="w-full h-auto block" />
+                    <img src='branching-strategies-for-git.jpg' alt='SDLC Branching Strategy Infographic' class="w-full h-auto block" />
                 </div>
             </div>
             <div class="mt-4 flex items-center justify-center text-slate-500 text-sm italic">
@@ -471,21 +578,7 @@
     </div>
 </section>
 
-<style>
-    .quiz-question { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; }
-    .quiz-question.answered { border-color: #4f46e5; background: #f1f5f9; }
-    .quiz-question h3 { font-size: 1.125rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; }
-    .quiz-option { display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; cursor: pointer; }
-    .quiz-option:hover { background-color: #f1f5f9; }
-    .quiz-option input[type="radio"] { margin-top: 0.25rem; cursor: pointer; }
-    .quiz-option label { cursor: pointer; flex: 1; }
-    .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display: none; }
-    .quiz-feedback.show { display: block; }
-    .correct { background-color: #d1fae5; border-left: 4px solid #10b981; color: #065f46; }
-    .incorrect { background-color: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d; }
-    .submit-btn { background-color: #4f46e5; color: white; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; margin-top: 1rem; }
-    .submit-btn:hover { background-color: #4338ca; }
-</style>
+
 
 <script>
 const QUIZ_DATA = {

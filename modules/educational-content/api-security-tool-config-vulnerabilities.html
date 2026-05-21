@@ -1,6 +1,196 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+    <style>
+    /* Reset and modal-friendly spacing */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    
+    main {
+        flex: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1.5rem !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+    
+    /* Override Tailwind max-width constraints */
+    .max-w-7xl {
+        max-width: 100% !important;
+    }
+    
+    /* Allow sections to expand */
+    section {
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Override padding on section cards */
+    section.bg-white,
+    .module-card,
+    .lesson-container section {
+        padding: 1.5rem !important;
+    }
+    
+    /* Allow article to expand */
+    article {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Grid adjustments */
+    .grid {
+        display: grid !important;
+        width: 100% !important;
+        gap: 1.5rem !important;
+    }
+    
+    .lg\:col-span-7 {
+        grid-column: span 7 !important;
+        width: 100% !important;
+    }
+    
+    /* Typography fixes */
+    :root {
+        --primary-blue: #1E6FCE;
+        --dark-bg: #0F1419;
+        --dark-card: #1a1f2e;
+        --border-blue: #2563EB;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --accent: #00d4ff;
+    }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        background-color: var(--dark-bg) !important;
+        color: var(--text-primary) !important;
+        line-height: 1.6 !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-blue) !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 1rem auto !important;
+    }
+    
+    /* Quiz styles */
+    .quiz-question {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    .quiz-question.answered {
+        border-color: #4f46e5;
+        background: #f1f5f9;
+    }
+    .quiz-question h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+    .quiz-option {
+        color: #1e293b;
+        display: flex;
+        align-items: start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .quiz-option:hover {
+        background-color: #f1f5f9;
+    }
+    .quiz-option input[type="radio"] {
+        margin-top: 0.25rem;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .quiz-option label {
+        cursor: pointer;
+        flex: 1;
+        margin: 0;
+    }
+    .quiz-feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+    }
+    .quiz-feedback.show {
+        display: block;
+    }
+    .correct {
+        background-color: #d1fae5;
+        border-left: 4px solid #10b981;
+        color: #065f46;
+    }
+    .incorrect {
+        background-color: #fee2e2;
+        border-left: 4px solid #ef4444;
+        color: #7f1d1d;
+    }
+    .submit-btn {
+        background-color: #4f46e5;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+        margin-top: 1rem;
+    }
+    .submit-btn:hover {
+        background-color: #4338ca;
+    }
+    /* White-bg card text fix — body !important override */
+    .bg-white p, .bg-white li, .bg-white span, .bg-white td,
+    .step-card p, .step-card li, .step-card span,
+    .module-card p, .module-card li,
+    #summary p, #summary li, #summary span,
+    .glass-card p, .glass-card li, .glass-card span {
+        color: #475569 !important;
+    }
+    .bg-white h1,.bg-white h2,.bg-white h3,.bg-white h4,.bg-white h5,.bg-white h6,
+    .step-card h1,.step-card h2,.step-card h3,.step-card h4,
+    #summary h1, #summary h2, #summary h3, #summary h4,
+    .glass-card h1, .glass-card h2, .glass-card h3, .glass-card h4 {
+        color: #1e293b !important;
+    }
+</style>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Security & Tool-Config | Educational Module</title>
@@ -41,114 +231,8 @@
             }
         }
     </script>
-    <style>
-        body {
-            background-color: #f8fafc;
-            color: #334155;
-            -webkit-font-smoothing: antialiased;
-        }
-        .glass-card {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .pro-tip {
-            border-left: 4px solid #4f46e5;
-            background: linear-gradient(to right, #f5f3ff, #ffffff);
-        }
-        .sticky-sidebar {
-            top: 2rem;
-            max-height: calc(100vh - 4rem);
-        }
-        .image-zoom-container {
-            overflow: hidden;
-            border-radius: 12px;
-        }
-        .image-zoom-container img {
-            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .image-zoom-container:hover img {
-            transform: scale(1.03);
-        }
-        .content-section h2 {
-            font-family: 'Outfit', sans-serif;
-            color: #1e293b;
-            font-weight: 800;
-            font-size: 1.875rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1.25rem;
-            letter-spacing: -0.025em;
-        }
-        .content-section h3 {
-            font-family: 'Outfit', sans-serif;
-            color: #334155;
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-        }
-        .content-section p {
-            line-height: 1.7;
-            margin-bottom: 1.25rem;
-        }
-        .content-section ul {
-            list-style: none;
-            padding-left: 0;
-        }
-        .content-section li {
-            position: relative;
-            padding-left: 1.75rem;
-            margin-bottom: 0.75rem;
-        }
-        .content-section li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: #4f46e5;
-            font-weight: bold;
-        }
     
-        /* Modal-friendly spacing */
-        html {
-            height: 100%;
-        }
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f8fafc;
-        }
-        main {
-            flex: 1;
-            padding: 2rem 1.5rem;
-        }
-        section {
-            margin-bottom: 3rem;
-        }
-        /* Ensure proper image sizing in modals */
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        /* Better heading spacing */
-        h1, h2, h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        /* Ensure content doesn't get squished */
-        .max-w-7xl {
-            width: 100%;
-            padding: 0 1.5rem;
-        }
-        @media (max-width: 768px) {
-            main {
-                padding: 1.5rem 1rem;
-            }
-            section {
-                margin-bottom: 2rem;
-            }
-        }
-</style>
+
 </head>
 <body class="font-sans">
 
@@ -182,7 +266,7 @@
                 <div class="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-teal-500 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                 <div class="relative image-zoom-container bg-white shadow-premium">
                     <div class="p-2 md:p-4">
-                        <img src='https://opal.google/board/blobs/f61020ed-cdd1-46e5-ab81-c92c87c5bdd8' alt='API Security Infographic' class="w-full h-auto rounded-lg" />
+                        <img src='api-security-tool-config-vulnerabilities.jpg' alt='API Security Infographic' class="w-full h-auto rounded-lg" />
                     </div>
                     <div class="absolute bottom-6 right-6 bg-slate-900/80 backdrop-blur px-4 py-2 rounded-full text-white text-xs font-medium flex items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -473,21 +557,7 @@
     </div>
 </section>
 
-<style>
-    .quiz-question { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; }
-    .quiz-question.answered { border-color: #4f46e5; background: #f1f5f9; }
-    .quiz-question h3 { font-size: 1.125rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; }
-    .quiz-option { display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; cursor: pointer; }
-    .quiz-option:hover { background-color: #f1f5f9; }
-    .quiz-option input[type="radio"] { margin-top: 0.25rem; cursor: pointer; }
-    .quiz-option label { cursor: pointer; flex: 1; }
-    .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display: none; }
-    .quiz-feedback.show { display: block; }
-    .correct { background-color: #d1fae5; border-left: 4px solid #10b981; color: #065f46; }
-    .incorrect { background-color: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d; }
-    .submit-btn { background-color: #4f46e5; color: white; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; margin-top: 1rem; }
-    .submit-btn:hover { background-color: #4338ca; }
-</style>
+
 
 <script>
 const QUIZ_DATA = {

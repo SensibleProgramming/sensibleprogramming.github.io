@@ -436,16 +436,31 @@
         .modal-content {
             background-color: var(--dark-card);
             margin: auto;
-            padding: 2rem;
+            padding: 1.5rem;
             border-radius: 8px;
             width: 90%;
             max-width: 1200px;
-            max-height: 90vh;
-            overflow-y: auto;
+            height: 90vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+        }
+
+        #moduleDisplay {
+            flex: 1;
+            min-height: 0;
+            overflow: hidden;
+        }
+
+        #moduleDisplay iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
         }
 
         .modal-close {
@@ -495,7 +510,7 @@
     <section id="learning">
         <div class="section-container">
             <h2>Learning Hub</h2>
-            <p class="section-subtitle">46 interactive modules organized by topic. Click any card to view the full module.</p>
+            <p class="section-subtitle">31 interactive modules organized by topic. Click any card to view the full module.</p>
 
             <!-- AI Fundamentals -->
             <div class="topic-header">
@@ -513,11 +528,11 @@
                     </div>
                 </div>
 
-                <div class="module-card" onclick="viewModule('modules/neural-networks-infographic.jpg', 'Neural Networks')">
+                <div class="module-card" onclick="viewModule('modules/educational-content/neural-networking.html', 'Neural Networks')">
                     <div class="module-image">🧠</div>
                     <div class="module-content">
                         <h4>Neural Networks</h4>
-                        <p>Neural networks fundamentals and architecture explained</p>
+                        <p>How neural networks learn, from perceptrons to deep architectures</p>
                         <div class="module-meta"><span class="tag">Fundamentals</span></div>
                         <a class="module-link">View Module →</a>
                     </div>
@@ -578,6 +593,16 @@
                     <div class="module-content">
                         <h4>Blockchain Transactions</h4>
                         <p>How blockchain transactions work and why they matter</p>
+                        <div class="module-meta"><span class="tag">Fundamentals</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/open-source-ai-model-landscape.html', 'Open Source AI Models')">
+                    <div class="module-image">🌐</div>
+                    <div class="module-content">
+                        <h4>Open Source AI Model Landscape</h4>
+                        <p>Navigating Llama, Mistral, and the open-weights AI ecosystem</p>
                         <div class="module-meta"><span class="tag">Fundamentals</span></div>
                         <a class="module-link">View Module →</a>
                     </div>
@@ -649,6 +674,56 @@
                         <a class="module-link">View Module →</a>
                     </div>
                 </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/adversarial-attacks-model-robustness.html', 'Adversarial Attacks')">
+                    <div class="module-image">⚔️</div>
+                    <div class="module-content">
+                        <h4>Adversarial Attacks & Model Robustness</h4>
+                        <p>How adversarial inputs exploit AI models and how to defend against them</p>
+                        <div class="module-meta"><span class="tag">Security</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/model-extraction-attacks.html', 'Model Extraction')">
+                    <div class="module-image">🕵️</div>
+                    <div class="module-content">
+                        <h4>Model Extraction Attacks</h4>
+                        <p>How attackers steal or duplicate AI models through inference queries</p>
+                        <div class="module-meta"><span class="tag">Security</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/tool-configuration-vulnerabilities.html', 'Tool Config Vulnerabilities')">
+                    <div class="module-image">🔧</div>
+                    <div class="module-content">
+                        <h4>Tool Configuration Vulnerabilities</h4>
+                        <p>Security risks in AI CLI tools and headless CI/CD automation</p>
+                        <div class="module-meta"><span class="tag">Security</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/how-automated-pr-reviews-are-vulnerable.html', 'Vulnerable PR Reviews')">
+                    <div class="module-image">🚨</div>
+                    <div class="module-content">
+                        <h4>How Automated PR Reviews Can Be Attacked</h4>
+                        <p>Threat vectors targeting LLM-based code reviewers and CI/CD pipelines</p>
+                        <div class="module-meta"><span class="tag">Security</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/prompt-injection-v2.html', 'Prompt Injection v2')">
+                    <div class="module-image">💉</div>
+                    <div class="module-content">
+                        <h4>Prompt Injection (Updated)</h4>
+                        <p>Revised deep-dive into prompt injection vulnerabilities with new examples</p>
+                        <div class="module-meta"><span class="tag">Security</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
             </div>
 
             <!-- AI Operations & DevOps -->
@@ -696,6 +771,36 @@
                         <a class="module-link">View Module →</a>
                     </div>
                 </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/a-b-testing-for-ai-models.html', 'A/B Testing AI Models')">
+                    <div class="module-image">🧪</div>
+                    <div class="module-content">
+                        <h4>A/B Testing for AI Models</h4>
+                        <p>Statistical frameworks for validating AI model variants in production</p>
+                        <div class="module-meta"><span class="tag">Testing</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/ai-cost-optimization.html', 'AI Cost Optimization')">
+                    <div class="module-image">💰</div>
+                    <div class="module-content">
+                        <h4>AI Cost Optimization</h4>
+                        <p>Technical and operational strategies for reducing AI infrastructure spend</p>
+                        <div class="module-meta"><span class="tag">DevOps</span><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/version-control-for-models-data.html', 'Version Control for ML')">
+                    <div class="module-image">📦</div>
+                    <div class="module-content">
+                        <h4>Version Control for Models & Data</h4>
+                        <p>MLOps versioning — tracking models, datasets, and experiments</p>
+                        <div class="module-meta"><span class="tag">DevOps</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
             </div>
 
             <!-- Git & Version Control -->
@@ -730,6 +835,16 @@
                         <h4>Git Reflog Guide</h4>
                         <p>Git reflog for tracking and recovering repository history</p>
                         <div class="module-meta"><span class="tag">Advanced</span></div>
+                        <a class="module-link">View Module →</a>
+                    </div>
+                </div>
+
+                <div class="module-card" onclick="viewModule('modules/educational-content/github-branches.html', 'GitHub Branches')">
+                    <div class="module-image">🌿</div>
+                    <div class="module-content">
+                        <h4>GitHub Branches</h4>
+                        <p>Why branches matter in the SDLC and how to use them effectively</p>
+                        <div class="module-meta"><span class="tag">Fundamentals</span></div>
                         <a class="module-link">View Module →</a>
                     </div>
                 </div>
@@ -844,7 +959,7 @@
                 display.innerHTML = `<h2>${title}</h2><img src="${modulePath}" style="max-width: 100%; border-radius: 8px; margin-top: 1rem;">`;
             } else {
                 // For HTML modules, we'll create an iframe
-                display.innerHTML = `<iframe src="${modulePath}" style="width: 100%; height: 100%; border: none; border-radius: 8px;"></iframe>`;
+                display.innerHTML = `<iframe src="${modulePath}"></iframe>`;
             }
 
             modal.style.display = 'flex';

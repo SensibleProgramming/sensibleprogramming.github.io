@@ -1,6 +1,196 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+    <style>
+    /* Reset and modal-friendly spacing */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    html, body {
+        min-height: 100vh !important;
+        display: flex !important;
+        flex-direction: column !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+    }
+    
+    main {
+        flex: 1 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 2rem 1.5rem !important;
+        margin: 0 !important;
+        overflow: visible !important;
+    }
+    
+    /* Override Tailwind max-width constraints */
+    .max-w-7xl {
+        max-width: 100% !important;
+    }
+    
+    /* Allow sections to expand */
+    section {
+        width: 100% !important;
+        margin-bottom: 2rem !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Override padding on section cards */
+    section.bg-white,
+    .module-card,
+    .lesson-container section {
+        padding: 1.5rem !important;
+    }
+    
+    /* Allow article to expand */
+    article {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+    
+    /* Grid adjustments */
+    .grid {
+        display: grid !important;
+        width: 100% !important;
+        gap: 1.5rem !important;
+    }
+    
+    .lg\:col-span-7 {
+        grid-column: span 7 !important;
+        width: 100% !important;
+    }
+    
+    /* Typography fixes */
+    :root {
+        --primary-blue: #1E6FCE;
+        --dark-bg: #0F1419;
+        --dark-card: #1a1f2e;
+        --border-blue: #2563EB;
+        --text-primary: #ffffff;
+        --text-secondary: #b0b0b0;
+        --accent: #00d4ff;
+    }
+    
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+        background-color: var(--dark-bg) !important;
+        color: var(--text-primary) !important;
+        line-height: 1.6 !important;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--primary-blue) !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    
+    img {
+        max-width: 100% !important;
+        height: auto !important;
+        display: block !important;
+        margin: 1rem auto !important;
+    }
+    
+    /* Quiz styles */
+    .quiz-question {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 1rem;
+        padding: 1.5rem;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+    .quiz-question.answered {
+        border-color: #4f46e5;
+        background: #f1f5f9;
+    }
+    .quiz-question h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 1rem;
+        margin-top: 0;
+    }
+    .quiz-option {
+        color: #1e293b;
+        display: flex;
+        align-items: start;
+        gap: 0.75rem;
+        padding: 0.75rem;
+        margin: 0.5rem 0;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+    .quiz-option:hover {
+        background-color: #f1f5f9;
+    }
+    .quiz-option input[type="radio"] {
+        margin-top: 0.25rem;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .quiz-option label {
+        cursor: pointer;
+        flex: 1;
+        margin: 0;
+    }
+    .quiz-feedback {
+        margin-top: 1rem;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        display: none;
+    }
+    .quiz-feedback.show {
+        display: block;
+    }
+    .correct {
+        background-color: #d1fae5;
+        border-left: 4px solid #10b981;
+        color: #065f46;
+    }
+    .incorrect {
+        background-color: #fee2e2;
+        border-left: 4px solid #ef4444;
+        color: #7f1d1d;
+    }
+    .submit-btn {
+        background-color: #4f46e5;
+        color: white;
+        padding: 0.75rem 2rem;
+        border-radius: 0.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        border: none;
+        transition: all 0.2s ease;
+        margin-top: 1rem;
+    }
+    .submit-btn:hover {
+        background-color: #4338ca;
+    }
+    /* White-bg card text fix — body !important override */
+    .bg-white p, .bg-white li, .bg-white span, .bg-white td,
+    .step-card p, .step-card li, .step-card span,
+    .module-card p, .module-card li,
+    #summary p, #summary li, #summary span,
+    .glass-card p, .glass-card li, .glass-card span {
+        color: #475569 !important;
+    }
+    .bg-white h1,.bg-white h2,.bg-white h3,.bg-white h4,.bg-white h5,.bg-white h6,
+    .step-card h1,.step-card h2,.step-card h3,.step-card h4,
+    #summary h1, #summary h2, #summary h3, #summary h4,
+    .glass-card h1, .glass-card h2, .glass-card h3, .glass-card h4 {
+        color: #1e293b !important;
+    }
+</style>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prompt Engineering Best Practices | Learning Module</title>
@@ -35,112 +225,8 @@
             }
         }
     </script>
-    <style>
-        body {
-            background-color: #f8fafc;
-            color: #334155;
-            -webkit-font-smoothing: antialiased;
-        }
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
-        }
-        .concept-card {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .concept-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.1);
-        }
-        .pro-tip {
-            border-left: 4px solid #4f46e5;
-            background: linear-gradient(to right, #f5f3ff, #ffffff);
-        }
-        .infographic-zoom {
-            transition: transform 0.5s ease;
-            cursor: zoom-in;
-        }
-        .infographic-zoom:hover {
-            transform: scale(1.02);
-        }
-        .sticky-nav-item {
-            position: relative;
-        }
-        .sticky-nav-item::before {
-            content: '';
-            position: absolute;
-            left: -1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 4px;
-            height: 0%;
-            background: #4f46e5;
-            transition: height 0.3s ease;
-            border-radius: 2px;
-        }
-        .sticky-nav-item:hover::before {
-            height: 60%;
-        }
-        /* Simple Lightbox Style */
-        #lightbox {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.95);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
-        }
-        #lightbox img {
-            max-width: 90%;
-            max-height: 90%;
-            border-radius: 8px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        }
     
-        /* Modal-friendly spacing */
-        html {
-            height: 100%;
-        }
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            background-color: #f8fafc;
-        }
-        main {
-            flex: 1;
-            padding: 2rem 1.5rem;
-        }
-        section {
-            margin-bottom: 3rem;
-        }
-        /* Ensure proper image sizing in modals */
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-        /* Better heading spacing */
-        h1, h2, h3 {
-            margin-top: 1.5rem;
-            margin-bottom: 1rem;
-        }
-        /* Ensure content doesn't get squished */
-        .max-w-7xl {
-            width: 100%;
-            padding: 0 1.5rem;
-        }
-        @media (max-width: 768px) {
-            main {
-                padding: 1.5rem 1rem;
-            }
-            section {
-                margin-bottom: 2rem;
-            }
-        }
-</style>
+
 </head>
 <body class="font-sans">
 
@@ -166,7 +252,7 @@
             <div class="overflow-hidden rounded-2xl flex justify-center items-center bg-slate-50 min-h-[300px]" onclick="openLightbox()">
                 <div class="infographic-zoom w-full h-full flex justify-center">
                     <!-- The Infographic Image -->
-                    <img src='https://opal.google/board/blobs/5927ebc9-08a2-4801-8248-1f4131ff4cb4' alt='Prompt Engineering Infographic' class="max-w-full h-auto object-contain rounded-xl" />
+                    <img src='prompt-engineering-best-practices.jpg' alt='Prompt Engineering Infographic' class="max-w-full h-auto object-contain rounded-xl" />
                 </div>
             </div>
             <div class="mt-4 flex items-center justify-between px-2">
@@ -407,7 +493,7 @@
 
     <!-- Simple Lightbox Modal -->
     <div id="lightbox" onclick="closeLightbox()">
-        <img src='https://opal.google/board/blobs/5927ebc9-08a2-4801-8248-1f4131ff4cb4' alt='Lightbox Preview'>
+        <img src='prompt-engineering-best-practices.jpg' alt='Lightbox Preview'>
     </div>
 
     <!-- Status Bar (Desktop/Bottom) -->
@@ -480,21 +566,7 @@
     </div>
 </section>
 
-<style>
-    .quiz-question { background: white; border: 2px solid #e2e8f0; border-radius: 1rem; padding: 1.5rem; }
-    .quiz-question.answered { border-color: #4f46e5; background: #f1f5f9; }
-    .quiz-question h3 { font-size: 1.125rem; font-weight: 600; color: #1e293b; margin-bottom: 1rem; }
-    .quiz-option { display: flex; align-items: start; gap: 0.75rem; padding: 0.75rem; margin: 0.5rem 0; border-radius: 0.5rem; cursor: pointer; }
-    .quiz-option:hover { background-color: #f1f5f9; }
-    .quiz-option input[type="radio"] { margin-top: 0.25rem; cursor: pointer; }
-    .quiz-option label { cursor: pointer; flex: 1; }
-    .quiz-feedback { margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display: none; }
-    .quiz-feedback.show { display: block; }
-    .correct { background-color: #d1fae5; border-left: 4px solid #10b981; color: #065f46; }
-    .incorrect { background-color: #fee2e2; border-left: 4px solid #ef4444; color: #7f1d1d; }
-    .submit-btn { background-color: #4f46e5; color: white; padding: 0.75rem 2rem; border-radius: 0.5rem; font-weight: 600; cursor: pointer; border: none; margin-top: 1rem; }
-    .submit-btn:hover { background-color: #4338ca; }
-</style>
+
 
 <script>
 const QUIZ_DATA = {
